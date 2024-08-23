@@ -1,0 +1,60 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"jsonFile" : "directory-.-Debug-f5ebdc15457944623624.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.10"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "StarWarsSimulation",
+					"targetIndexes" : 
+					[
+						0
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "StarWarsSimulation::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-StarWarsSimulation-Debug-8bc3ba591f2b08bda756.json",
+					"name" : "StarWarsSimulation",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/cygdrive/c/Users/Dor Shukrun/AllCoding/CLionProjects/Advnace CPP/statWars/Star-Wars-Simulation-/cmake-build-debug",
+		"source" : "/cygdrive/c/Users/Dor Shukrun/AllCoding/CLionProjects/Advnace CPP/statWars/Star-Wars-Simulation-"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 6
+	}
+}

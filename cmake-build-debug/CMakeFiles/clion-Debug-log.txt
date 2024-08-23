@@ -1,0 +1,4 @@
+"C:\Users\Dor Shukrun\AppData\Local\JetBrains\CLion2024.1\cygwin_cmake\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Debug "-DCMAKE_MAKE_PROGRAM=/cygdrive/c/Users/Dor Shukrun/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/241.17890.19/bin/ninja/cygwin/x64/ninja.exe" -DCMAKE_C_COMPILER=/usr/bin/gcc.exe -DCMAKE_CXX_COMPILER=/usr/bin/g++.exe -G Ninja -S "/cygdrive/c/Users/Dor Shukrun/AllCoding/CLionProjects/Advnace CPP/statWars/Star-Wars-Simulation-" -B "/cygdrive/c/Users/Dor Shukrun/AllCoding/CLionProjects/Advnace CPP/statWars/Star-Wars-Simulation-/cmake-build-debug"
+-- Configuring done (0.1s)
+-- Generating done (0.0s)
+-- Build files have been written to: /cygdrive/c/Users/Dor Shukrun/AllCoding/CLionProjects/Advnace CPP/statWars/Star-Wars-Simulation-/cmake-build-debug

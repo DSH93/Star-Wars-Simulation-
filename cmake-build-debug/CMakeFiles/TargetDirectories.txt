@@ -1,0 +1,3 @@
+/cygdrive/c/Users/Dor Shukrun/AllCoding/CLionProjects/Advnace CPP/statWars/Star-Wars-Simulation-/cmake-build-debug/CMakeFiles/StarWarsSimulation.dir
+/cygdrive/c/Users/Dor Shukrun/AllCoding/CLionProjects/Advnace CPP/statWars/Star-Wars-Simulation-/cmake-build-debug/CMakeFiles/edit_cache.dir
+/cygdrive/c/Users/Dor Shukrun/AllCoding/CLionProjects/Advnace CPP/statWars/Star-Wars-Simulation-/cmake-build-debug/CMakeFiles/rebuild_cache.dir
