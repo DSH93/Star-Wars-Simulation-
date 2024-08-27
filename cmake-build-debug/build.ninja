@@ -56,29 +56,43 @@ build CMakeFiles/StarWarsSimulation.dir/src/main.cpp.o: CXX_COMPILER__StarWarsSi
   OBJECT_DIR = CMakeFiles/StarWarsSimulation.dir
   OBJECT_FILE_DIR = CMakeFiles/StarWarsSimulation.dir/src
 
-build CMakeFiles/StarWarsSimulation.dir/src/model/Direction.cpp.o: CXX_COMPILER__StarWarsSimulation_unscanned_Debug /cygdrive/c/Users/Dor$ Shukrun/AllCoding/CLionProjects/Advnace$ CPP/statWars/Star-Wars-Simulation-/src/model/Direction.cpp || cmake_object_order_depends_target_StarWarsSimulation
-  DEP_FILE = CMakeFiles/StarWarsSimulation.dir/src/model/Direction.cpp.o.d
+build CMakeFiles/StarWarsSimulation.dir/src/model/Model.cpp.o: CXX_COMPILER__StarWarsSimulation_unscanned_Debug /cygdrive/c/Users/Dor$ Shukrun/AllCoding/CLionProjects/Advnace$ CPP/statWars/Star-Wars-Simulation-/src/model/Model.cpp || cmake_object_order_depends_target_StarWarsSimulation
+  DEP_FILE = CMakeFiles/StarWarsSimulation.dir/src/model/Model.cpp.o.d
   FLAGS = -g -std=gnu++11 -fdiagnostics-color=always
   INCLUDES = -I"/cygdrive/c/Users/Dor Shukrun/AllCoding/CLionProjects/Advnace CPP/statWars/Star-Wars-Simulation-/include"
   OBJECT_DIR = CMakeFiles/StarWarsSimulation.dir
   OBJECT_FILE_DIR = CMakeFiles/StarWarsSimulation.dir/src/model
 
-build CMakeFiles/StarWarsSimulation.dir/src/model/Position.cpp.o: CXX_COMPILER__StarWarsSimulation_unscanned_Debug /cygdrive/c/Users/Dor$ Shukrun/AllCoding/CLionProjects/Advnace$ CPP/statWars/Star-Wars-Simulation-/src/model/Position.cpp || cmake_object_order_depends_target_StarWarsSimulation
-  DEP_FILE = CMakeFiles/StarWarsSimulation.dir/src/model/Position.cpp.o.d
+build CMakeFiles/StarWarsSimulation.dir/src/model/Shuttle.cpp.o: CXX_COMPILER__StarWarsSimulation_unscanned_Debug /cygdrive/c/Users/Dor$ Shukrun/AllCoding/CLionProjects/Advnace$ CPP/statWars/Star-Wars-Simulation-/src/model/Shuttle.cpp || cmake_object_order_depends_target_StarWarsSimulation
+  DEP_FILE = CMakeFiles/StarWarsSimulation.dir/src/model/Shuttle.cpp.o.d
   FLAGS = -g -std=gnu++11 -fdiagnostics-color=always
   INCLUDES = -I"/cygdrive/c/Users/Dor Shukrun/AllCoding/CLionProjects/Advnace CPP/statWars/Star-Wars-Simulation-/include"
   OBJECT_DIR = CMakeFiles/StarWarsSimulation.dir
   OBJECT_FILE_DIR = CMakeFiles/StarWarsSimulation.dir/src/model
 
-build CMakeFiles/StarWarsSimulation.dir/src/model/SimulationModel.cpp.o: CXX_COMPILER__StarWarsSimulation_unscanned_Debug /cygdrive/c/Users/Dor$ Shukrun/AllCoding/CLionProjects/Advnace$ CPP/statWars/Star-Wars-Simulation-/src/model/SimulationModel.cpp || cmake_object_order_depends_target_StarWarsSimulation
-  DEP_FILE = CMakeFiles/StarWarsSimulation.dir/src/model/SimulationModel.cpp.o.d
+build CMakeFiles/StarWarsSimulation.dir/src/model/SpaceStation.cpp.o: CXX_COMPILER__StarWarsSimulation_unscanned_Debug /cygdrive/c/Users/Dor$ Shukrun/AllCoding/CLionProjects/Advnace$ CPP/statWars/Star-Wars-Simulation-/src/model/SpaceStation.cpp || cmake_object_order_depends_target_StarWarsSimulation
+  DEP_FILE = CMakeFiles/StarWarsSimulation.dir/src/model/SpaceStation.cpp.o.d
   FLAGS = -g -std=gnu++11 -fdiagnostics-color=always
   INCLUDES = -I"/cygdrive/c/Users/Dor Shukrun/AllCoding/CLionProjects/Advnace CPP/statWars/Star-Wars-Simulation-/include"
   OBJECT_DIR = CMakeFiles/StarWarsSimulation.dir
   OBJECT_FILE_DIR = CMakeFiles/StarWarsSimulation.dir/src/model
 
-build CMakeFiles/StarWarsSimulation.dir/src/model/Space.cpp.o: CXX_COMPILER__StarWarsSimulation_unscanned_Debug /cygdrive/c/Users/Dor$ Shukrun/AllCoding/CLionProjects/Advnace$ CPP/statWars/Star-Wars-Simulation-/src/model/Space.cpp || cmake_object_order_depends_target_StarWarsSimulation
-  DEP_FILE = CMakeFiles/StarWarsSimulation.dir/src/model/Space.cpp.o.d
+build CMakeFiles/StarWarsSimulation.dir/src/model/Spaceship.cpp.o: CXX_COMPILER__StarWarsSimulation_unscanned_Debug /cygdrive/c/Users/Dor$ Shukrun/AllCoding/CLionProjects/Advnace$ CPP/statWars/Star-Wars-Simulation-/src/model/Spaceship.cpp || cmake_object_order_depends_target_StarWarsSimulation
+  DEP_FILE = CMakeFiles/StarWarsSimulation.dir/src/model/Spaceship.cpp.o.d
+  FLAGS = -g -std=gnu++11 -fdiagnostics-color=always
+  INCLUDES = -I"/cygdrive/c/Users/Dor Shukrun/AllCoding/CLionProjects/Advnace CPP/statWars/Star-Wars-Simulation-/include"
+  OBJECT_DIR = CMakeFiles/StarWarsSimulation.dir
+  OBJECT_FILE_DIR = CMakeFiles/StarWarsSimulation.dir/src/model
+
+build CMakeFiles/StarWarsSimulation.dir/src/model/StarDestroyer.cpp.o: CXX_COMPILER__StarWarsSimulation_unscanned_Debug /cygdrive/c/Users/Dor$ Shukrun/AllCoding/CLionProjects/Advnace$ CPP/statWars/Star-Wars-Simulation-/src/model/StarDestroyer.cpp || cmake_object_order_depends_target_StarWarsSimulation
+  DEP_FILE = CMakeFiles/StarWarsSimulation.dir/src/model/StarDestroyer.cpp.o.d
+  FLAGS = -g -std=gnu++11 -fdiagnostics-color=always
+  INCLUDES = -I"/cygdrive/c/Users/Dor Shukrun/AllCoding/CLionProjects/Advnace CPP/statWars/Star-Wars-Simulation-/include"
+  OBJECT_DIR = CMakeFiles/StarWarsSimulation.dir
+  OBJECT_FILE_DIR = CMakeFiles/StarWarsSimulation.dir/src/model
+
+build CMakeFiles/StarWarsSimulation.dir/src/model/TIEBomber.cpp.o: CXX_COMPILER__StarWarsSimulation_unscanned_Debug /cygdrive/c/Users/Dor$ Shukrun/AllCoding/CLionProjects/Advnace$ CPP/statWars/Star-Wars-Simulation-/src/model/TIEBomber.cpp || cmake_object_order_depends_target_StarWarsSimulation
+  DEP_FILE = CMakeFiles/StarWarsSimulation.dir/src/model/TIEBomber.cpp.o.d
   FLAGS = -g -std=gnu++11 -fdiagnostics-color=always
   INCLUDES = -I"/cygdrive/c/Users/Dor Shukrun/AllCoding/CLionProjects/Advnace CPP/statWars/Star-Wars-Simulation-/include"
   OBJECT_DIR = CMakeFiles/StarWarsSimulation.dir
@@ -92,7 +106,7 @@ build CMakeFiles/StarWarsSimulation.dir/src/model/Space.cpp.o: CXX_COMPILER__Sta
 #############################################
 # Link the executable StarWarsSimulation.exe
 
-build StarWarsSimulation.exe: CXX_EXECUTABLE_LINKER__StarWarsSimulation_Debug CMakeFiles/StarWarsSimulation.dir/src/main.cpp.o CMakeFiles/StarWarsSimulation.dir/src/model/Direction.cpp.o CMakeFiles/StarWarsSimulation.dir/src/model/Position.cpp.o CMakeFiles/StarWarsSimulation.dir/src/model/SimulationModel.cpp.o CMakeFiles/StarWarsSimulation.dir/src/model/Space.cpp.o
+build StarWarsSimulation.exe: CXX_EXECUTABLE_LINKER__StarWarsSimulation_Debug CMakeFiles/StarWarsSimulation.dir/src/main.cpp.o CMakeFiles/StarWarsSimulation.dir/src/model/Model.cpp.o CMakeFiles/StarWarsSimulation.dir/src/model/Shuttle.cpp.o CMakeFiles/StarWarsSimulation.dir/src/model/SpaceStation.cpp.o CMakeFiles/StarWarsSimulation.dir/src/model/Spaceship.cpp.o CMakeFiles/StarWarsSimulation.dir/src/model/StarDestroyer.cpp.o CMakeFiles/StarWarsSimulation.dir/src/model/TIEBomber.cpp.o
   FLAGS = -g
   LINK_FLAGS = -Wl,--enable-auto-import
   OBJECT_DIR = CMakeFiles/StarWarsSimulation.dir
