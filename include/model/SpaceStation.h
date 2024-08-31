@@ -20,19 +20,19 @@ public:
 
     int getCrystalsAmount() const;
 
-    void setCrystalsAmount(int crystalsAmount);
+    void setCrystalsAmount(int cAmount);
 
     int getProductionRate() const;
-
-    void setProductionRate(int productionRate);
-
-    void produceCrystals();
 
     void status() override;
 
     void interact(std::shared_ptr<SpaceObject> other) override;
 
     void update();
+
+    Position getCurrentPosition() override;
+
+    void toString() const;
 };
 
 

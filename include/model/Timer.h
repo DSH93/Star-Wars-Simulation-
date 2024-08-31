@@ -5,35 +5,21 @@
 #ifndef TIMER_H
 #define TIMER_H
 
+
+
 class Timer {
 private:
     static int currentTick;
     static int tickInterval;
 
 public:
-    static void initialize(int interval) {
-        currentTick = 0;
-        tickInterval = interval;
-    }
-
-
-    static int getCurrentTick() {
-        return currentTick;
-    }
-
-
-    static void advanceTick() {
-        currentTick += tickInterval;
-    }
-
-
-    static void setTickInterval(int interval) {
-        tickInterval = interval;
-    }
+    static void initialize(int interval);
+    static int getCurrentTick();
+    static void advanceTick();
+    static void setTickInterval(int interval);
 };
 
-
-int Timer::currentTick = 0;
-int Timer::tickInterval = 1;
-
 #endif // TIMER_H
+
+
+
