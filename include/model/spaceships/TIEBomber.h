@@ -16,13 +16,16 @@ private:
     std::shared_ptr<Commander> pilot;
 
 public:
-    TIEBomber(Position& pos, std::string identifier, float speed = 1000.0f, std::shared_ptr<Commander> pilot = nullptr)
-            : Spaceship(pos, std::move(identifier)), visitedPositions(), pilot(std::move(pilot)) {
+    TIEBomber(Position& pos, const std::string& identifier, float speed = 1000.0f, const std::shared_ptr<Commander>& pilot = nullptr)
+            : Spaceship(pos, identifier), visitedPositions(), pilot(pilot) {
+
         this->setSpeed(speed); // Set the speed of the spaceship
-        if (pilot == nullptr) {
+        if (!pilot) {
             throw std::invalid_argument("Pilot cannot be null");
         }
+        std::cout << "TIE Bomber created" << std::endl;
     }
+
 
     void move(const Position& newPosition) override;
 

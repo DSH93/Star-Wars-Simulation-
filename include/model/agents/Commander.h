@@ -12,7 +12,9 @@
 
 class Commander : public ImperialAgent {
 public:
-    Commander (std::string name) : ImperialAgent(name) {}
+    Commander (std::string name) : ImperialAgent(name) {
+        std::cout << "Commander " << name << " created" << std::endl;
+    }
     void displayRank() const override {
         std::cout << "Rank: Commander" << std::endl;
     }

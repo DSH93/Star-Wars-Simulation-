@@ -23,13 +23,16 @@ private:
 
 
 public:
-    Shuttle(Position &pos1, std::string identifier1, std::shared_ptr<Midshipman> pilot = nullptr)
-            : Spaceship(pos1, std::move(identifier1)),
-              destination(pos1), pilot(std::move(pilot)) {
-        if (pilot == nullptr) {
+    Shuttle(Position &pos1, const std::string& identifier1, const std::shared_ptr<Midshipman>& pilot = nullptr)
+            : Spaceship(pos1, identifier1),
+              destination(pos1), pilot(pilot) {
+
+        if (!pilot) {
             throw std::invalid_argument("Pilot cannot be null");
         }
+        std::cout << "Shuttle created" << std::endl;
     }
+
 
     void update() override;
 

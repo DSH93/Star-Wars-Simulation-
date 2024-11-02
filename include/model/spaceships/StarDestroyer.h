@@ -16,12 +16,14 @@ private:
     std::shared_ptr<Admiral> pilot;
 
 public:
-    StarDestroyer(Position& pos, std::string identifier, float speed = 2000.0f, std::shared_ptr<Admiral> pilot = nullptr)
-            : Spaceship(pos, std::move(identifier)), pilot(std::move(pilot)) {
+    StarDestroyer(Position& pos, const std::string& identifier, float speed = 2000.0f, const std::shared_ptr<Admiral>& pilot = nullptr)
+            : Spaceship(pos, identifier), pilot(pilot) {
         if (!pilot) {
             throw std::invalid_argument("Pilot cannot be null");
         }
+        std::cout << "Star Destroyer created" << std::endl;
     }
+
 
     void interact(std::shared_ptr<SpaceObject> other) override;
     void addMission();

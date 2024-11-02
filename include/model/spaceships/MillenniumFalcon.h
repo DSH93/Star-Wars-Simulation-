@@ -19,6 +19,7 @@ public:
     MillenniumFalcon(Position& pos, std::string identifier, float speed = 3000.0f)
     : Spaceship(pos, std::move(identifier)) {
         this->setSpeed(speed);
+        std::cout << "Millennium Falcon created" << std::endl;
     }
 
     void interact(std::shared_ptr<SpaceObject> other) override;

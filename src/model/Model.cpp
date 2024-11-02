@@ -98,8 +98,8 @@ void Model::createTroops(std::vector<std::string> &command) {
 
 
 void Model::createSpaceship(std::vector<std::string> &command) {
-    std::string type = command[1];
-    std::string spaceshipName = command[2];
+    std::string type = command[1]; // destroyer, bomber, falcon, shuttle
+    std::string spaceshipName = command[2]; // name of the spaceship
 
 
     if (type == "falcon") {
@@ -110,7 +110,12 @@ void Model::createSpaceship(std::vector<std::string> &command) {
     } else {
         auto it = agents.find(command[3]);
         if (it != agents.end()) {
-            auto pilot = std::move(it->second);
+            auto pilot = std::dynamic_pointer_cast<Admiral>(it->second);
+            if (!pilot) {
+                std::cerr << "Error: pilot is nullptr" << std::endl;
+                return;
+            }
+
             Position pos1(std::stof(command[4]), std::stof(command[5]));
             if (type == "destroyer") {
                 auto destroyer = std::make_unique<StarDestroyer>(pos1, spaceshipName, 2000.0f,
@@ -118,7 +123,8 @@ void Model::createSpaceship(std::vector<std::string> &command) {
                 objects.push_back(std::move(destroyer));
 
 
-            } else if (type == "bomber") {
+            } else if (type == "bomber") { // TIEBomber
+
 //            auto bomber = std::make_unique<TIEBomber>(pos1, spaceshipName, 1000.0f, pilot);
 //            objects.push_back(std::move(bomber));
 
