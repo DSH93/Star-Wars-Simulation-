@@ -6,6 +6,7 @@
 #include <sstream>
 #include <algorithm>
 #include "controller/Controller.h"
+#include "model/Timer.h"
 
 
 
@@ -21,20 +22,27 @@ void Controller::processCommand() {
             model.status();
         } else if (command[0] == "go") {
             model.go();
-        } else if (command[0] == "attack") {
-            model.attack();
-        } else if (command[0] == "stop") {
-            model.stop();
-
-
         } else if (command[0] == "show") {
 
         } else if (command[0] == "pan") {
             //
         } else if (command[0] == "zoom") {
             //
-        } else if (command[0] == "default") {
-                //
+
+
+
+        } else if (command[1] == "attack") {
+            model.attack(command);
+        } else if (command[1] == "stop") {
+            model.stop(command);
+        } else if (command[1] == "shoot") {
+            model.shoot(command);
+        } else if (command[1] == "destination") {
+            model.destination(command);
+        } else if (command[1] == "position") {
+            model.position(command);
+        } else if (command[1] == "course"){
+            model.course();
         } else if (command[0] == "exit") {
             model.exit();
         }
@@ -100,7 +108,7 @@ void Controller::loadAndInitializeSites(char **argv) {
 void Controller::startSimulation() {
     std::string line;
     while (true) {
-        std::cout << "Enter command: ";
+        std::cout << "Time " << Timer::getCurrentTick() << ": Enter command: ";
         std::getline(std::cin, line);
         if (line.empty()) continue;
         if (line == "exit") {

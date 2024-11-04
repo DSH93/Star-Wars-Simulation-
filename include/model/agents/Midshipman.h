@@ -10,7 +10,9 @@
 
 class Midshipman : public ImperialAgent {
 public:
-    Midshipman (std::string name) : ImperialAgent(name) {}
+    Midshipman (std::string name) : ImperialAgent(name) {
+        std::cout << "Midshipman " << name << " created" << std::endl;
+    }
     void displayRank() const override {
         std::cout << "Rank: Midshipman" << std::endl;
     }

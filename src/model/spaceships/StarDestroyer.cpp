@@ -16,7 +16,7 @@ void StarDestroyer::addMission() {
 }
 
 void StarDestroyer::status() {
-    // empty implementation
+    std::cout << "Star Destroyer " << id << " at " << position << " ";
 
 }
 

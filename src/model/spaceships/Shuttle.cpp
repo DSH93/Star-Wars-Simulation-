@@ -33,6 +33,11 @@ void Shuttle::interact(std::shared_ptr<SpaceObject> other) {
 
 }
 
+void Shuttle::update() {
+    // todo: implement update
+
+}
+
 void Shuttle::unloadCrystals(int amount) {
 
 }
@@ -62,9 +67,7 @@ void Shuttle::finishSupplyMission() {
     if (!supplyMissions.empty()) startSupplyMission();
     else {
         position = destination;
-        this->setState(SpaceshipState::FINISHED);
+        this->setState(SpaceshipState::STOPPED);
     }
-
-
 }
 

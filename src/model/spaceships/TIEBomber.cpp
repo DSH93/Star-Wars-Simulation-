@@ -4,13 +4,9 @@
 
 #include "model/spaceships/TIEBomber.h"
 
-void TIEBomber::move(const Position &newPosition) {
-    Spaceship::move(newPosition);
-}
 
-void TIEBomber::stop() {
-    Spaceship::stop();
-}
+
+
 
 void TIEBomber::update() {
     // empty implementation
@@ -19,7 +15,7 @@ void TIEBomber::update() {
 }
 
 void TIEBomber::status() {
-    // empty implementation
+    std::cout << "TIE Bomber " << id << " at " << position << " ";
 
 }
 
@@ -47,4 +43,8 @@ void TIEBomber::flyToClosestSpaceSite() {
     // empty implementation
 
 
+}
+
+void TIEBomber::interact(std::shared_ptr<SpaceObject> other) {
+    // empty implementation
 }

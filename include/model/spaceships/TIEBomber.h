@@ -26,23 +26,14 @@ public:
         std::cout << "TIE Bomber created" << std::endl;
     }
 
-
-    void move(const Position& newPosition) override;
-
-    void stop() override;
-
     void update() override;
-
     void status() override;
+    void interact(std::shared_ptr<SpaceObject> other) override;
 
     void randomPatrol();
-
     void addPatrolMission();
-
     void finishPatrolMission();
-
     Position findClosestSpaceSite();
-
     void flyToClosestSpaceSite();
 
 

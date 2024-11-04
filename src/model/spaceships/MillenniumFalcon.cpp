@@ -23,7 +23,7 @@ void MillenniumFalcon::update() {
 }
 
 void MillenniumFalcon::status() {
-    // empty implementation
+    std::cout << "Millennium Falcon " << id << " at " << position << " ";
 
 
 }

@@ -22,16 +22,20 @@ private:
 
 
 
+
+
 public:
-    Shuttle(Position &pos1, const std::string& identifier1, const std::shared_ptr<Midshipman>& pilot = nullptr)
+    Shuttle(Position &pos1, const std::string& identifier1, float speed, const std::shared_ptr<Midshipman>& pilot = nullptr)
             : Spaceship(pos1, identifier1),
               destination(pos1), pilot(pilot) {
 
+        this->setSpeed(speed);
         if (!pilot) {
             throw std::invalid_argument("Pilot cannot be null");
         }
         std::cout << "Shuttle created" << std::endl;
     }
+
 
 
     void update() override;
@@ -55,6 +59,9 @@ public:
     void finishSupplyMission();
 
 
+    void setStatus(const std::string &status);
+
+    bool isDead() const;
 };
 
 

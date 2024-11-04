@@ -13,17 +13,17 @@ class Spaceship: public SpaceObject {
 public:
     enum class SpaceshipState {
         STOPPED,
-        PARKED,
+        DOCKED,
         MOVING,
-        FINISHED
+        DEAD
     };
 protected:
     SpaceshipState state;
     std::map<SpaceshipState, std::string> stateToString = {
             {SpaceshipState::STOPPED, "Stopped"},
-            {SpaceshipState::PARKED, "Parked"},
+            {SpaceshipState::DOCKED, "Docked"},
             {SpaceshipState::MOVING, "Moving"},
-            {SpaceshipState::FINISHED, "Finished"}
+            {SpaceshipState::DEAD, "Dead"}
     };
     Position destination;
     Direction direction;
@@ -37,7 +37,7 @@ protected:
 public:
     Spaceship(Position& pos, const std::string& identifier)
             : SpaceObject(pos, identifier),
-              state(SpaceshipState::PARKED),
+              state(SpaceshipState::DOCKED),
               destination(pos),
               direction(Direction(pos, pos)),
               speed(500) // the default speed for spaceships is 500 km/h

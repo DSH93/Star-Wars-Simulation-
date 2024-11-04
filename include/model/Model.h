@@ -34,6 +34,9 @@
 class Model {
 private:
     std::vector<std::unique_ptr<SpaceObject>> objects;
+    std::vector<std::string> ids;
+    std::unordered_map<std::string, std::shared_ptr<SpaceObject>> objectsMap;
+    std::vector<std::string> bombers;
     std::unordered_map<std::string, std::shared_ptr<ImperialAgent>> agents;
     Model(); // provide Singleton
 
@@ -51,11 +54,11 @@ public:
     void create(std::vector<std::string> &command);
     void status(); // display the status of all the objects
     void go(); // continue the simulation in 1 step of time
-    void attack(); // determine the target of a missile for the MillenniumFalcon
-    void shoot(); // determine the target of a missile for the TIEBomber
-    void stop(); // to stop the movement of a spaceship and cancel all the waiting missions
-    void position(); // to determine the destination of a flight
-    void destination(); // to determine the site destinatio
+    void attack(std::vector<std::string> &command); // determine the target of a missile for the MillenniumFalcon
+    void shoot(std::vector<std::string> &command); // determine the target of a missile for the TIEBomber
+    void stop(std::vector<std::string> &command); // to stop the movement of a spaceship and cancel all the waiting missions
+    void position(std::vector<std::string> &command); // to determine the destination of a flight
+    void destination(std::vector<std::string> &command); // to determine the site destinatio
     void exit(); // to exit the simulation
     void createTroops(std::vector<std::string> &command);
     void createSpaceship(std::vector<std::string> &command);
@@ -65,8 +68,9 @@ public:
 
 
     void advanceTime();
-    int getCurrentTime();
+    static int getCurrentTime();
 
+    void course();
 };
 
 

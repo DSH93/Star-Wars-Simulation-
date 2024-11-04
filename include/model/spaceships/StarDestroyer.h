@@ -26,9 +26,9 @@ public:
 
 
     void interact(std::shared_ptr<SpaceObject> other) override;
-    void addMission();
     void update() override;
     void status() override;
+    void addMission();
     void fireMissile();
     void startMission();
     void finishMission();

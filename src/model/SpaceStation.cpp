@@ -25,7 +25,7 @@ int SpaceStation::getProductionRate() const {
 }
 
 void SpaceStation::status() {
-    // empty implementation
+    std::cout << "station " << id << " at " << "Position: (" << position.getX() << ", " << position.getY() << ") with " << crystalsAmount << std::endl;
 }
 
 void SpaceStation::interact(std::shared_ptr<SpaceObject> other) {
