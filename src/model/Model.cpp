@@ -5,9 +5,6 @@
 #include "model/Model.h"
 
 
-
-
-
 Model::Model() {
     std::vector<std::string> command;
     command.emplace_back("fortress"); // adding a default fortress DS at (40, 10) with 100000 crystals
@@ -24,11 +21,10 @@ Model &Model::getInstance() {
     return instance;
 }
 
-
 void Model::removeObject(const SpaceObject &object) {
     std::string objectName = object.getId();
 
-    for (std::string id : ids) {
+    for (std::string id: ids) {
         if (id == objectName) {
             objectsMap.erase(objectName);
             ids.erase(std::remove(ids.begin(), ids.end(), objectName), ids.end());
@@ -51,7 +47,7 @@ Direction Model::calculateDirection(const Position &from, const Position &to) {
 void Model::advanceTime() {
     Timer::advanceTick();
 
-    for (std::string id : ids) {
+    for (std::string id: ids) {
         objectsMap[id]->advanceTime();
     }
 }
@@ -83,7 +79,6 @@ void Model::addSite(std::vector<std::string> &command) {
     }
 }
 
-
 void Model::createTroops(std::vector<std::string> &command) {
     std::string imperialAgentName = command[2];
     ConcreteImperialAgentFactory factory;
@@ -104,6 +99,14 @@ void Model::createTroops(std::vector<std::string> &command) {
     }
 }
 
+void Model::createMissile(const Position& pos, const std::shared_ptr<TIEBomber>& bomber) {
+    std::string missileName = "missile_" + std::to_string(bomber->getMissilesCounter()) + "_" + bomber->getId();
+    Position bomberPos = bomber->getCurrentPosition();
+    auto missile = std::make_unique<Missile>(bomberPos, pos, missileName);
+    ids.push_back(missileName);
+    objectsMap[missileName] = std::move(missile);
+    missiles.push_back(missileName);
+}
 
 void Model::createSpaceship(std::vector<std::string> &command) {
     std::string type = command[1]; //  (destroyer, bomber, falcon, shuttle)
@@ -159,8 +162,6 @@ void Model::createSpaceship(std::vector<std::string> &command) {
     }
 }
 
-
-
 void Model::create(std::vector<std::string> &command) {
     if (command[1] == "admiral" || command[1] == "commander" || command[1] == "midshipman") {
         createTroops(command);
@@ -182,7 +183,7 @@ void Model::go() {
 
 }
 
-bool Model::validateObjectExists(const std::string& objectName) {
+bool Model::validateObjectExists(const std::string &objectName) {
     if (objectsMap.find(objectName) == objectsMap.end()) {
         std::cerr << "Error: Object '" << objectName << "' not found" << std::endl;
         return false;
@@ -190,8 +191,7 @@ bool Model::validateObjectExists(const std::string& objectName) {
     return true;
 }
 
-
-bool Model::validateObjectExists(const std::string& objectName, const std::string& role) {
+bool Model::validateObjectExists(const std::string &objectName, const std::string &role) {
     if (objectsMap.find(objectName) == objectsMap.end()) {
         std::cerr << "Error: " << role << " '" << objectName << "' not found" << std::endl;
         return false;
@@ -199,10 +199,9 @@ bool Model::validateObjectExists(const std::string& objectName, const std::strin
     return true;
 }
 
-
-float Model::findClosetBomber(const Position& attackerPos) {
+float Model::findClosetBomber(const Position &attackerPos) {
     float ClosetBomber = 1000000; // 1000Km
-    for (const std::string& bomberName : bombers) {
+    for (const std::string &bomberName: bombers) {
         auto bomber = std::dynamic_pointer_cast<TIEBomber>(objectsMap[bomberName]);
         if (bomber) {
             Position bomberPos = bomber->getCurrentPosition();
@@ -213,8 +212,6 @@ float Model::findClosetBomber(const Position& attackerPos) {
     return ClosetBomber;
 
 }
-
-
 
 void Model::attack(std::vector<std::string> &command) {
     std::string attackerName = command[0]; // falcon
@@ -230,13 +227,24 @@ void Model::attack(std::vector<std::string> &command) {
     float closetBomber = findClosetBomber(attackerPos);
     attacker->attack(target, distanceToTarget, closetBomber); // falcon attack shuttle
 
-
-
 }
 
-
-
 void Model::shoot(std::vector<std::string> &command) {
+    std::string bomber = command[0]; // bomber
+    Position targetPos(std::stof(command[2]), std::stof(command[3])); // target position
+    if (!validateObjectExists(bomber)) return; // invalid object
+    auto bomberObj = std::dynamic_pointer_cast<TIEBomber>(objectsMap[bomber]);
+    if (!bomberObj) return; // invalid cast
+
+    createMissile(targetPos, std::shared_ptr<TIEBomber> (bomberObj));
+    auto missile = std::dynamic_pointer_cast<Missile>(objectsMap[missiles.back()]);
+
+    if (!missile) return; // invalid cast
+    bomberObj->shoot(*missile);
+
+
+
+
 
 }
 

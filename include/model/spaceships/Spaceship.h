@@ -29,7 +29,7 @@ protected:
     Direction direction;
     float speed;
     int currentTime = 0;
-    int startMissionTime = 0;
+    int startMissionTime = Timer::getCurrentTick();
 
 
 

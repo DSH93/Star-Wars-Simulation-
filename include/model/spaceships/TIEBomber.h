@@ -7,6 +7,7 @@
 
 #include "Spaceship.h"
 #include "model/agents/Commander.h"
+#include "Missile.h"
 #include <vector>
 #include <memory>
 
@@ -14,6 +15,9 @@ class TIEBomber : public Spaceship {
 private:
     std::vector<std::pair<Position, bool>> visitedPositions;
     std::shared_ptr<Commander> pilot;
+    std::vector<std::string> bomberMissiles;
+    int missilesCounter = 0;
+
 
 public:
     TIEBomber(Position& pos, const std::string& identifier, float speed = 1000.0f, const std::shared_ptr<Commander>& pilot = nullptr)
@@ -35,8 +39,11 @@ public:
     void finishPatrolMission();
     Position findClosestSpaceSite();
     void flyToClosestSpaceSite();
+    void addMissile();
+    int getMissilesCounter() const;
 
 
+    void shoot(Missile &missile);
 };
 
 #endif //STARWARSSIMULATION_TIEBOMBER_H

@@ -52,6 +52,7 @@ public:
         return *this;
     }
 
+
     bool operator==(Position position) const { // Check if the given position is equal to the current position
         return x == position.x && y == position.y;
     }
@@ -60,6 +61,8 @@ public:
         os << "Position: (" << position.x << ", " << position.y << ")";
         return os;
     }
+
+
 };
 
 #endif // STARWARSSIMULATION_POSITION_H

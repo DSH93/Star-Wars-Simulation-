@@ -18,5 +18,7 @@ add_executable(simST ${SOURCES}
         src/model/agent/ImperialAgent.cpp
         src/controller/Controller.cpp
         src/view/View.cpp
+        src/model/spaceships/Missile.cpp
+        include/model/spaceships/Missile.h
 )
 

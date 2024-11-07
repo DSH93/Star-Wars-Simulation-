@@ -28,7 +28,7 @@
 #include "model/agents/Commander.h"
 #include "model/agents/Midshipman.h"
 #include "model/agents/Admiral.h"
-
+#include "model/spaceships/Missile.h"
 
 
 class Model {
@@ -37,6 +37,8 @@ private:
     std::unordered_map<std::string, std::shared_ptr<SpaceObject>> objectsMap;
     std::vector<std::string> bombers;
     std::unordered_map<std::string, std::shared_ptr<ImperialAgent>> agents;
+    std::vector<std::string> missiles;
+
     Model(); // provide Singleton
 
 public:
@@ -76,6 +78,9 @@ public:
     bool validateObjectExists(const std::string &objectName, const std::string &role);
 
     float findClosetBomber(const Position &attackerPos);
+
+    void createMissile(const Position& targetPos, const std::shared_ptr<TIEBomber>& bomber);
+
 };
 
 

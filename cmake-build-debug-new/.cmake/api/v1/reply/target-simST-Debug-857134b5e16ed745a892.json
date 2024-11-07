@@ -77,7 +77,8 @@
 				8,
 				9,
 				10,
-				11
+				11,
+				12
 			]
 		}
 	],
@@ -121,7 +122,15 @@
 				8,
 				9,
 				10,
-				11
+				11,
+				12
+			]
+		},
+		{
+			"name" : "Header Files",
+			"sourceIndexes" : 
+			[
+				13
 			]
 		}
 	],
@@ -198,6 +207,17 @@
 			"compileGroupIndex" : 0,
 			"path" : "src/view/View.cpp",
 			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/model/spaceships/Missile.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "include/model/spaceships/Missile.h",
+			"sourceGroupIndex" : 1
 		}
 	],
 	"type" : "EXECUTABLE"

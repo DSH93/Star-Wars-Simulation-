@@ -133,6 +133,13 @@ build CMakeFiles/simST.dir/src/view/View.cpp.o: CXX_COMPILER__simST_unscanned_De
   OBJECT_DIR = CMakeFiles/simST.dir
   OBJECT_FILE_DIR = CMakeFiles/simST.dir/src/view
 
+build CMakeFiles/simST.dir/src/model/spaceships/Missile.cpp.o: CXX_COMPILER__simST_unscanned_Debug /cygdrive/c/Users/Dor$ Shukrun/AllCoding/CLionProjects/Advnace$ CPP/statWars/Star-Wars-Simulation-/src/model/spaceships/Missile.cpp || cmake_object_order_depends_target_simST
+  DEP_FILE = CMakeFiles/simST.dir/src/model/spaceships/Missile.cpp.o.d
+  FLAGS = -g -std=gnu++23 -fdiagnostics-color=always
+  INCLUDES = -I"/cygdrive/c/Users/Dor Shukrun/AllCoding/CLionProjects/Advnace CPP/statWars/Star-Wars-Simulation-/include"
+  OBJECT_DIR = CMakeFiles/simST.dir
+  OBJECT_FILE_DIR = CMakeFiles/simST.dir/src/model/spaceships
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target simST
@@ -141,7 +148,7 @@ build CMakeFiles/simST.dir/src/view/View.cpp.o: CXX_COMPILER__simST_unscanned_De
 #############################################
 # Link the executable simST.exe
 
-build simST.exe: CXX_EXECUTABLE_LINKER__simST_Debug CMakeFiles/simST.dir/main.cpp.o CMakeFiles/simST.dir/src/model/Model.cpp.o CMakeFiles/simST.dir/src/model/spaceships/Shuttle.cpp.o CMakeFiles/simST.dir/src/model/spaceships/Spaceship.cpp.o CMakeFiles/simST.dir/src/model/Timer.cpp.o CMakeFiles/simST.dir/src/model/SpaceStation.cpp.o CMakeFiles/simST.dir/src/model/spaceships/TIEBomber.cpp.o CMakeFiles/simST.dir/src/model/spaceships/StarDestroyer.cpp.o CMakeFiles/simST.dir/src/model/spaceships/MillenniumFalcon.cpp.o CMakeFiles/simST.dir/src/model/agent/ImperialAgent.cpp.o CMakeFiles/simST.dir/src/controller/Controller.cpp.o CMakeFiles/simST.dir/src/view/View.cpp.o
+build simST.exe: CXX_EXECUTABLE_LINKER__simST_Debug CMakeFiles/simST.dir/main.cpp.o CMakeFiles/simST.dir/src/model/Model.cpp.o CMakeFiles/simST.dir/src/model/spaceships/Shuttle.cpp.o CMakeFiles/simST.dir/src/model/spaceships/Spaceship.cpp.o CMakeFiles/simST.dir/src/model/Timer.cpp.o CMakeFiles/simST.dir/src/model/SpaceStation.cpp.o CMakeFiles/simST.dir/src/model/spaceships/TIEBomber.cpp.o CMakeFiles/simST.dir/src/model/spaceships/StarDestroyer.cpp.o CMakeFiles/simST.dir/src/model/spaceships/MillenniumFalcon.cpp.o CMakeFiles/simST.dir/src/model/agent/ImperialAgent.cpp.o CMakeFiles/simST.dir/src/controller/Controller.cpp.o CMakeFiles/simST.dir/src/view/View.cpp.o CMakeFiles/simST.dir/src/model/spaceships/Missile.cpp.o
   FLAGS = -g
   LINK_FLAGS = -Wl,--enable-auto-import
   OBJECT_DIR = CMakeFiles/simST.dir

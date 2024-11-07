@@ -20,8 +20,9 @@ protected:
     int currentTime;
 
 public:
-    SpaceObject(Position& pos, const std::string& identifier)
-            : position(pos), id(validateId(identifier)),  currentTime(Timer::getCurrentTick()) {}
+    SpaceObject(const Position& pos, const std::string& identifier)
+            : position(pos), id(validateId(identifier)), currentTime(Timer::getCurrentTick()) {}
+
 
     Position getPosition() const { return position; }
     void setPosition(const Position& pos) { position = pos; }
