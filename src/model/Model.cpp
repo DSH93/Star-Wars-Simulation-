@@ -26,11 +26,12 @@ Model &Model::getInstance() {
 
 
 void Model::removeObject(const SpaceObject &object) {
-    std::string id = object.getId();
+    std::string objectName = object.getId();
 
-    for (auto it = objects.begin(); it != objects.end(); ++it) {
-        if ((*it)->getId() == object.getId()) {
-            objects.erase(it);
+    for (std::string id : ids) {
+        if (id == objectName) {
+            objectsMap.erase(objectName);
+            ids.erase(std::remove(ids.begin(), ids.end(), objectName), ids.end());
             break;
         }
     }
@@ -49,16 +50,15 @@ Direction Model::calculateDirection(const Position &from, const Position &to) {
 
 void Model::advanceTime() {
     Timer::advanceTick();
-    for (auto &object: objects) {
-        object->update();
-    }
 
+    for (std::string id : ids) {
+        objectsMap[id]->advanceTime();
+    }
 }
 
 int Model::getCurrentTime() {
     return Timer::getCurrentTick();
 }
-
 
 void Model::addSite(std::vector<std::string> &command) {
     std::string name = command[1];
@@ -68,15 +68,16 @@ void Model::addSite(std::vector<std::string> &command) {
     int crystalsAmount = std::stoi(command[4]);
     int productionRate = (command.size() > 5) ? std::stoi(command[5]) : 0;
     std::unique_ptr<SpaceObject> newSite;
+
     if (command[0] == "station") {
         newSite = std::make_unique<SpaceStation>(crystalsAmount, productionRate, pos, name);
-        objectsMap[name] = std::shared_ptr<SpaceStation>(static_cast<SpaceStation*>(newSite.get()), [](SpaceObject*){});
     } else if (command[0] == "fortress") {
         newSite = std::make_unique<FortressStar>(crystalsAmount, pos, name);
-        objectsMap[name] = std::shared_ptr<FortressStar>(static_cast<FortressStar*>(newSite.get()), [](SpaceObject*){});
     }
+
     if (newSite) {
-        objects.push_back(std::move(newSite));
+        ids.push_back(name);
+        objectsMap[name] = std::shared_ptr<SpaceObject>(std::move(newSite));
     } else {
         std::cerr << "Error: Invalid site type" << std::endl;
     }
@@ -112,7 +113,8 @@ void Model::createSpaceship(std::vector<std::string> &command) {
         //  Millennium Falcon
         Position pos(std::stof(command[3]), std::stof(command[4]));
         auto falcon = std::make_unique<MillenniumFalcon>(pos, spaceshipName);
-        objects.push_back(std::move(falcon));
+        ids.push_back(spaceshipName);
+        objectsMap[spaceshipName] = std::move(falcon);
     } else {
 
         auto it = agents.find(command[3]);
@@ -127,7 +129,8 @@ void Model::createSpaceship(std::vector<std::string> &command) {
                     return;
                 }
                 auto destroyer = std::make_unique<StarDestroyer>(pos1, spaceshipName, 2000.0f, admiralPilot);
-                objects.push_back(std::move(destroyer));
+                ids.push_back(spaceshipName);
+                objectsMap[spaceshipName] = std::move(destroyer);
 
             } else if (type == "bomber") {
                 bombers.push_back(command[2]);
@@ -137,7 +140,8 @@ void Model::createSpaceship(std::vector<std::string> &command) {
                     return;
                 }
                 auto bomber = std::make_unique<TIEBomber>(pos1, spaceshipName, 1000.0f, commanderPilot);
-                objects.push_back(std::move(bomber));
+                ids.push_back(spaceshipName);
+                objectsMap[spaceshipName] = std::move(bomber);
 
             } else if (type == "shuttle") {
                 auto midshipmanPilot = std::dynamic_pointer_cast<Midshipman>(it->second);
@@ -146,7 +150,8 @@ void Model::createSpaceship(std::vector<std::string> &command) {
                     return;
                 }
                 auto shuttle = std::make_unique<Shuttle>(pos1, spaceshipName, 500.0f, midshipmanPilot);
-                objects.push_back(std::move(shuttle));
+                ids.push_back(spaceshipName);
+                objectsMap[spaceshipName] = std::move(shuttle);
             }
         } else {
             std::cerr << "Error: Pilot not found in agents" << std::endl;
@@ -166,13 +171,9 @@ void Model::create(std::vector<std::string> &command) {
 }
 
 void Model::status() {
-    std::cout << "Current time: " << Timer::getCurrentTick() << std::endl;
-    std::cout << "status: " << std::endl;
-
-    for (auto &object: objects) {
-        object->status();
+    for (std::string id: ids) {
+        objectsMap[id]->status();
     }
-
 }
 
 void Model::go() {
@@ -181,46 +182,53 @@ void Model::go() {
 
 }
 
+bool Model::validateObjectExists(const std::string& objectName) {
+    if (objectsMap.find(objectName) == objectsMap.end()) {
+        std::cerr << "Error: Object '" << objectName << "' not found" << std::endl;
+        return false;
+    }
+    return true;
+}
+
+
+bool Model::validateObjectExists(const std::string& objectName, const std::string& role) {
+    if (objectsMap.find(objectName) == objectsMap.end()) {
+        std::cerr << "Error: " << role << " '" << objectName << "' not found" << std::endl;
+        return false;
+    }
+    return true;
+}
+
+
+float Model::findClosetBomber(const Position& attackerPos) {
+    float ClosetBomber = 1000000; // 1000Km
+    for (const std::string& bomberName : bombers) {
+        auto bomber = std::dynamic_pointer_cast<TIEBomber>(objectsMap[bomberName]);
+        if (bomber) {
+            Position bomberPos = bomber->getCurrentPosition();
+            float distanceFromBomber = calculateDistance(bomberPos, attackerPos);
+            if (distanceFromBomber < ClosetBomber) ClosetBomber = distanceFromBomber;
+        }
+    }
+    return ClosetBomber;
+
+}
+
+
+
 void Model::attack(std::vector<std::string> &command) {
-    std::string attackerName = command[0];
-    std::string targetName = command[2];
-
-    std::shared_ptr<SpaceObject> attacker = nullptr;
-    std::shared_ptr<SpaceObject> target = nullptr;
-
-    for (const auto& object : objects) {
-        if (object->getId() == attackerName) {
-            attacker = std::shared_ptr<SpaceObject>(object.get(), [](SpaceObject*){});
-            break;
-        }
-    }
-
-    for (const auto& object : objects) {
-        if (object->getId() == targetName) {
-            target = std::shared_ptr<SpaceObject>(object.get(), [](SpaceObject*){});
-            break;
-        }
-    }
-
-    if (!attacker) {
-        std::cerr << "Error: Attacker '" << attackerName << "' not found" << std::endl;
-        return;
-    }
-    if (!target) {
-        std::cerr << "Error: Target '" << targetName << "' not found" << std::endl;
-        return;
-    }
+    std::string attackerName = command[0]; // falcon
+    std::string targetName = command[2]; // shuttle
+    if (!validateObjectExists(attackerName) || !validateObjectExists(targetName)) return; // invalid object
+    auto attacker = std::dynamic_pointer_cast<MillenniumFalcon>(objectsMap[attackerName]);
+    auto target = std::dynamic_pointer_cast<Shuttle>(objectsMap[targetName]);
+    if (!attacker || !target) return; // invalid cast
 
     Position attackerPos = attacker->getCurrentPosition();
     Position targetPos = target->getCurrentPosition();
-    float distance = calculateDistance(attackerPos, targetPos);
-    if (distance > 100000) {
-        std::cerr << "Error: Target is too far for attack" << std::endl;
-        return;
-    }
-
-
-
+    float distanceToTarget = calculateDistance(attackerPos, targetPos);
+    float closetBomber = findClosetBomber(attackerPos);
+    attacker->attack(target, distanceToTarget, closetBomber); // falcon attack shuttle
 
 
 

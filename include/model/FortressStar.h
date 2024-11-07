@@ -28,7 +28,7 @@ public:
     }
 
     void status() override {
-        std::cout << "fortress " << id << " at Position: (" << position.getX() << ", " << position.getY()
+        std::cout << "Fortress " << id << ", at Position: (" << position.getX() << ", " << position.getY()
                   << "), Inventory: " << crystalAmount << std::endl;
     }
 

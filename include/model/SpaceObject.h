@@ -11,6 +11,7 @@
 #include <utility>
 #include <stdexcept> // For std::invalid_argument
 #include <memory>
+#include "Timer.h"
 
 class SpaceObject {
 protected:
@@ -20,7 +21,7 @@ protected:
 
 public:
     SpaceObject(Position& pos, const std::string& identifier)
-            : position(pos), id(validateId(identifier)) {}
+            : position(pos), id(validateId(identifier)),  currentTime(Timer::getCurrentTick()) {}
 
     Position getPosition() const { return position; }
     void setPosition(const Position& pos) { position = pos; }
@@ -30,6 +31,7 @@ public:
     virtual Position getCurrentPosition() = 0;
     virtual ~SpaceObject() = default;
     virtual void update() = 0;
+    void advanceTime() {currentTime++;}
 
 
 private:

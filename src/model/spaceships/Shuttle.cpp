@@ -71,3 +71,15 @@ void Shuttle::finishSupplyMission() {
     }
 }
 
+int Shuttle::getDefPowerUnits() const {
+    return powerUnits;
+}
+
+int Shuttle::getCrystalsContainers() const {
+    return crystalsContainers;
+}
+
+void Shuttle::decreaseDefPowerUnits() {
+    powerUnits--;
+}
+

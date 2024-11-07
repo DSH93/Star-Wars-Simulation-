@@ -35,8 +35,11 @@ public:
     std::vector<std::shared_ptr<SpaceObject>> getBomberInRadius();
     int getAttPowerUnits() const;
     void setAttPowerUnits(int attPowerUnits);
-
-
+    void increaseAttPowerUnits();
+    void decreaseAttPowerUnits();
+    void attack(std::shared_ptr<SpaceObject> target, float distanceToTarget, float closetBomber);
+    bool canAttack(float attackerPower, float targetDefense, const Position &attackerPos, const Position &targetPos,
+                   float distanceToTarget, float closetBomber);
 };
 
 

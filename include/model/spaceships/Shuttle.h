@@ -62,6 +62,12 @@ public:
     void setStatus(const std::string &status);
 
     bool isDead() const;
+
+    void decreaseDefPowerUnits();
+
+    int getDefPowerUnits() const;
+
+    int getCrystalsContainers() const;
 };
 
 

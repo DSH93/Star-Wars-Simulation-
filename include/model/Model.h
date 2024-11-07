@@ -33,7 +33,6 @@
 
 class Model {
 private:
-    std::vector<std::unique_ptr<SpaceObject>> objects;
     std::vector<std::string> ids;
     std::unordered_map<std::string, std::shared_ptr<SpaceObject>> objectsMap;
     std::vector<std::string> bombers;
@@ -71,6 +70,12 @@ public:
     static int getCurrentTime();
 
     void course();
+
+    bool validateObjectExists(const std::string &objectName);
+
+    bool validateObjectExists(const std::string &objectName, const std::string &role);
+
+    float findClosetBomber(const Position &attackerPos);
 };
 
 
