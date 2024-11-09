@@ -2,6 +2,7 @@
 // Created by Dor Shukrun on 07/11/2024.
 //
 
+#include <vector>
 #include "model/spaceships/Missile.h"
 
 
@@ -14,9 +15,10 @@ Missile::Missile(const Position &bomberPos, const Position &targetPos, const std
 
 
 
-void Missile::setTarget(const Position &target) { // change the target of the missile
-    this->target = target;
-    direction = Direction(getCurrentPosition(), target);
+void Missile::setTarget(const Position &misTarget) { // change the misTarget of the missile
+    this->target = misTarget;
+    direction = Direction(getCurrentPosition(), misTarget);
+
 
 }
 
@@ -26,7 +28,7 @@ bool Missile::isMissileDestroyed() const {
 
 void Missile::destroy() {
     if (getCurrentPosition() == target) {
-        isDestroyed = true;
+
     }
 }
 
@@ -43,8 +45,8 @@ void Missile::interact(std::shared_ptr<SpaceObject> other) {
 }
 
 Position Missile::getCurrentPosition() {
-    float time = Timer::getCurrentTick() - startMissionTime;
-    float distanceCovered = time * speed;
+    int time = Timer::getCurrentTick() + 1 - startMissionTime;
+    int distanceCovered = time * speed;
     if (distanceCovered >= distance) {
         return target;
     }
@@ -53,10 +55,26 @@ Position Missile::getCurrentPosition() {
 
 }
 
-void Missile::update() {
+std::string Missile::update(const std::vector<std::pair<std::string, Position>>& falconsPositions) {
+    std::string falconName;
+    for (auto &falcon: falconsPositions) {
+        if (falcon.second == target && target == getCurrentPosition()) {
+            falconName = falcon.first;
+            isDestroyed = true;
+            break;
+        }
+
+    }
+
+    return falconName;
 
 }
 
 std::string Missile::getId() const {
     return id;
+}
+
+void Missile::update() {
+
+
 }

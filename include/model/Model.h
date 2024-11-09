@@ -33,11 +33,12 @@
 
 class Model {
 private:
-    std::vector<std::string> ids;
     std::unordered_map<std::string, std::shared_ptr<SpaceObject>> objectsMap;
-    std::vector<std::string> bombers;
     std::unordered_map<std::string, std::shared_ptr<ImperialAgent>> agents;
+    std::vector<std::string> ids;
+    std::vector<std::string> bombers;
     std::vector<std::string> missiles;
+    std::vector<std::string> falcons;
 
     Model(); // provide Singleton
 
@@ -81,6 +82,11 @@ public:
 
     void createMissile(const Position& targetPos, const std::shared_ptr<TIEBomber>& bomber);
 
+    void misslesUpdate();
+
+    void shoot2(std::vector<std::string> &command);
+
+    void bomberUpdate();
 };
 
 

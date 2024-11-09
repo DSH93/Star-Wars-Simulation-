@@ -54,9 +54,8 @@ void MillenniumFalcon::loadAttPowerUnits() {
 }
 
 void MillenniumFalcon::killFalcon() {
-    // empty implementation
-
-
+    std::cout << "Falcon " << id << " was destroyed" << std::endl;
+    setState(SpaceshipState::DEAD);
 }
 
 std::vector<std::shared_ptr<SpaceObject>> MillenniumFalcon::getShuttlesInRadius() {

@@ -108,7 +108,8 @@ void Controller::loadAndInitializeSites(char **argv) {
 void Controller::startSimulation() {
     std::string line;
     while (true) {
-        std::cout << "Time " << Timer::getCurrentTick() << ": Enter command: ";
+        std::cout.flush();
+        std::cout << " Time " << Timer::getCurrentTick() << ": Enter command: ";
         std::getline(std::cin, line);
         if (line.empty()) continue;
         if (line == "exit") {

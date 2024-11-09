@@ -3,9 +3,12 @@ project(StarWarsSimulation)
 
 set(CMAKE_CXX_STANDARD 23)
 
+set(CMAKE_CXX_FLAGS_DEBUG "-g")
+
 include_directories(include)
 
-add_executable(simST ${SOURCES}
+
+set(SOURCES
         main.cpp
         src/model/Model.cpp
         src/model/spaceships/Shuttle.cpp
@@ -19,6 +22,7 @@ add_executable(simST ${SOURCES}
         src/controller/Controller.cpp
         src/view/View.cpp
         src/model/spaceships/Missile.cpp
-        include/model/spaceships/Missile.h
 )
 
+
+add_executable(simST ${SOURCES})

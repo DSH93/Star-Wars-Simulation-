@@ -1,0 +1,156 @@
+Time 0:  Enter command : show
+Display size: 25, scale: 2.00 , origin: (0.00, 0.00)
+48 . . . . . . . . . . . . . . . . . . . . . . . . .
+   . . . . . . . . . . . . . . . . . . . . . . . . .
+   . . . . . . . . . . . . . . . . . . . . . . . . .
+42 . . . . . . . . . . . . . . . . . . . . . . . . .
+   . . . . . . . . . . . . . . . . . . . . . . . . .
+   . . . . . . . . . . . . . . . . . . . . . . . . .
+36 . . . . . . . . . . . . . . . . . . . . . . . . .
+   . . . . . . . . . . . . . . . . . . . . . . . . .
+   . . . . . . . . . . . . . . . . . . . . . . . . .
+30 Dr. . . . . . . . . . . . . . . . . . . . . . . .
+   . . . . . . . . . . . . . . . . . . . . . . . . .
+   . . . . . . . . . . . . . . . . . . . . . . . . .
+24 . . . . . . . . . . . . . . . . . . . . . . . . .
+   . . . . . . . . . . . . . . . . . . . . . . . . .
+   . . . . . Ra. . . . Cl. . . . . . . . . . . . . .
+18 . . . . . . . . . . . . . . . . . . . . . . . . .
+   . . . . . . . . . . . . . . . . . . . . . . . . .
+   . . . . . . . . . . . . . . . . . . . . . . . . .
+12 . . . . . . . . . . . . . . . . . . . . . . . . .
+   . . . . . Fa. . . . Ya. . . . . . . . . DS. . . .
+   . . . . . . . . . . . . . . . . . . . . . . . . .
+6  . . . . . . . . . . . . . . . . . . . . . . . . .
+   . . . . . . . . . . . . . . . . . . . . . . . . .
+   . . . . . . . . . . . . . . . . . . . . . . . . .
+0  . . . . . . . . . . . . . . . Ar. . . . . . . . .
+   0     6    12    18    24    30    36    42    48
+
+Time 0:  Enter command : create admiral Tarkin
+Time 0:  Enter command : create commander Ozzel
+Time 0:  Enter command : create midshipman Peter
+Time 0:  Enter command : create destroyer T0 Tarkin (24.00, 24.00)
+Time 0:  Enter command : create bomber B2 Ozzel (40.00, 10.00)
+Time 0:  Enter command : create shuttle GX Peter (0.00, 0.00)
+Time 0:  Enter command : create falcon Millennium (42.00, 42.00)
+Time 0:  Enter command : show
+Display size: 25, scale: 2.00 , origin: (0.00, 0.00)
+48 . . . . . . . . . . . . . . . . . . . . . . . . .
+   . . . . . . . . . . . . . . . . . . . . . . . . .
+   . . . . . . . . . . . . . . . . . . . . . . . . .
+42 . . . . . . . . . . . . . . . . . . . . . Mi. . .
+   . . . . . . . . . . . . . . . . . . . . . . . . .
+   . . . . . . . . . . . . . . . . . . . . . . . . .
+36 . . . . . . . . . . . . . . . . . . . . . . . . .
+   . . . . . . . . . . . . . . . . . . . . . . . . .
+   . . . . . . . . . . . . . . . . . . . . . . . . .
+30 Dr. . . . . . . . . . . . . . . . . . . . . . . .
+   . . . . . . . . . . . . . . . . . . . . . . . . .
+   . . . . . . . . . . . . . . . . . . . . . . . . .
+24 . . . . . . . . . . . . T0. . . . . . . . . . . .
+   . . . . . . . . . . . . . . . . . . . . . . . . .
+   . . . . . Ra. . . . Cl. . . . . . . . . . . . . .
+18 . . . . . . . . . . . . . . . . . . . . . . . . .
+   . . . . . . . . . . . . . . . . . . . . . . . . .
+   . . . . . . . . . . . . . . . . . . . . . . . . .
+12 . . . . . . . . . . . . . . . . . . . . . . . . .
+   . . . . . Fa. . . . Ya. . . . . . . . . B2. . . .
+   . . . . . . . . . . . . . . . . . . . . . . . . .
+6  . . . . . . . . . . . . . . . . . . . . . . . . .
+   . . . . . . . . . . . . . . . . . . . . . . . . .
+   . . . . . . . . . . . . . . . . . . . . . . . . .
+0  GX. . . . . . . . . . . . . . Ar. . . . . . . . .
+   0     6    12    18    24    30    36    42    48
+   
+Time 0:  Enter command : B2 destination Yavin
+Time 0:  Enter command : GX start_supply Yavin DS
+Time 0:  Enter command:  T0 course 180
+Time 0:  Enter command:  Millennium course 270 2000
+Time 0:  Enter command : go
+Time 1:  Enter command : show
+Display size: 25, scale: 2.00 , origin: (0.00, 0.00)
+48 . . . . . . . . . . . . . . . . . . . . . . . . .
+   . . . . . . . . . . . . . . . . . . . . . . . . .
+   . . . . . . . . . . . . . . . . . . . . . . . . .
+42 . . . . . . . . . . . . . . . . . . . . Mi. . . .
+   . . . . . . . . . . . . . . . . . . . . . . . . .
+   . . . . . . . . . . . . . . . . . . . . . . . . .
+36 . . . . . . . . . . . . . . . . . . . . . . . . .
+   . . . . . . . . . . . . . . . . . . . . . . . . .
+   . . . . . . . . . . . . . . . . . . . . . . . . .
+30 Dr. . . . . . . . . . . . . . . . . . . . . . . .
+   . . . . . . . . . . . . . . . . . . . . . . . . .
+   . . . . . . . . . . . . . . . . . . . . . . . . .
+24 . . . . . . . . . . . . . . . . . . . . . . . . .
+   . . . . . . . . . . . . T0. . . . . . . . . . . .
+   . . . . . Ra. . . . Cl. . . . . . . . . . . . . .
+18 . . . . . . . . . . . . . . . . . . . . . . . . .
+   . . . . . . . . . . . . . . . . . . . . . . . . .
+   . . . . . . . . . . . . . . . . . . . . . . . . .
+12 . . . . . . . . . . . . . . . . . . . . . . . . .
+   . . . . . Fa. . . . Ya. . . . . . . . B2DS. . . .
+   . . . . . . . . . . . . . . . . . . . . . . . . .
+6  . . . . . . . . . . . . . . . . . . . . . . . . .
+   . . . . . . . . . . . . . . . . . . . . . . . . .
+   . . . . . . . . . . . . . . . . . . . . . . . . .
+0  GX. . . . . . . . . . . . . . Ar. . . . . . . . .
+   0     6    12    18    24    30    36    42    48
+
+Time 1:  Enter command : status
+fortress DS at position (40.00, 10.00), Inventory: 100000
+station Yavin at position (20.00, 10.00), Inventory: 105
+station Rakatan at position (10.00, 20.00), Inventory: 23
+station Arcanum at position (30.00, 0.00), Inventory: 54
+station Claw at position (20.00, 20.00), Inventory: 12
+station Facility729D at position (10.00, 10.00), Inventory: 5
+station Drydock4 at position (0.00, 30.00), Inventory: 9
+destroyer T0 at (24.00, 22.00), Heading on course 180.00 deg, speed 2000.00km/h
+bomber B2 at (39.00, 10.00), Heading to Yavin, speed 1000.00km/h
+shuttle GX at (0.45, 0.22), Heading to Yavin, speed 500.00km/h, Strength: 10
+falcon Millennium at (40.00, 42.00), Heading on course 270.00 deg, speed 2000.00km/h, Strength: 5
+
+Time 1:  Enter command : go
+Time 2:  Enter command : go
+Time 3:  Enter command : go
+Time 4:  Enter command : status
+fortress DS at position (40.00, 10.00), Inventory: 100000
+station Yavin at position (20.00, 10.00), Inventory: 120
+station Rakatan at position (10.00, 20.00), Inventory: 32
+station Arcanum at position (30.00, 0.00), Inventory: 66
+station Claw at position (20.00, 20.00), Inventory: 18
+station Facility729D at position (10.00, 10.00), Inventory: 14
+station Drydock4 at position (0.00, 30.00), Inventory: 18
+destroyer T0 at (24.00, 16.00), Heading on course 180.00 deg, speed 2000.00km/h
+bomber B2 at (36.00, 10.00), Heading to Yavin, speed 1000.00km/h
+shuttle GX at (1.79, 0.89), Heading to Yavin, speed 500.00km/h, , Strength: 10
+falcon Millennium at (34.00, 42.00), Heading on course 270.00 deg, speed 2000.00km/h, Strength: 5
+
+Time 4:  Enter command : show
+Display size: 25, scale: 2.00 , origin: (0.00, 0.00)
+48 . . . . . . . . . . . . . . . . . . . . . . . . .
+   . . . . . . . . . . . . . . . . . . . . . . . . .
+   . . . . . . . . . . . . . . . . . . . . . . . . .
+42 . . . . . . . . . . . . . . . . . Mi. . . . . . .
+   . . . . . . . . . . . . . . . . . . . . . . . . .
+   . . . . . . . . . . . . . . . . . . . . . . . . .
+36 . . . . . . . . . . . . . . . . . . . . . . . . .
+   . . . . . . . . . . . . . . . . . . . . . . . . .
+   . . . . . . . . . . . . . . . . . . . . . . . . .
+30 Dr. . . . . . . . . . . . . . . . . . . . . . . .
+   . . . . . . . . . . . . . . . . . . . . . . . . .
+   . . . . . . . . . . . . . . . . . . . . . . . . .
+24 . . . . . . . . . . . . . . . . . . . . . . . . .
+   . . . . . . . . . . . . . . . . . . . . . . . . .
+   . . . . . Ra. . . . Cl. . . . . . . . . . . . . .
+18 . . . . . . . . . . . . . . . . . . . . . . . . .
+   . . . . . . . . . . . . T0. . . . . . . . . . . .
+   . . . . . . . . . . . . . . . . . . . . . . . . .
+12 . . . . . . . . . . . . . . . . . . . . . . . . .
+   . . . . . Fa. . . . Ya. . . . . . . B2. DS. . . .
+   . . . . . . . . . . . . . . . . . . . . . . . . .
+6  . . . . . . . . . . . . . . . . . . . . . . . . .
+   . . . . . . . . . . . . . . . . . . . . . . . . .
+   . . . . . . . . . . . . . . . . . . . . . . . . .
+0  GX. . . . . . . . . . . . . . Ar. . . . . . . . .
+   0     6    12    18    24    30    36    42    48

@@ -10,17 +10,21 @@
 #include "Missile.h"
 #include <vector>
 #include <memory>
+#include <unordered_map>
+#include "model/Position.h"
 
 class TIEBomber : public Spaceship {
 private:
     std::vector<std::pair<Position, bool>> visitedPositions;
     std::shared_ptr<Commander> pilot;
     std::vector<std::string> bomberMissiles;
+    std::unordered_map<std::string, std::shared_ptr<Missile>> missilesMap;
     int missilesCounter = 0;
 
 
 public:
-    TIEBomber(Position& pos, const std::string& identifier, float speed = 1000.0f, const std::shared_ptr<Commander>& pilot = nullptr)
+    TIEBomber(Position &pos, const std::string &identifier, float speed = 1000.0f,
+              const std::shared_ptr<Commander> &pilot = nullptr)
             : Spaceship(pos, identifier), visitedPositions(), pilot(pilot) {
 
         this->setSpeed(speed); // Set the speed of the spaceship
@@ -31,19 +35,28 @@ public:
     }
 
     void update() override;
+
     void status() override;
+
     void interact(std::shared_ptr<SpaceObject> other) override;
 
     void randomPatrol();
+
     void addPatrolMission();
+
     void finishPatrolMission();
+
     Position findClosestSpaceSite();
+
     void flyToClosestSpaceSite();
-    void addMissile();
+
     int getMissilesCounter() const;
 
+    std::string createMissile(Position targetPos);
 
-    void shoot(Missile &missile);
+    std::string missileUpdate(const std::vector<std::pair<std::string, Position>>& falconsPositions);
+
+    void shoot(Position targetPos);
 };
 
 #endif //STARWARSSIMULATION_TIEBOMBER_H

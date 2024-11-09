@@ -7,6 +7,7 @@
 
 
 #include "model/SpaceObject.h"
+#include <vector>
 
 
 class Missile : public SpaceObject {
@@ -14,8 +15,8 @@ private:
     int startMissionTime;
     Position target;
     Direction direction;
-    float distance;
-    float speed;
+    int distance;
+    int speed;
     bool isDestroyed = false;
 
 
@@ -33,13 +34,15 @@ public:
 
     void update() override;
 
-    void setTarget(const Position &target);
+    void setTarget(const Position &misTarget);
 
     bool isMissileDestroyed() const;
 
     void destroy();
 
     std::string getId() const;
+
+    std::string update(const std::vector<std::pair<std::string, Position>>& falconsPositions);
 };
 
 
