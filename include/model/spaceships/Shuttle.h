@@ -9,6 +9,8 @@
 #include <queue>
 #include "Spaceship.h"
 #include "model/agents/Midshipman.h"
+#include "model/FortressStar.h"
+#include "model/SpaceStation.h"
 
 class Shuttle : public Spaceship {
 private:
@@ -16,9 +18,14 @@ private:
     int maxCrystalsContainers = 5;
     int powerUnits = 10;
     int maxPowerUnits = 20;
-    Position destination;
-    std::queue<std::pair<Position, Position>> supplyMissions; // pair of source and destination for each mission <Space Station, Fortress Star>
+    int waiting = 0;
+    Position fortress;
+    Position station;
+    std::shared_ptr<FortressStar> fortressStar;
+    std::shared_ptr<SpaceStation> spaceStation;
+    std::queue<std::pair<std::shared_ptr<SpaceStation>, std::shared_ptr<FortressStar>>> supplyMissions; // pair of source and fortress for each mission <Space Station, Fortress Star>
     std::shared_ptr<Midshipman> pilot; // Midshipman that pilots the shuttle
+    bool needToWait = true;
 
 
 
@@ -27,7 +34,7 @@ private:
 public:
     Shuttle(Position &pos1, const std::string& identifier1, float speed, const std::shared_ptr<Midshipman>& pilot = nullptr)
             : Spaceship(pos1, identifier1),
-              destination(pos1), pilot(pilot) {
+              fortress(pos1), station(pos1), pilot(pilot) {
 
         this->setSpeed(speed);
         if (!pilot) {
@@ -46,28 +53,28 @@ public:
 
     void loadCrystals(int amount);
 
-    void unloadCrystals(int amount);
-
-    void loadPowerUnits();
-
     void unloadPowerUnits();
 
     void startSupplyMission();
 
-    void addSupplyMission(std::pair<Position, Position> mission);
-
     void finishSupplyMission();
-
-
-    void setStatus(const std::string &status);
-
-    bool isDead() const;
 
     void decreaseDefPowerUnits();
 
-    int getDefPowerUnits() const;
+    [[nodiscard]] int getDefPowerUnits() const;
 
-    int getCrystalsContainers() const;
+    [[nodiscard]] int getCrystalsContainers() const;
+
+    void moveShuttle();
+
+    void waitThick();
+
+    void unloadCrystals();
+
+    void addSupplyMission(const std::pair<std::shared_ptr<SpaceStation>, std::shared_ptr<FortressStar>>& mission);
+
+
+    void updatePositionAndState();
 };
 
 

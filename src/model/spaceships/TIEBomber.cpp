@@ -4,6 +4,7 @@
 
 #include "model/spaceships/TIEBomber.h"
 #include "model/spaceships/Missile.h"
+#include <algorithm>
 
 
 
@@ -51,40 +52,10 @@ void TIEBomber::interact(std::shared_ptr<SpaceObject> other) {
     // empty implementation
 }
 
-std::string TIEBomber::createMissile(Position targetPos) {
-    std::string missileName = "m_" + std::to_string(missilesCounter) + "_" + id;
-    auto missile = std::make_unique<Missile>(position, targetPos, missileName);
-    bomberMissiles.push_back(missileName);
-    missilesMap[missileName] = std::move(missile);
-    return missileName;
-
-}
 
 
-void TIEBomber::shoot(Position targetPos) {
-    missilesCounter++;
-    std::string missileName = createMissile(targetPos);
-    std::cout << "TIE Bomber " << id << " shoot missile " << missileName << " to " << targetPos << std::endl;
-
-}
 
 
-int TIEBomber::getMissilesCounter() const {
-    return missilesCounter;
-}
 
-std::string TIEBomber::missileUpdate(const std::vector<std::pair<std::string, Position>>& falconsPositions){
-    std::string falconName;
-    for (const auto& missileName: bomberMissiles) {
-        auto missile = std::dynamic_pointer_cast<Missile>(missilesMap[missileName]);
-        falconName = missile->update(falconsPositions); // if missile hit falcon return falcon name
-        if (missile->isMissileDestroyed()) {
-            std::cout << "Missile " << getId() << " hits Falcon " << falconName << "at " << target << std::endl;
-            // remove missile from the map
-            // remove missile from the vector
-            // kill falcon
 
-        }
-    }
-    return falconName;
-}
+

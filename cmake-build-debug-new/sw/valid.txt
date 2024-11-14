@@ -1,0 +1,65 @@
+
+
+ 1 Model::startSupplyMission()
+ 2 Shuttle::addSupplyMission(mission)
+    - push mission into the mission queue
+ 3 Shuttle::startSupplyMission()
+    - if the shuttle state == STOPPED or (state == Docked and position == fortress) {
+           // thats means the shuttle is ready to start new mission
+           station = new station position
+           fortress = new fortress position
+      }
+    }
+
+
+ 4 Shuttle::moveShuttle()
+    - if state == Docked and  (currentTime - waiting == 0)  ---> return
+    // the suttle needs to wait for 1 time unit before start moving
+
+    - if state == Doked {
+    // that means the shuttle can start moving, because it has waited 1 unit of time
+        - if position == station // that means the suttle need to go to the fortress
+        else // position == fortress // that means the shuttle finished the mission.
+    }
+
+    - if state == Stoped // if the shuttle is stopped its only if the shuttle get an order
+    // to stop, or the shuttle gets the first mission
+
+
+5 Spaceship::move()
+    - if state != moving {
+        updateMissionTime() --> currntTime = Timer::getCurrentTime()
+        update destination
+        update direction
+        update state to moving
+    }
+
+6 Model::go()
+7 Model::AdvanceTime()
+8 object::update() ----> shuttle update()
+
+
+
+9 Shuttle::update()
+    - if state == docked {
+        if position == station {
+            destination = fortress
+            moveShuttle()
+        }
+    }
+    - if position == fortress {
+        finishSupplyMission()
+    }
+
+    - else // shuttle is moving or stopped
+       - checks if angle1 == angle2 to know if the shuttle reached the destination
+           - if angle1 != angle2 and state == moving // that means that the suttle reached the destination
+                * position = destination
+                interact(spaceStaiton) // interact with the other object
+                state = docked
+
+
+
+
+
+

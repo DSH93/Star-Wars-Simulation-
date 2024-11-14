@@ -55,6 +55,10 @@ Position Missile::getCurrentPosition() {
 
 }
 
+Position Missile::getTarget() const {
+    return target;
+}
+
 std::string Missile::update(const std::vector<std::pair<std::string, Position>>& falconsPositions) {
     std::string falconName;
     for (auto &falcon: falconsPositions) {

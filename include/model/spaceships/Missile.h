@@ -43,6 +43,8 @@ public:
     std::string getId() const;
 
     std::string update(const std::vector<std::pair<std::string, Position>>& falconsPositions);
+
+    Position getTarget() const;
 };
 
 

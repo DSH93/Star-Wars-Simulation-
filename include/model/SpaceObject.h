@@ -24,9 +24,9 @@ public:
             : position(pos), id(validateId(identifier)), currentTime(Timer::getCurrentTick()) {}
 
 
-    Position getPosition() const { return position; }
+    [[nodiscard]] Position getPosition() const { return position; }
     void setPosition(const Position& pos) { position = pos; }
-    std::string getId() const { return id; }
+    [[nodiscard]] std::string getId() const { return id; }
     virtual void status() = 0;
     virtual void interact(std::shared_ptr<SpaceObject> other) = 0;
     virtual Position getCurrentPosition() = 0;

@@ -9,11 +9,16 @@
 #include <memory>
 #include "Spaceship.h"
 #include "model/agents/Admiral.h"
+#include "Missile.h"
+#include <unordered_map>
+#include <vector>
 
 class StarDestroyer : public Spaceship{
 private:
-    int falconCounter = 0;
     std::shared_ptr<Admiral> pilot;
+    std::vector<std::string> bomberMissiles;
+    std::unordered_map<std::string, std::shared_ptr<Missile>> missilesMap{};
+    int missilesCounter = 0;
 
 public:
     StarDestroyer(Position& pos, const std::string& identifier, float speed = 2000.0f, const std::shared_ptr<Admiral>& pilot = nullptr)
@@ -29,9 +34,11 @@ public:
     void update() override;
     void status() override;
     void addMission();
-    void fireMissile();
     void startMission();
     void finishMission();
+    std::string createMissile(Position targetPos);
+    std::string missileUpdate(const std::vector<std::pair<std::string, Position>>& falconsPositions);
+    void shoot(Position targetPos);
 
 
 

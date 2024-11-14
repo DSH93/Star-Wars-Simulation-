@@ -8,6 +8,7 @@
 
 #include <map>
 #include "model/SpaceObject.h"
+#include <queue>
 
 class Spaceship: public SpaceObject {
 public:
@@ -30,6 +31,8 @@ protected:
     float speed;
     int currentTime = 0;
     int startMissionTime = Timer::getCurrentTick();
+    std::queue<Position> commands; // a list of commands to execute
+
 
 
 
@@ -37,14 +40,14 @@ protected:
 public:
     Spaceship(Position& pos, const std::string& identifier)
             : SpaceObject(pos, identifier),
-              state(SpaceshipState::DOCKED),
+              state(SpaceshipState::STOPPED),
               destination(pos),
               direction(Direction(pos, pos)),
               speed(500) // the default speed for spaceships is 500 km/h
               {}
 
 
-    SpaceshipState getState() const {
+    [[nodiscard]] SpaceshipState getState() const {
         return state;
     }
 
@@ -54,11 +57,11 @@ public:
 
     void setState(SpaceshipState newState);
 
-    const Position &getDestination() const;
+    [[nodiscard]] const Position &getDestination() const;
 
     void setDestination(const Position &dest);
 
-    const Direction &getDirection() const;
+    [[nodiscard]] const Direction &getDirection() const;
 
     void setDirection(const Direction &dir);
 
@@ -66,11 +69,13 @@ public:
 
     void updateMissionTime();
 
+    void clearCommands();
+
     virtual void move(const Position& newPosition);
     virtual void stop();
-    virtual void update() override = 0;
-    virtual void status() override = 0;
-    virtual ~Spaceship() override = default;
+    void update() override = 0;
+    void status() override = 0;
+    ~Spaceship() override = default;
 
 
 

@@ -9,7 +9,6 @@
 #include "model/Timer.h"
 
 
-
 void Controller::processCommand() {
     while (!commands.empty()) {
         std::vector<std::string> command = commands.front();
@@ -19,7 +18,12 @@ void Controller::processCommand() {
         } else if (command[0] == "create") {
             model.create(command);
         } else if (command[0] == "status") {
-            model.status();
+            if (command.size() == 1) {
+                model.status();
+            } else {
+                model.statusByObj(command);
+            }
+
         } else if (command[0] == "go") {
             model.go();
         } else if (command[0] == "show") {
@@ -37,16 +41,16 @@ void Controller::processCommand() {
             model.stop(command);
         } else if (command[1] == "shoot") {
             model.shoot(command);
-        } else if (command[1] == "destination") {
+        } else if (command[1] == "fortress") {
             model.destination(command);
         } else if (command[1] == "position") {
             model.position(command);
-        } else if (command[1] == "course"){
-            model.course();
-        } else if (command[0] == "exit") {
-            model.exit();
-        }
+        } else if (command[1] == "course") {
+            model.course(command);
 
+        } else if (command[1] == "start_supply") {
+            model.startSupplyMission(command);
+        }
     }
 }
 
@@ -64,8 +68,7 @@ void Controller::run(int argc, char **argv) {
 }
 
 
-
-std::vector<std::string> split(const std::string& line) {
+std::vector<std::string> split(const std::string &line) {
     std::vector<std::string> tokens;
     std::string token;
     std::stringstream ss(line);
@@ -113,7 +116,6 @@ void Controller::startSimulation() {
         std::getline(std::cin, line);
         if (line.empty()) continue;
         if (line == "exit") {
-            model.exit();
             break;
         }
         std::vector<std::string> command = split(line);

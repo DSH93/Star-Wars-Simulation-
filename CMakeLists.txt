@@ -17,7 +17,7 @@ set(SOURCES
         src/model/SpaceStation.cpp
         src/model/spaceships/TIEBomber.cpp
         src/model/spaceships/StarDestroyer.cpp
-        src/model/spaceships/MillenniumFalcon.cpp
+        src/model/spaceships/Falcon.cpp
         src/model/agent/ImperialAgent.cpp
         src/controller/Controller.cpp
         src/view/View.cpp

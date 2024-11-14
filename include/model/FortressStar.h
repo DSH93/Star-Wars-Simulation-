@@ -43,6 +43,11 @@ public:
     void update() override {
         // Implementation for updating the state of the fortress
     }
+
+    void addCrystals(int amount) {
+        crystalAmount += amount;
+    }
+
 };
 
 #endif //STARWARSSIMULATION_FORTRESSSTAR_H

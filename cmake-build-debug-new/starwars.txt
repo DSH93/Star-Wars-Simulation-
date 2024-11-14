@@ -1,0 +1,14 @@
+create admiral Tarkin
+
+create commander Ozzel
+
+create midshipman Peter
+
+create bomber B2 Ozzel (40.00, 10.00)
+
+create shuttle GX Peter (0.00, 0.00)
+
+create falcon millennium (42.00, 42.00)
+
+
+GX start_supply Yavin DS

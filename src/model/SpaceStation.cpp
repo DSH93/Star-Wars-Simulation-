@@ -13,7 +13,7 @@ SpaceStation::SpaceStation(int crystalsAmount, int productionRate, Position posi
 
 
 int SpaceStation::getCrystalsAmount() const {
-    return 0;
+    return crystalsAmount;
 }
 
 void SpaceStation::setCrystalsAmount(int crystalsAmount) {
@@ -34,7 +34,7 @@ void SpaceStation::interact(std::shared_ptr<SpaceObject> other) {
 }
 
 void SpaceStation::update() {
-    // empty implementation
+    crystalsAmount += productionRate;
 }
 
 Position SpaceStation::getCurrentPosition() {
@@ -43,4 +43,21 @@ Position SpaceStation::getCurrentPosition() {
 
 void SpaceStation::toString() const {
     std::cout << "SpaceStation: " << id << " at " << "Position: (" << position.getX() << ", " << position.getY() << ") with " << crystalsAmount << " crystals and production rate of " << productionRate << std::endl;
+}
+
+int SpaceStation::unloadCrystals() {
+    if (crystalsAmount == 0) {
+        std::cerr << "Error: No crystals to unload" << std::endl;
+        return 0;
+    }
+
+    if (crystalsAmount > 5) {
+        crystalsAmount -= 5;
+        return 5;
+
+    } else {
+        int amount = crystalsAmount;
+        crystalsAmount = 0;
+        return amount;
+    }
 }

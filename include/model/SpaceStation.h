@@ -30,9 +30,13 @@ public:
 
     void update();
 
+    int unloadCrystals() const;
+
     Position getCurrentPosition() override;
 
     void toString() const;
+
+    int unloadCrystals();
 };
 
 

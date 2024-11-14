@@ -2,6 +2,8 @@
 // Created by Dor Shukrun on 24/08/2024.
 //
 
+#include <cmath>
+
 #include "model/spaceships/Spaceship.h"
 #include "model/Timer.h"
 
@@ -28,24 +30,51 @@ void Spaceship::setDirection(const Direction &dir) {
 }
 
 void Spaceship::move(const Position &newDestination) {
-    this->destination = newDestination;
-    this->direction = Direction(this->position, newDestination);
-    this->state = SpaceshipState::MOVING;
-    this->updateMissionTime();
+    if (this->state == SpaceshipState::DEAD) {
+        std::cerr << "Error: Spaceship is dead" << std::endl;
+        return;
+    }
+
+    if (this->state == SpaceshipState::MOVING) {
+        commands.push(newDestination);
+    }
+
+    else { // spaceship is stopped or docked
+        updateMissionTime();
+        destination = newDestination;
+        direction = Direction(this->position, newDestination);
+        state = SpaceshipState::MOVING;
+
+
+    }
+
+
 }
 
 Position Spaceship::getCurrentPosition() {
-    float AC = this->speed * (this->currentTime - this->startMissionTime);
+    currentTime = Timer::getCurrentTick();
+    int AC = (int) speed * (currentTime - startMissionTime);
     float angle = this->direction.getAngle();
-    float x = this->position.getX() + AC * cos(angle);
-    float y = this->position.getY() + AC * sin(angle);
-    return Position(x, y);
+    float x = this->position.getX() + float(AC) * std::cos(angle);
+    float y = this->position.getY() + float(AC) * std::sin(angle);
+    return {x, y};
 
 }
 
 void Spaceship::update() {
-    int currentTick = Timer::getCurrentTick();
-    this->currentTime = currentTick;
+    currentTime = Timer::getCurrentTick();
+    position = getCurrentPosition();
+    if (position.distance(destination) == 0) {
+        if (!commands.empty()) {
+            destination = commands.front();
+            commands.pop();
+            direction = Direction(position, destination);
+            updateMissionTime();
+        } else {
+            state = SpaceshipState::MOVING;
+        }
+    }
+
 }
 
 void Spaceship::updateMissionTime() {
@@ -54,5 +83,28 @@ void Spaceship::updateMissionTime() {
 
 void Spaceship::stop() {
     this->state = SpaceshipState::STOPPED;
-    //TODO update the mission time and current position
+    position = getCurrentPosition();
+    this->clearCommands();
+
+}
+
+std::string getSpaceshipState(Spaceship::SpaceshipState state) {
+    switch (state) {
+        case Spaceship::SpaceshipState::STOPPED:
+            return "Stopped";
+        case Spaceship::SpaceshipState::DOCKED:
+            return "Docked";
+        case Spaceship::SpaceshipState::MOVING:
+            return "Moving";
+        case Spaceship::SpaceshipState::DEAD:
+            return "Dead";
+    }
+    return "Unknown";
+}
+
+
+void Spaceship::clearCommands() {
+    while (!commands.empty()) {
+        commands.pop();
+    }
 }

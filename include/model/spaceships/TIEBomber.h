@@ -52,11 +52,6 @@ public:
 
     int getMissilesCounter() const;
 
-    std::string createMissile(Position targetPos);
-
-    std::string missileUpdate(const std::vector<std::pair<std::string, Position>>& falconsPositions);
-
-    void shoot(Position targetPos);
 };
 
 #endif //STARWARSSIMULATION_TIEBOMBER_H

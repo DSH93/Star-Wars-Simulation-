@@ -19,7 +19,7 @@
 #include "model/spaceships/Spaceship.h"
 #include "model/spaceships/StarDestroyer.h"
 #include "model/spaceships/TIEBomber.h"
-#include "model/spaceships/MillenniumFalcon.h"
+#include "model/spaceships/Falcon.h"
 #include "model/spaceships/Shuttle.h"
 
 #include "model/agents/ImperialAgent.h"
@@ -43,50 +43,34 @@ private:
     Model(); // provide Singleton
 
 public:
-    static Model& getInstance(); // provide the only instance of Model
-    Model(const Model&) = delete;
-    Model& operator=(const Model&) = delete; // prevent copy and assignment
-
-    void addObject(std::unique_ptr<SpaceObject> object);
+    static Model &getInstance(); // provide the only instance of Model
+    Model(const Model &) = delete;
+    Model &operator=(const Model &) = delete; // prevent copy and assignment
     void removeObject(const SpaceObject &object);
-
-    static float calculateDistance(const Position& pos1, const Position& pos2);
-    static Direction calculateDirection(const Position& from, const Position& to);
+    static float calculateDistance(const Position &pos1, const Position &pos2);
+    static Direction calculateDirection(const Position &from, const Position &to);
     void addSite(std::vector<std::string> &command);
     void create(std::vector<std::string> &command);
     void status(); // display the status of all the objects
     void go(); // continue the simulation in 1 step of time
-    void attack(std::vector<std::string> &command); // determine the target of a missile for the MillenniumFalcon
+    void attack(std::vector<std::string> &command); // determine the target of a missile for the Falcon
     void shoot(std::vector<std::string> &command); // determine the target of a missile for the TIEBomber
     void stop(std::vector<std::string> &command); // to stop the movement of a spaceship and cancel all the waiting missions
-    void position(std::vector<std::string> &command); // to determine the destination of a flight
+    void position(std::vector<std::string> &command); // to determine the fortress of a flight
     void destination(std::vector<std::string> &command); // to determine the site destinatio
-    void exit(); // to exit the simulation
     void createTroops(std::vector<std::string> &command);
     void createSpaceship(std::vector<std::string> &command);
-
-
-
-
-
     void advanceTime();
     static int getCurrentTime();
-
-    void course();
-
     bool validateObjectExists(const std::string &objectName);
-
     bool validateObjectExists(const std::string &objectName, const std::string &role);
-
     float findClosetBomber(const Position &attackerPos);
+    void course(std::vector<std::string> &command);
+    void defaultSite();
+    void starDestroyerUpdate();
+    void startSupplyMission(std::vector<std::string> &command);
 
-    void createMissile(const Position& targetPos, const std::shared_ptr<TIEBomber>& bomber);
-
-    void misslesUpdate();
-
-    void shoot2(std::vector<std::string> &command);
-
-    void bomberUpdate();
+    void statusByObj(std::vector<std::string> &command);
 };
 
 

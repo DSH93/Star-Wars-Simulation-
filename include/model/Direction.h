@@ -14,7 +14,7 @@ private:
     float angle;
 
 public:
-    Direction(float angle) : angle(angle) {}
+    explicit Direction(float angle) : angle(angle) {}
     Direction(Position src, Position dst) : angle(calculateAngle(src, dst)) {}
     [[nodiscard]] Position getCurrentPositionBySpeedAndTime(int speed, int time, Position pos) const {
         float x = pos.getX() + speed * time * std::cos(angle);
@@ -22,7 +22,10 @@ public:
         return {x, y};
     }
 
-    float getAngle() const { return angle; }
+    float getAngle() const {
+
+        return angle;
+    }
     void setAngle(float angle) { Direction::angle = angle; }
     void rotate(float angle) { Direction::angle += angle; }
 
