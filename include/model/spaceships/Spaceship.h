@@ -78,8 +78,7 @@ public:
     ~Spaceship() override = default;
 
 
-
-
+    Position getDestinationPosition();
 };
 
 

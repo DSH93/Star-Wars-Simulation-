@@ -17,14 +17,17 @@ void StarDestroyer::addMission() {
 }
 
 void StarDestroyer::status() {
-    std::cout << "Star Destroyer " << id << " at " << position << " ";
+    std::cout << "Star Destroyer " << id << " at " << position << " , State: " << stateToString[state] << std::endl;
+    for (const auto& missileName: destroyerMissiles) {
+        auto missile = std::dynamic_pointer_cast<Missile>(missilesMap[missileName]);
+        missile->status();
+    }
 
 }
 
 void StarDestroyer::update() {
     position = getCurrentPosition();
-
-}
+    // todo make the updatemissle from update function
 
 
 void StarDestroyer::startMission() {
@@ -43,14 +46,14 @@ std::string StarDestroyer::createMissile(Position targetPos) {
     std::string missileName = "m" + std::to_string(missilesCounter);
     auto missile = std::make_shared<Missile>(position, targetPos, missileName);
     missilesMap[missileName] = std::move(missile);
-    bomberMissiles.push_back(missileName);
+    destroyerMissiles.push_back(missileName);
     return missileName;
 
 }
 
 std::string StarDestroyer::missileUpdate(const std::vector<std::pair<std::string, Position>> &falconsPositions) {
     std::string falconName;
-    for (const auto& missileName: bomberMissiles) {
+    for (const auto& missileName: destroyerMissiles) {
         auto missile = std::dynamic_pointer_cast<Missile>(missilesMap[missileName]);
         falconName = missile->update(falconsPositions); // if missile hit falcon return falcon name
         if (missile->isMissileDestroyed()) {
@@ -58,7 +61,7 @@ std::string StarDestroyer::missileUpdate(const std::vector<std::pair<std::string
             // remove missile from the map
             missilesMap.erase(missileName);
             // remove missile from the vector
-            bomberMissiles.erase(std::remove(bomberMissiles.begin(), bomberMissiles.end(), missileName),bomberMissiles.end());
+            destroyerMissiles.erase(std::remove(destroyerMissiles.begin(), destroyerMissiles.end(), missileName), destroyerMissiles.end());
 
         }
     }
@@ -70,6 +73,6 @@ std::string StarDestroyer::missileUpdate(const std::vector<std::pair<std::string
 void StarDestroyer::shoot(Position targetPos) {
     missilesCounter++;
     std::string missileName = createMissile(targetPos);
-    std::cout << "TIE Bomber " << id << " shoot missile " << missileName << " to " << targetPos << std::endl;
+    std::cout << "Destroyer " << id << " Shoot Missile [" << missileName << "] to " << targetPos << std::endl;
 
 }

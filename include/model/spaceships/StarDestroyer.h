@@ -16,7 +16,7 @@
 class StarDestroyer : public Spaceship{
 private:
     std::shared_ptr<Admiral> pilot;
-    std::vector<std::string> bomberMissiles;
+    std::vector<std::string> destroyerMissiles;
     std::unordered_map<std::string, std::shared_ptr<Missile>> missilesMap{};
     int missilesCounter = 0;
 

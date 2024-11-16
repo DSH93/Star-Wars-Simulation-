@@ -7,28 +7,25 @@
 
 
 #include "model/SpaceObject.h"
+#include "model/spaceships/Spaceship.h"
 #include <vector>
 
 
-class Missile : public SpaceObject {
+class Missile : public Spaceship {
 private:
-    int startMissionTime;
     Position target;
-    Direction direction;
-    int distance;
-    int speed;
+    float distance;
     bool isDestroyed = false;
 
 
 public:
 
-    Missile(const Position &bomberPos, const Position &targetPos, const std::string &identifier);
+    Missile(const Position &destroyer, const Position &targetPos, const std::string &identifier);
+
 
     void status() override;
 
     void interact(std::shared_ptr<SpaceObject> other) override;
-
-    Position getCurrentPosition() override;
 
     ~Missile() override = default;
 
@@ -36,15 +33,13 @@ public:
 
     void setTarget(const Position &misTarget);
 
-    bool isMissileDestroyed() const;
+    [[nodiscard]] bool isMissileDestroyed() const;
 
     void destroy();
 
-    std::string getId() const;
-
     std::string update(const std::vector<std::pair<std::string, Position>>& falconsPositions);
 
-    Position getTarget() const;
+    [[nodiscard]] Position getTarget() const;
 };
 
 

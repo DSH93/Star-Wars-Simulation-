@@ -21,9 +21,6 @@ void Falcon::update() {
     position = Spaceship::getCurrentPosition();
 
 
-
-
-
 }
 
 void Falcon::status() {

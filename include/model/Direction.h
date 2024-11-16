@@ -15,21 +15,24 @@ private:
 
 public:
     explicit Direction(float angle) : angle(angle) {}
+
     Direction(Position src, Position dst) : angle(calculateAngle(src, dst)) {}
+
     [[nodiscard]] Position getCurrentPositionBySpeedAndTime(int speed, int time, Position pos) const {
-        float x = pos.getX() + speed * time * std::cos(angle);
-        float y = pos.getY() + speed * time * std::sin(angle);
-        return {x, y};
+        float x = pos.getXInKm() + float(speed) * float(time) * std::cos(angle);
+        float y = pos.getYInKm() + float(speed) * float(time) * std::sin(angle);
+        return {x / Position::getUnitToKm(), y / Position::getUnitToKm()}; // Convert back to internal units
     }
 
-    float getAngle() const {
-
+    [[nodiscard]] float getAngle() const {
         return angle;
     }
-    void setAngle(float angle) { Direction::angle = angle; }
-    void rotate(float angle) { Direction::angle += angle; }
 
-    std::pair<float, float> getDirectionVector() {
+    void setAngle(float newAngle) { Direction::angle = newAngle; }
+
+    void rotate(float newAngle) { Direction::angle += newAngle; }
+
+    [[nodiscard]] std::pair<float, float> getDirectionVector() const {
         float x = std::cos(angle);
         float y = std::sin(angle);
         return std::make_pair(x, y);

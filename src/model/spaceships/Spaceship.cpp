@@ -52,14 +52,26 @@ void Spaceship::move(const Position &newDestination) {
 }
 
 Position Spaceship::getCurrentPosition() {
+    if (state == SpaceshipState::STOPPED) {
+        return position;
+    }
     currentTime = Timer::getCurrentTick();
-    int AC = (int) speed * (currentTime - startMissionTime);
-    float angle = this->direction.getAngle();
-    float x = this->position.getX() + float(AC) * std::cos(angle);
-    float y = this->position.getY() + float(AC) * std::sin(angle);
-    return {x, y};
 
+    auto timeElapsed = float(currentTime - startMissionTime);
+    float distanceTraveled = speed * timeElapsed;
+
+    float angle = this->direction.getAngle();
+
+    float deltaX = distanceTraveled * std::cos(angle) / 1000.0f;
+    float deltaY = distanceTraveled * std::sin(angle) / 1000.0f;
+
+    float newX = this->position.getX() + deltaX;
+    float newY = this->position.getY() + deltaY;
+
+    return {newX, newY};
 }
+
+
 
 void Spaceship::update() {
     currentTime = Timer::getCurrentTick();
@@ -107,4 +119,8 @@ void Spaceship::clearCommands() {
     while (!commands.empty()) {
         commands.pop();
     }
+}
+
+Position Spaceship::getDestinationPosition() {
+    return destination;
 }

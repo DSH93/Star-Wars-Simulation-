@@ -123,10 +123,11 @@ void Model::createSpaceship(std::vector<std::string> &command) {
                 }
                 auto destroyer = std::make_unique<StarDestroyer>(pos1, spaceshipName, 2000.0f, admiralPilot);
                 ids.push_back(spaceshipName);
+                starDestroyersSpaceships.push_back(command[2]);
+
                 objectsMap[spaceshipName] = std::move(destroyer);
 
             } else if (type == "bomber") {
-                bombers.push_back(command[2]);
                 auto commanderPilot = std::dynamic_pointer_cast<Commander>(it->second);
                 if (!commanderPilot) {
                     std::cerr << "Error: pilot is not a Commander for TIEBomber" << std::endl;
@@ -177,14 +178,14 @@ void Model::statusByObj(std::vector<std::string> &command) {
 
 void Model::starDestroyerUpdate() {
     std::vector<std::pair<std::string, Position>> falconsPositions;
-    for (const auto& falconName: falcons) {
+    for (const auto& falconName: falcons) { // todo check for falcons if its updated
         auto falcon = std::dynamic_pointer_cast<Falcon>(objectsMap[falconName]);
         if (!falcon->isAlive()) continue;
         falconsPositions.emplace_back(falconName, falcon->getCurrentPosition());
     }
     std::string falconName;
-    for (const auto& bomberName: bombers) {
-        auto starDestroyer = std::dynamic_pointer_cast<StarDestroyer>(objectsMap[bomberName]);
+    for (const auto& starDestroyerName: starDestroyersSpaceships) {
+        auto starDestroyer = std::dynamic_pointer_cast<StarDestroyer>(objectsMap[starDestroyerName]);
         falconName = starDestroyer->missileUpdate(falconsPositions);
     }
     if (!falconName.empty()) {
@@ -195,8 +196,9 @@ void Model::starDestroyerUpdate() {
 }
 
 void Model::go() {
-    starDestroyerUpdate();
     advanceTime();
+    starDestroyerUpdate();
+
 
 
 }
@@ -219,7 +221,7 @@ bool Model::validateObjectExists(const std::string &objectName, const std::strin
 
 float Model::findClosetBomber(const Position &attackerPos) {
     float ClosetBomber = 1000000; // 1000Km
-    for (const std::string &bomberName: bombers) {
+    for (const std::string &bomberName: starDestroyersSpaceships) {
         auto bomber = std::dynamic_pointer_cast<TIEBomber>(objectsMap[bomberName]);
         if (bomber) {
             Position bomberPos = bomber->getCurrentPosition();

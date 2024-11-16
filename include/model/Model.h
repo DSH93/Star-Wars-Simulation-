@@ -36,7 +36,7 @@ private:
     std::unordered_map<std::string, std::shared_ptr<SpaceObject>> objectsMap;
     std::unordered_map<std::string, std::shared_ptr<ImperialAgent>> agents;
     std::vector<std::string> ids;
-    std::vector<std::string> bombers;
+    std::vector<std::string> starDestroyersSpaceships;
     std::vector<std::string> missiles;
     std::vector<std::string> falcons;
 

@@ -139,17 +139,17 @@ void Shuttle::update() {
 
 
 void Shuttle::status() {
+    std::cout << std::endl;
     std::string state = stateToString[this->state];
     if (this->state == SpaceshipState::DOCKED) {
         state += " at " + position.toString();
     }
     if (this->state == SpaceshipState::MOVING) {
-        state += "to " + destination.toString();
+        state += " to " + destination.toString();
     }
 
-    std::cout << "Shuttle: " << id
-              << "\nPosition: " << position
-              << "waiting: " << needToWait
+    std::cout << "Shuttle: " << id << " Position: " << position.toString()
+              << " Waiting: " << needToWait
               //<< "\nPilot: " << "Midshipman, " << pilot->getName()
               //  << "\nCrystals: " << crystalsContainers << "/" << maxCrystalsContainers
               //    << "\nPower units: " << powerUnits << "/" << maxPowerUnits

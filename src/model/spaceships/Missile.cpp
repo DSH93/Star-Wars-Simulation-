@@ -7,10 +7,15 @@
 
 
 
-Missile::Missile(const Position &bomberPos, const Position &targetPos, const std::string &identifier)
-        : SpaceObject(bomberPos, identifier), direction(bomberPos, targetPos), target(targetPos), speed(3000.0f) {
+Missile::Missile(const Position &destroyer, const Position &targetPos, const std::string &identifier)
+        : Spaceship(const_cast<Position&>(destroyer), identifier),
+          target(targetPos) {
+    setDestination(targetPos);
+    setSpeed(3000.0f);
+    distance = destroyer.distance(targetPos);
+    setState(SpaceshipState::MOVING);
     startMissionTime = Timer::getCurrentTick();
-    distance = bomberPos.distance(targetPos);
+    direction = Direction(destroyer, targetPos);
 }
 
 
@@ -19,23 +24,16 @@ void Missile::setTarget(const Position &misTarget) { // change the misTarget of 
     this->target = misTarget;
     direction = Direction(getCurrentPosition(), misTarget);
 
-
 }
 
 bool Missile::isMissileDestroyed() const {
     return isDestroyed;
 }
 
-void Missile::destroy() {
-    if (getCurrentPosition() == target) {
-
-    }
-}
-
 
 void Missile::status() {
     std::string id = getId();
-    std::cout << "Missile " << id << "current position: " << getCurrentPosition() <<"Target" << target << std::endl;
+    std::cout << "\n}=Missile==> " << id << " "<< position <<", Target: " << target.toString() << std::endl;
 
 
 }
@@ -44,25 +42,26 @@ void Missile::interact(std::shared_ptr<SpaceObject> other) {
 
 }
 
-Position Missile::getCurrentPosition() {
-    int time = Timer::getCurrentTick() + 1 - startMissionTime;
-    int distanceCovered = time * speed;
-    if (distanceCovered >= distance) {
-        return target;
-    }
-    return direction.getCurrentPositionBySpeedAndTime(speed, time, position);
 
-
-}
 
 Position Missile::getTarget() const {
     return target;
 }
 
 std::string Missile::update(const std::vector<std::pair<std::string, Position>>& falconsPositions) {
+    if (isDestroyed) setState(SpaceshipState::DEAD);
+    setState(SpaceshipState::MOVING);
+    float angleToTarget = Direction::calculateAngle(position, target);
+    position = this->Spaceship::getCurrentPosition();
+    float angleAfter = Direction::calculateAngle(position, target);
+    if (angleToTarget != angleAfter) {
+        position = target;
+    }
+
+    status();
     std::string falconName;
     for (auto &falcon: falconsPositions) {
-        if (falcon.second == target && target == getCurrentPosition()) {
+        if (falcon.second == target && position == target) {
             falconName = falcon.first;
             isDestroyed = true;
             break;
@@ -74,9 +73,7 @@ std::string Missile::update(const std::vector<std::pair<std::string, Position>>&
 
 }
 
-std::string Missile::getId() const {
-    return id;
-}
+
 
 void Missile::update() {
 

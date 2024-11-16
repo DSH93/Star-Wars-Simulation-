@@ -6,22 +6,31 @@
 
 #include <cmath>
 #include <iostream>
+#include <string>
 
 class Position {
 private:
     float x;
     float y;
+    static constexpr float UNIT_TO_KM = 1000.0f; // Define unit-to-km conversion
 
 public:
     Position(float x, float y) : x(x), y(y) {} // Constructor
+    static float getUnitToKm() { return UNIT_TO_KM; }
 
-    float getX() const { return x; }
-    float getY() const { return y; }
+    [[nodiscard]] float getX() const { return x; }
+
+    [[nodiscard]] float getY() const { return y; }
+
+    [[nodiscard]] float getXInKm() const { return x * UNIT_TO_KM; }
+
+    [[nodiscard]] float getYInKm() const { return y * UNIT_TO_KM; }
 
     void setX(float x1) { this->x = x1; }
+
     void setY(float y1) { this->y = y1; }
 
-    void move(float x1, float y1) {  // Move the position to the given x and y
+    void move(float x1, float y1) { // Move the position to the given x and y
         setX(x1);
         setY(y1);
     }
@@ -30,28 +39,28 @@ public:
         move(position.getX(), position.getY());
     }
 
-    float distance(Position position) const { // Calculate the distance between the current position and the given position
+    [[nodiscard]] float distance(Position position) const { // Calculate distance to another position
         return distance(position.getX(), position.getY());
     }
 
-    float distance(float x1, float y1) const { // Calculate the distance between the current position and the given x1 and y1
+    [[nodiscard]] float distance(float x1, float y1) const { // Calculate distance to specific coordinates
         float a = this->x - x1;
         float b = this->y - y1;
-        return std::sqrt(a * a + b * b);
+        return std::sqrt(a * a + b * b) * UNIT_TO_KM; // Convert to kilometers
     }
+
 
     void print() const {
         std::cout << "Position: (" << x << ", " << y << ")" << std::endl;
     }
 
-    Position& operator=(Position position) { // Assign the given position to the current position
+    Position &operator=(Position position) { // Assign the given position to the current position
         if (this != &position) {
             x = position.x;
             y = position.y;
         }
         return *this;
     }
-
 
     bool operator==(Position position) const { // Check if the given position is equal to the current position
         return x == position.x && y == position.y;
@@ -63,9 +72,17 @@ public:
     }
 
     [[nodiscard]] std::string toString() const {
-        return "(" + std::to_string(x) + ", " + std::to_string(y) + ")";
-    }
+        auto formatNumber = [](float value) -> std::string {
+            std::string str = std::to_string(value);
+            size_t dotPos = str.find('.');
+            if (dotPos != std::string::npos && dotPos + 3 < str.size()) {
+                return str.substr(0, dotPos + 3); // Keep up to 2 decimal places
+            }
+            return str; // Return as is if no need to trim
+        };
 
+        return "(" + formatNumber(x) + ", " + formatNumber(y) + ")";
+    }
 
 };
 

@@ -108,18 +108,34 @@ void Controller::loadAndInitializeSites(char **argv) {
 
 }
 
+
 void Controller::startSimulation() {
     std::string line;
+
     while (true) {
-        std::cout.flush();
-        std::cout << " Time " << Timer::getCurrentTick() << ": Enter command: ";
+        std::cout << "Time " << Timer::getCurrentTick() << ": Enter command: " << std::endl;
         std::getline(std::cin, line);
-        if (line.empty()) continue;
+
+        line.erase(0, line.find_first_not_of(" \t"));
+        line.erase(line.find_last_not_of(" \t") + 1);
+
+        if (line.empty()) {
+            if (std::cin.fail()) {
+                std::cin.clear();
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            }
+            continue;
+        }
+
         if (line == "exit") {
             break;
         }
+
         std::vector<std::string> command = split(line);
         commands.push(command);
         processCommand();
+
+        std::cout.flush();
     }
 }
+
