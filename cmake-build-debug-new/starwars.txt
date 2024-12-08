@@ -10,5 +10,8 @@ create shuttle GX Peter (0.00, 0.00)
 
 create falcon millennium (42.00, 42.00)
 
+create destroyer T0 Tarkin (20.00, 10.00)
 
 GX start_supply Yavin DS
+
+T0 shoot (42.00, 42.00)

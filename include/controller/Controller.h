@@ -20,7 +20,7 @@ private:
 
 
 public:
-    Controller() : model(Model::getInstance()) {}
+    Controller() : model(Model::getInstance()), view(std::make_shared<View>()) {}
 
     void run(int argc, char **argv);
 

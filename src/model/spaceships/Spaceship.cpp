@@ -12,6 +12,8 @@ void Spaceship::setState(Spaceship::SpaceshipState newState) {
 
 }
 
+
+
 const Position &Spaceship::getDestination() const {
     return this->destination;
 }
@@ -53,23 +55,42 @@ void Spaceship::move(const Position &newDestination) {
 
 Position Spaceship::getCurrentPosition() {
     if (state == SpaceshipState::STOPPED) {
-        return position;
+        return position; // If stopped, return the current position
     }
+
     currentTime = Timer::getCurrentTick();
-
     auto timeElapsed = float(currentTime - startMissionTime);
+    if (timeElapsed <= 0) {
+        return position; // No time elapsed, return current position
+    }
+
     float distanceTraveled = speed * timeElapsed;
+    float angleToDestination = Direction::calculateAngle(position, destination);
+    direction = Direction(position, destination);
 
-    float angle = this->direction.getAngle();
+    float deltaX = distanceTraveled * std::cos(angleToDestination) / 1000.0f;
+    float deltaY = distanceTraveled * std::sin(angleToDestination) / 1000.0f;
 
-    float deltaX = distanceTraveled * std::cos(angle) / 1000.0f;
-    float deltaY = distanceTraveled * std::sin(angle) / 1000.0f;
+    Position newPosition(position.getX() + deltaX, position.getY() + deltaY);
 
-    float newX = this->position.getX() + deltaX;
-    float newY = this->position.getY() + deltaY;
+    // Calculate the new angle after movement
+    float angleAfterMovement = Direction::calculateAngle(newPosition, destination);
+    float deviation = std::abs(angleToDestination - angleAfterMovement);
 
-    return {newX, newY};
+    // Check if the spaceship has reached its destination
+    if (deviation < 0.00001 || newPosition.distance(destination) < 0.1f) { // Threshold for floating-point precision
+        position = destination; // Update to exact destination
+        std::string type = typeid(*this).name();
+        std::cout << type << ": "<< SpaceObject::id << " has arrived at " << destination << std::endl;
+
+        setState(SpaceshipState::DOCKED); // Change state to DOCKED
+        return destination;
+    }
+
+    position = newPosition; // Update position for further movement
+    return position;
 }
+
 
 
 
@@ -77,7 +98,7 @@ void Spaceship::update() {
     currentTime = Timer::getCurrentTick();
     position = getCurrentPosition();
     if (position.distance(destination) == 0) {
-        if (!commands.empty()) {
+        if (!commands.empty()) {// todo i need to aff the mission ti the commands
             destination = commands.front();
             commands.pop();
             direction = Direction(position, destination);

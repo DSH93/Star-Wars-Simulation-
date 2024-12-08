@@ -11,10 +11,6 @@ void StarDestroyer::interact(std::shared_ptr<SpaceObject> other) {
 
 }
 
-void StarDestroyer::addMission() {
-    // empty implementation
-
-}
 
 void StarDestroyer::status() {
     std::cout << "Star Destroyer " << id << " at " << position << " , State: " << stateToString[state] << std::endl;
@@ -26,21 +22,11 @@ void StarDestroyer::status() {
 }
 
 void StarDestroyer::update() {
-    position = getCurrentPosition();
-    // todo make the updatemissle from update function
-
-
-void StarDestroyer::startMission() {
-    // empty implementation
-
-
+    Spaceship::update();
 }
 
-void StarDestroyer::finishMission() {
-    // empty implementation
 
 
-}
 
 std::string StarDestroyer::createMissile(Position targetPos) {
     std::string missileName = "m" + std::to_string(missilesCounter);
@@ -76,3 +62,14 @@ void StarDestroyer::shoot(Position targetPos) {
     std::cout << "Destroyer " << id << " Shoot Missile [" << missileName << "] to " << targetPos << std::endl;
 
 }
+
+std::vector<std::pair<std::string, Position>> StarDestroyer::getMissilesNameAndPosition() {
+    std::vector<std::pair<std::string, Position>> missiles;
+    for (const auto& missileName: destroyerMissiles) {
+        auto missile = std::dynamic_pointer_cast<Missile>(missilesMap[missileName]);
+        missiles.emplace_back(missileName, missile->getPosition());
+    }
+    return missiles;
+}
+
+

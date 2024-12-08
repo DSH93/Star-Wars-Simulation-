@@ -48,7 +48,7 @@ public:
     Model &operator=(const Model &) = delete; // prevent copy and assignment
     void removeObject(const SpaceObject &object);
     static float calculateDistance(const Position &pos1, const Position &pos2);
-    static Direction calculateDirection(const Position &from, const Position &to);
+
     void addSite(std::vector<std::string> &command);
     void create(std::vector<std::string> &command);
     void status(); // display the status of all the objects
@@ -61,7 +61,7 @@ public:
     void createTroops(std::vector<std::string> &command);
     void createSpaceship(std::vector<std::string> &command);
     void advanceTime();
-    static int getCurrentTime();
+
     bool validateObjectExists(const std::string &objectName);
     bool validateObjectExists(const std::string &objectName, const std::string &role);
     float findClosetBomber(const Position &attackerPos);
@@ -71,6 +71,8 @@ public:
     void startSupplyMission(std::vector<std::string> &command);
 
     void statusByObj(std::vector<std::string> &command);
+
+    std::vector<std::pair<std::string, Position>> getPositions() const;
 };
 
 

@@ -35,8 +35,6 @@ public:
 
     [[nodiscard]] bool isMissileDestroyed() const;
 
-    void destroy();
-
     std::string update(const std::vector<std::pair<std::string, Position>>& falconsPositions);
 
     [[nodiscard]] Position getTarget() const;

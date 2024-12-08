@@ -12,6 +12,8 @@
 void Controller::processCommand() {
     while (!commands.empty()) {
         std::vector<std::string> command = commands.front();
+        std::vector<std::pair<std::string, Position>> positions = model.getPositions();
+        view->setPositions(positions);
         commands.pop();
         if (command[0] == "station" || command[0] == "fortress") {
             model.addSite(command);
@@ -27,6 +29,7 @@ void Controller::processCommand() {
         } else if (command[0] == "go") {
             model.go();
         } else if (command[0] == "show") {
+            view->printGrid();
 
         } else if (command[0] == "pan") {
             //
@@ -111,6 +114,7 @@ void Controller::loadAndInitializeSites(char **argv) {
 
 void Controller::startSimulation() {
     std::string line;
+
 
     while (true) {
         std::cout << "Time " << Timer::getCurrentTick() << ": Enter command: " << std::endl;

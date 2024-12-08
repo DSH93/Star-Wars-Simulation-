@@ -19,8 +19,6 @@ void Falcon::addMission() {
 
 void Falcon::update() {
     position = Spaceship::getCurrentPosition();
-
-
 }
 
 void Falcon::status() {
@@ -29,8 +27,6 @@ void Falcon::status() {
               << " | Status: " << stateToString[state]
               << std::endl;
 }
-
-
 
 void Falcon::startMission() {
     // empty implementation
@@ -55,10 +51,6 @@ void Falcon::killFalcon() {
     setState(SpaceshipState::DEAD);
 }
 
-
-
-
-
 int Falcon::getAttPowerUnits() const {
     return attPowerUnits;
 
@@ -68,7 +60,6 @@ void setSpeed(int speed){
     speed = speed;
 }
 
-
 void Falcon::increaseAttPowerUnits() {
     attPowerUnits++;
 }
@@ -77,10 +68,7 @@ void Falcon::decreaseAttPowerUnits() {
     attPowerUnits--;
 }
 
-bool Falcon::canAttack(int attackerPower, int targetDefense,
-                       const Position &attackerPos, const Position &targetPos, float distanceToTarget,
-                       float closetBomber) {
-
+bool Falcon::canAttack(int attackerPower, int targetDefense,const Position &attackerPos, const Position &targetPos, float distanceToTarget, float closetBomber) {
 
     if (distanceToTarget > 100000) { // 100Km
         std::cerr << "Error: Target is too far for attack" << std::endl;
@@ -99,7 +87,6 @@ bool Falcon::canAttack(int attackerPower, int targetDefense,
 
     return true;
 }
-
 
 void Falcon::attack(const std::shared_ptr<SpaceObject>& target, float distanceToTarget, float closetBomber) {
     auto shuttleTarget = std::dynamic_pointer_cast<Shuttle>(target);

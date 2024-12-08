@@ -25,6 +25,7 @@ private:
     std::shared_ptr<SpaceStation> spaceStation;
     std::queue<std::pair<std::shared_ptr<SpaceStation>, std::shared_ptr<FortressStar>>> supplyMissions; // pair of source and fortress for each mission <Space Station, Fortress Star>
     std::shared_ptr<Midshipman> pilot; // Midshipman that pilots the shuttle
+    bool finishedMission = true;
     bool needToWait = true;
 
 

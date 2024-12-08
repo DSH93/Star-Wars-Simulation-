@@ -1,5 +1,8 @@
 Time 0:  Enter command : show
 Display size: 25, scale: 2.00 , origin: (0.00, 0.00)
+
+
+
 48 . . . . . . . . . . . . . . . . . . . . . . . . .
    . . . . . . . . . . . . . . . . . . . . . . . . .
    . . . . . . . . . . . . . . . . . . . . . . . . .
@@ -26,6 +29,10 @@ Display size: 25, scale: 2.00 , origin: (0.00, 0.00)
    . . . . . . . . . . . . . . . . . . . . . . . . .
 0  . . . . . . . . . . . . . . . Ar. . . . . . . . .
    0     6    12    18    24    30    36    42    48
+
+
+
+
 
 Time 0:  Enter command : create admiral Tarkin
 Time 0:  Enter command : create commander Ozzel

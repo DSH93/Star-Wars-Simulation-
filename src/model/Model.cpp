@@ -36,11 +36,6 @@ float Model::calculateDistance(const Position &pos1, const Position &pos2) {
 
 }
 
-Direction Model::calculateDirection(const Position &from, const Position &to) {
-    Direction direction(from, to);
-    return direction;
-}
-
 void Model::advanceTime() {
     Timer::advanceTick();
     for (const std::string& id: ids) {
@@ -48,10 +43,6 @@ void Model::advanceTime() {
         objectsMap[id]->update();
     }
 
-}
-
-int Model::getCurrentTime() {
-    return Timer::getCurrentTick();
 }
 
 void Model::addSite(std::vector<std::string> &command) {
@@ -168,7 +159,6 @@ void Model::status() {
     }
 }
 
-
 void Model::statusByObj(std::vector<std::string> &command) {
     const std::string& objectName = command[1];
     for (const std::string& id: ids) {
@@ -268,7 +258,15 @@ void Model::stop(std::vector<std::string> &command) {
 }
 
 void Model::position(std::vector<std::string> &command) {
-
+    const std::string& spaceshipName = command[0];
+    float x = std::stof(command[1]);
+    float y = std::stof(command[2]);
+    float speed = (command.size() > 3) ? std::stof(command[3]) : 0.0f; // Extract speed if provided
+    if (!validateObjectExists(spaceshipName)) return; // Validate object existence
+    auto spaceship = std::dynamic_pointer_cast<Spaceship>(objectsMap[spaceshipName]);
+    if (!spaceship) return; // Validate cast
+    if (speed > 0.0f) spaceship->setSpeed(speed);
+    spaceship->move(Position(x, y)); // Move spaceship
 }
 
 void Model::destination(std::vector<std::string> &command) {
@@ -285,7 +283,6 @@ void Model::destination(std::vector<std::string> &command) {
 
 
 }
-
 
 void Model::course(std::vector<std::string> &command) {
     const std::string& spaceshipName = command[0];
@@ -328,7 +325,6 @@ void Model::startSupplyMission(std::vector<std::string> &command) {
     auto shuttle = std::dynamic_pointer_cast<Shuttle>(objectsMap[shuttleName]);
     if (!shuttle) return; // invalid cast
 
-
     if (!validateObjectExists(spaceStationName, "site")) return; // invalid object
     auto spaceStation = std::dynamic_pointer_cast<SpaceStation>(objectsMap[spaceStationName]);
     if (!spaceStation) return; // invalid cast
@@ -338,7 +334,24 @@ void Model::startSupplyMission(std::vector<std::string> &command) {
     if (!fortress) return; // invalid cast
     auto mission = std::make_pair(spaceStation, fortress);
     shuttle->addSupplyMission(mission);
-    shuttle->startSupplyMission();
+    shuttle->update();
+}
 
+std::vector<std::pair<std::string, Position>> Model::getPositions() const {
+    std::vector<std::pair<std::string, Position>> positions;
+    for (const std::string& id: ids) {
+        auto object = Model::getInstance().objectsMap[id];
+        positions.emplace_back(id, object->getPosition());
+        auto starDestroyer = std::dynamic_pointer_cast<StarDestroyer>(object);
+        if (starDestroyer) {
+            for (const auto& missile: starDestroyer->getMissilesNameAndPosition()) {
+                std::string missileName = missile.first;
+                Position missilePos = missile.second;
+                positions.emplace_back(missileName, missilePos);
+            }
+        }
+
+    }
+    return positions;
 }
 

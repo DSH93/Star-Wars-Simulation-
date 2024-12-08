@@ -33,13 +33,10 @@ public:
     void interact(std::shared_ptr<SpaceObject> other) override;
     void update() override;
     void status() override;
-    void addMission();
-    void startMission();
-    void finishMission();
     std::string createMissile(Position targetPos);
     std::string missileUpdate(const std::vector<std::pair<std::string, Position>>& falconsPositions);
     void shoot(Position targetPos);
-
+    std::vector<std::pair<std::string,Position>> getMissilesNameAndPosition();
 
 
 
