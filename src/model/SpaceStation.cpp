@@ -11,53 +11,47 @@ SpaceStation::SpaceStation(int crystalsAmount, int productionRate, Position posi
     : SpaceObject(position, identifier),  crystalsAmount(crystalsAmount), productionRate(productionRate) {}
 
 
-
 int SpaceStation::getCrystalsAmount() const {
     return crystalsAmount;
 }
 
-void SpaceStation::setCrystalsAmount(int crystalsAmount) {
-    // empty implementation
-}
-
-int SpaceStation::getProductionRate() const {
-    return 0;
-}
 
 void SpaceStation::status() {
     std::cout << "Station " << id << ", at " << "Position: (" << position.getX() << ", " << position.getY() << "), Inventory: "
     << crystalsAmount  << std::endl;
 }
 
-void SpaceStation::interact(std::shared_ptr<SpaceObject> other) {
-    // empty implementation
-}
 
 void SpaceStation::update() {
     crystalsAmount += productionRate;
 }
 
 Position SpaceStation::getCurrentPosition() {
-    return Position(0, 0);
+    return position;
 }
 
 void SpaceStation::toString() const {
-    std::cout << "SpaceStation: " << id << " at " << "Position: (" << position.getX() << ", " << position.getY() << ") with " << crystalsAmount << " crystals and production rate of " << productionRate << std::endl;
+    std::cout << "SpaceStation: " << id << " at " << "Position: (" << position.getX() << ", " << position.getY() << ") with " << getCrystalsAmount() << " crystals and production rate of " << productionRate << std::endl;
 }
 
 int SpaceStation::unloadCrystals() {
-    if (crystalsAmount == 0) {
-        std::cerr << "Error: No crystals to unload" << std::endl;
-        return 0;
-    }
+    int amount = 0;
 
     if (crystalsAmount > 5) {
-        crystalsAmount -= 5;
-        return 5;
+
+        this->crystalsAmount = crystalsAmount - 5;
+        amount = 5;
 
     } else {
-        int amount = crystalsAmount;
-        crystalsAmount = 0;
-        return amount;
+        amount = crystalsAmount;
+        this->crystalsAmount = 0;
     }
+
+    std::cout << "Station " << id << " has unloaded " << amount << " crystals" << std::endl;
+    return amount;
+
+}
+
+void SpaceStation::interact(std::shared_ptr<SpaceObject> other) {
+    // Do nothing
 }

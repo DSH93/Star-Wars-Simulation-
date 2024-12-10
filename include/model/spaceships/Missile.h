@@ -38,6 +38,8 @@ public:
     std::string update(const std::vector<std::pair<std::string, Position>>& falconsPositions);
 
     [[nodiscard]] Position getTarget() const;
+
+    void clear() override;
 };
 
 

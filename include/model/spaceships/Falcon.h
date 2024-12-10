@@ -9,11 +9,15 @@
 #include <memory>
 #include <vector>
 #include "Spaceship.h"
+#include "Shuttle.h"
 
 class Falcon : public Spaceship {
 private:
     int attPowerUnits = 5;
     int maxAttPowerUnits = 20;
+
+
+
 
 public:
     Falcon(Position& pos, const std::string& identifier, float speed = 3000.0f)
@@ -33,10 +37,13 @@ public:
     [[nodiscard]] int getAttPowerUnits() const;
     void increaseAttPowerUnits();
     void decreaseAttPowerUnits();
-    void attack(const std::shared_ptr<SpaceObject>& target, float distanceToTarget, float closetBomber);
     bool isAlive();
-    static bool canAttack(int attackerPower, int targetDefense, const Position &attackerPos, const Position &targetPos,
+    void clear() override;
+    bool canAttack(int attackerPower, int targetDefense, const Position &attackerPos, const Position &targetPos,
                    float distanceToTarget, float closetBomber);
+
+    void attack(const std::shared_ptr<Shuttle> &target, float distanceToTarget, float closetBomber);
+
 };
 
 

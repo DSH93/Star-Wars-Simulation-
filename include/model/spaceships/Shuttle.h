@@ -26,7 +26,7 @@ private:
     std::queue<std::pair<std::shared_ptr<SpaceStation>, std::shared_ptr<FortressStar>>> supplyMissions; // pair of source and fortress for each mission <Space Station, Fortress Star>
     std::shared_ptr<Midshipman> pilot; // Midshipman that pilots the shuttle
     bool finishedMission = true;
-    bool needToWait = true;
+    bool needToWait = false;
 
 
 
@@ -52,7 +52,7 @@ public:
 
     void interact(std::shared_ptr<SpaceObject> other) override;
 
-    void loadCrystals(int amount);
+    void loadCrystals(const std::shared_ptr<SpaceStation> &st);
 
     void unloadPowerUnits();
 
@@ -75,7 +75,7 @@ public:
     void addSupplyMission(const std::pair<std::shared_ptr<SpaceStation>, std::shared_ptr<FortressStar>>& mission);
 
 
-    void updatePositionAndState();
+    void clear() override;
 };
 
 

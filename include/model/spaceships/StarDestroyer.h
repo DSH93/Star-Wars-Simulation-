@@ -37,7 +37,7 @@ public:
     std::string missileUpdate(const std::vector<std::pair<std::string, Position>>& falconsPositions);
     void shoot(Position targetPos);
     std::vector<std::pair<std::string,Position>> getMissilesNameAndPosition();
-
+    void clear() override;
 
 
 

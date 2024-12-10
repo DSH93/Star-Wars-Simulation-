@@ -52,6 +52,10 @@ void TIEBomber::interact(std::shared_ptr<SpaceObject> other) {
     // empty implementation
 }
 
+void TIEBomber::clear() {
+
+}
+
 
 
 

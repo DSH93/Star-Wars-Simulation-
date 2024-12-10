@@ -12,6 +12,11 @@ int Shuttle::getDefPowerUnits() const {
     return powerUnits;
 }
 
+void Shuttle::loadCrystals(const std::shared_ptr<SpaceStation> &st) {
+    int crystals = st->unloadCrystals();
+    this->crystalsContainers = crystals;
+}
+
 int Shuttle::getCrystalsContainers() const {
     return crystalsContainers;
 }
@@ -26,104 +31,6 @@ void Shuttle::unloadCrystals() {
 
 void Shuttle::unloadPowerUnits() {
     powerUnits = 0;
-}
-
-void Shuttle::addSupplyMission(const std::pair<std::shared_ptr<SpaceStation>, std::shared_ptr<FortressStar>> &mission) {
-    if (state != SpaceshipState::DEAD) {
-        supplyMissions.push(mission);
-        Spaceship::move(mission.first->getPosition());
-    } else {
-        std::cerr << "Error: Shuttle is dead" << std::endl;
-    }
-}
-
-void Shuttle::startSupplyMission() {
-    if (supplyMissions.empty()) {
-        return;
-    }
-
-    finishedMission = false;
-    if (state == SpaceshipState::STOPPED || (state == SpaceshipState::DOCKED && position == fortress)) {
-        station = supplyMissions.front().first->getPosition(); // get the station position
-        fortress = supplyMissions.front().second->getPosition(); // get the fortress position
-        spaceStation = supplyMissions.front().first;
-        fortressStar = supplyMissions.front().second;
-        moveShuttle();
-    } else {
-        std::cout << "Shuttle is on a mission, the mission will start when the shuttle arrives to the fortress"
-                  << std::endl;
-    }
-}
-
-void Shuttle::finishSupplyMission() {
-    supplyMissions.pop();
-    finishedMission = true;
-    setState(SpaceshipState::DOCKED);
-
-}
-
-void Shuttle::loadCrystals(int amount) {
-    this->crystalsContainers += amount;
-}
-
-void Shuttle::interact(std::shared_ptr<SpaceObject> other) {
-
-    if (other->getId() == spaceStation->getId()) {
-        setState(SpaceshipState::DOCKED);
-        crystalsContainers = spaceStation->unloadCrystals();
-        std::cout << "* Shuttle loaded " << crystalsContainers << " crystals at " << spaceStation->getId() << std::endl;
-
-    } else if (other->getId() == fortressStar->getId()) {
-        setState(SpaceshipState::DOCKED);
-        std::cout << "* Shuttle unloading " << crystalsContainers << " crystals to Fortress Star "
-                  << fortressStar->getId() << std::endl;
-        fortressStar->addCrystals(crystalsContainers);
-        unloadCrystals();
-        finishSupplyMission();
-
-    } else {
-        std::cerr << "Error: Invalid object" << std::endl;
-    }
-}
-
-void Shuttle::moveShuttle() {
-    if (position == station) destination = fortress;
-    if (state == SpaceshipState::DOCKED && needToWait) {
-        std::cout << "* Shuttle " << id << "has to wait for 1 time unit" << std::endl;
-        needToWait = false;
-        if (position == station) interact(spaceStation);
-        if (position == fortress) interact(fortressStar);
-        return;
-    }
-    if (state == SpaceshipState::STOPPED) destination = station;
-    if (state == SpaceshipState::MOVING) needToWait = true;
-    if (destination == station || destination == fortress) {
-        std::cout << "* Shuttle " << id << " is moving to " << destination.toString() << std::endl;
-        Spaceship::move(destination);
-    }
-//    updatePositionAndState(); // todo maybe we can remove this line
-
-}
-
-void Shuttle::updatePositionAndState() {
-    SpaceshipState oldState = state;
-    getCurrentPosition();
-    SpaceshipState newState = state;
-    if (oldState == SpaceshipState::MOVING && newState == SpaceshipState::DOCKED) {
-        needToWait = true;
-    }
-}
-
-void Shuttle::update() {
-    if (finishedMission){
-        startSupplyMission();
-        return;
-    }
-
-    if (supplyMissions.empty()) return;
-    Spaceship::update();
-    moveShuttle();
-    updatePositionAndState();
 }
 
 void Shuttle::status() {
@@ -143,3 +50,84 @@ void Shuttle::status() {
               //    << "\nPower units: " << powerUnits << "/" << maxPowerUnits
               << "\nState: " << state << std::endl;
 }
+
+
+void Shuttle::addSupplyMission(const std::pair<std::shared_ptr<SpaceStation>, std::shared_ptr<FortressStar>> &mission) {
+    supplyMissions.push(mission);
+    if (supplyMissions.size() == 1) startSupplyMission();
+
+
+}
+
+void Shuttle::startSupplyMission() {
+    if (supplyMissions.empty()) return;
+    finishedMission = false;
+    spaceStation = supplyMissions.front().first;
+
+    fortressStar = supplyMissions.front().second;
+    std::cout << position << " -> " << spaceStation->getId() << " " << spaceStation->getCurrentPosition() << " -> "
+              << fortressStar->getId() << " " << fortressStar->getCurrentPosition() << std::endl;
+
+    station = spaceStation->getCurrentPosition();
+    fortress = fortressStar->getCurrentPosition();
+
+    Spaceship::move(station);
+
+
+}
+
+void Shuttle::finishSupplyMission() {
+    supplyMissions.pop();
+    finishedMission = true;
+}
+
+void Shuttle::interact(std::shared_ptr<SpaceObject> other) {
+    needToWait = true;
+    auto spaceSt = std::dynamic_pointer_cast<SpaceStation>(other);
+    auto fort = std::dynamic_pointer_cast<FortressStar>(other);
+    if (spaceSt) {
+        loadCrystals(spaceSt);
+        std::cout << "Shuttle " << id << " start to load Crystals" << std::endl;
+
+    } else if (fort) {
+        std::cout << "Shuttle " << id << " start to unload Crystals" << std::endl;
+        fort->addCrystals(crystalsContainers);
+        unloadCrystals();
+        finishSupplyMission();
+    }
+
+
+}
+
+
+void Shuttle::update() {
+    if (needToWait) {
+        needToWait = false;
+        if (position == station) std::cout << "Shuttle " << id << " is loading Crystals" << std::endl;
+        else if (position == fortress) std::cout << "Shuttle " << id << " is unloading Crystals" << std::endl;
+        return;
+    }
+    if (position == station) std::cout << "Shuttle " << id << " is moving to " << fortressStar->getId() << std::endl; // before the location update
+    Spaceship::update();
+
+    if (finishedMission){
+        startSupplyMission();
+        return;
+    }
+
+    if (position == station) {
+        std::cout << "Shuttle " << id << " has arrived at " << spaceStation->getId() << std::endl;
+        interact(spaceStation);
+        Spaceship::move(fortress);
+
+
+    } else if (position == fortress && !finishedMission) {
+        std::cout << "Shuttle " << id << " has arrived at " << fortressStar->getId() << std::endl;
+        interact(fortressStar);
+    }
+}
+
+void Shuttle::clear() {
+
+}
+

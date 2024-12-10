@@ -31,7 +31,6 @@ protected:
     float speed;
     int currentTime = 0;
     int startMissionTime = Timer::getCurrentTick();
-    std::queue<Position> commands; // a list of commands to execute
 
 
 
@@ -47,14 +46,11 @@ public:
               {}
 
 
-    [[nodiscard]] SpaceshipState getState() const {
-        return state;
-    }
-
     void setSpeed(float newSpeed) {
         this->speed = newSpeed;
     }
 
+    [[nodiscard]] float getSpeed() const {return speed;}
     void setState(SpaceshipState newState);
 
     [[nodiscard]] const Position &getDestination() const;
@@ -69,15 +65,15 @@ public:
 
     void updateMissionTime();
 
-    void clearCommands();
 
+    virtual void clear()  = 0;
     virtual void move(const Position& newPosition);
     virtual void stop();
+    void interact(std::shared_ptr<SpaceObject> other) override = 0; // pure virtual function
     void update() override = 0;
     void status() override = 0;
+
     ~Spaceship() override = default;
-
-
     Position getDestinationPosition();
 };
 

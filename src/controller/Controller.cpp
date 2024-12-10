@@ -32,10 +32,11 @@ void Controller::processCommand() {
             view->printGrid();
 
         } else if (command[0] == "pan") {
-            //
+            view->pan(std::stoi(command[1]), std::stoi(command[2]));
         } else if (command[0] == "zoom") {
-            //
-
+            view->zoom(std::stoi(command[1]));
+        } else if (command[0] == "size") {
+            view->setSize(std::stoi(command[1]));
 
 
         } else if (command[1] == "attack") {
@@ -52,7 +53,7 @@ void Controller::processCommand() {
             model.course(command);
 
         } else if (command[1] == "start_supply") {
-            model.startSupplyMission(command);
+            model.addSupplyMission(command);
         }
     }
 }

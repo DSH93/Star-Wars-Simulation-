@@ -191,6 +191,7 @@ void Model::go() {
 
 
 
+
 }
 
 bool Model::validateObjectExists(const std::string &objectName) {
@@ -316,7 +317,7 @@ void Model::defaultSite() {
 
 }
 
-void Model::startSupplyMission(std::vector<std::string> &command) {
+void Model::addSupplyMission(std::vector<std::string> &command) {
     const std::string& shuttleName = command[0];
     const std::string& spaceStationName = command[2]; // station site
     const std::string& fortressName = command[3]; // next fortress site
@@ -334,7 +335,6 @@ void Model::startSupplyMission(std::vector<std::string> &command) {
     if (!fortress) return; // invalid cast
     auto mission = std::make_pair(spaceStation, fortress);
     shuttle->addSupplyMission(mission);
-    shuttle->update();
 }
 
 std::vector<std::pair<std::string, Position>> Model::getPositions() const {

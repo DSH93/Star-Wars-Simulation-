@@ -37,9 +37,7 @@ void Spaceship::move(const Position &newDestination) {
         return;
     }
 
-    if (this->state == SpaceshipState::MOVING) {
-        commands.push(newDestination);
-    }
+
 
     else { // spaceship is stopped or docked
         updateMissionTime();
@@ -58,55 +56,60 @@ Position Spaceship::getCurrentPosition() {
         return position; // If stopped, return the current position
     }
 
-    currentTime = Timer::getCurrentTick();
-    auto timeElapsed = float(currentTime - startMissionTime);
-    if (timeElapsed <= 0) {
-        return position; // No time elapsed, return current position
-    }
-
-    float distanceTraveled = speed * timeElapsed;
+    // Calculate the angle to the destination
     float angleToDestination = Direction::calculateAngle(position, destination);
     direction = Direction(position, destination);
 
-    float deltaX = distanceTraveled * std::cos(angleToDestination) / 1000.0f;
-    float deltaY = distanceTraveled * std::sin(angleToDestination) / 1000.0f;
 
+    // Calculate distance traveled in one hour (step size)
+    float deltaX = (speed * std::cos(angleToDestination)) / 1000.0f; // Convert to kilometers
+    float deltaY = speed * std::sin(angleToDestination) / 1000.0f; // Convert to kilometers
     Position newPosition(position.getX() + deltaX, position.getY() + deltaY);
 
-    // Calculate the new angle after movement
-    float angleAfterMovement = Direction::calculateAngle(newPosition, destination);
-    float deviation = std::abs(angleToDestination - angleAfterMovement);
 
-    // Check if the spaceship has reached its destination
-    if (deviation < 0.00001 || newPosition.distance(destination) < 0.1f) { // Threshold for floating-point precision
-        position = destination; // Update to exact destination
-        std::string type = typeid(*this).name();
-        std::cout << type << ": "<< SpaceObject::id << " has arrived at " << destination << std::endl;
 
-        setState(SpaceshipState::DOCKED); // Change state to DOCKED
+    // Check if movement is in the right direction
+    float currentDistance = position.distance(destination);
+    float newDistance = newPosition.distance(destination);
+
+
+
+    if (newDistance > currentDistance) {
+        // Overshot the target: snap to the destination
+        position = destination;
+        setState(SpaceshipState::DOCKED); // Set state to DOCKED
+        return destination;
+    }
+
+    // Check if the spaceship has reached or is very close to the destination
+    if (newDistance < 0.1f) { // Threshold for reaching the destination
+        position = destination; // Snap to destination
+        setState(SpaceshipState::DOCKED); // Set state to DOCKED
         return destination;
     }
 
     position = newPosition; // Update position for further movement
+    std::cout << position.getX() << " " << position.getY() << std::endl;
+
+    float angle = Direction::calculateAngle(position, destination);
+
+    if (std::abs(angleToDestination - angle) > 0.00001) {
+        position = destination;
+        setState(SpaceshipState::DOCKED); // Set state to DOCKED
+        return destination;
+    }
+
     return position;
 }
 
 
 
 
+
+
+
 void Spaceship::update() {
-    currentTime = Timer::getCurrentTick();
     position = getCurrentPosition();
-    if (position.distance(destination) == 0) {
-        if (!commands.empty()) {// todo i need to aff the mission ti the commands
-            destination = commands.front();
-            commands.pop();
-            direction = Direction(position, destination);
-            updateMissionTime();
-        } else {
-            state = SpaceshipState::MOVING;
-        }
-    }
 
 }
 
@@ -117,7 +120,6 @@ void Spaceship::updateMissionTime() {
 void Spaceship::stop() {
     this->state = SpaceshipState::STOPPED;
     position = getCurrentPosition();
-    this->clearCommands();
 
 }
 
@@ -136,12 +138,11 @@ std::string getSpaceshipState(Spaceship::SpaceshipState state) {
 }
 
 
-void Spaceship::clearCommands() {
-    while (!commands.empty()) {
-        commands.pop();
-    }
-}
 
 Position Spaceship::getDestinationPosition() {
     return destination;
+}
+
+void Spaceship::clear() {
+
 }

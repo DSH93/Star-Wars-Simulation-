@@ -68,7 +68,7 @@ public:
     void course(std::vector<std::string> &command);
     void defaultSite();
     void starDestroyerUpdate();
-    void startSupplyMission(std::vector<std::string> &command);
+    void addSupplyMission(std::vector<std::string> &command);
 
     void statusByObj(std::vector<std::string> &command);
 

@@ -18,25 +18,19 @@ private:
 public:
     SpaceStation(int crystalsAmount, int productionRate, Position position, std::string identifier);
 
-    int getCrystalsAmount() const;
-
-    void setCrystalsAmount(int cAmount);
-
-    int getProductionRate() const;
+    [[nodiscard]] int getCrystalsAmount() const;
 
     void status() override;
 
     void interact(std::shared_ptr<SpaceObject> other) override;
 
-    void update();
-
-    int unloadCrystals() const;
+    void update() override;
 
     Position getCurrentPosition() override;
 
-    void toString() const;
-
     int unloadCrystals();
+
+    void toString() const;
 };
 
 

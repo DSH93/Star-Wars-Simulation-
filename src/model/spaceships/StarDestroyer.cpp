@@ -72,4 +72,8 @@ std::vector<std::pair<std::string, Position>> StarDestroyer::getMissilesNameAndP
     return missiles;
 }
 
+void StarDestroyer::clear() {
+
+}
+
 

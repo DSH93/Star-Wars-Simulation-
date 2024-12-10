@@ -50,7 +50,7 @@ public:
 
     void flyToClosestSpaceSite();
 
-    int getMissilesCounter() const;
+    void clear() override;
 
 };
 
