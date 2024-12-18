@@ -5,6 +5,15 @@
 #include "model/spaceships/StarDestroyer.h"
 #include <algorithm>
 
+StarDestroyer::StarDestroyer(const Position& pos, const std::string& identifier, float speed, const std::shared_ptr<Admiral>& pilot, const std::vector<std::shared_ptr<SpaceObject>>& sites)
+        : Spaceship(pos, identifier, sites), pilot(pilot) {
+    if (!pilot) {
+        throw std::invalid_argument("Pilot cannot be null");
+    }
+    this->setSpeed(speed);
+    logCreation("Star Destroyer", identifier, speed);
+}
+
 
 void StarDestroyer::interact(std::shared_ptr<SpaceObject> other) {
     // empty implementation
@@ -13,7 +22,7 @@ void StarDestroyer::interact(std::shared_ptr<SpaceObject> other) {
 
 
 void StarDestroyer::status() {
-    std::cout << "Star Destroyer " << id << " at " << position << " , State: " << stateToString[state] << std::endl;
+    Spaceship::status();
     for (const auto& missileName: destroyerMissiles) {
         auto missile = std::dynamic_pointer_cast<Missile>(missilesMap[missileName]);
         missile->status();
@@ -21,16 +30,11 @@ void StarDestroyer::status() {
 
 }
 
-void StarDestroyer::update() {
-    Spaceship::update();
-}
-
-
 
 
 std::string StarDestroyer::createMissile(Position targetPos) {
     std::string missileName = "m" + std::to_string(missilesCounter);
-    auto missile = std::make_shared<Missile>(position, targetPos, missileName);
+    auto missile = std::make_shared<Missile>(position, targetPos, missileName, sites);
     missilesMap[missileName] = std::move(missile);
     destroyerMissiles.push_back(missileName);
     return missileName;
@@ -70,10 +74,6 @@ std::vector<std::pair<std::string, Position>> StarDestroyer::getMissilesNameAndP
         missiles.emplace_back(missileName, missile->getPosition());
     }
     return missiles;
-}
-
-void StarDestroyer::clear() {
-
 }
 
 

@@ -4,42 +4,12 @@
 
 #include "model/spaceships/Falcon.h"
 
-
-
-void Falcon::addMission() {
-    // empty implementation
-
-
+Falcon::Falcon(Position& pos, const std::string& identifier, const std::vector<std::shared_ptr<SpaceObject>>& sites)
+        : Spaceship(pos, identifier, sites) {
+    this->setSpeed(FALCON_DEFAULT_SPEED);
+    logCreation("Falcon", identifier, speed);
 }
 
-void Falcon::update() {
-    position = Spaceship::getCurrentPosition();
-}
-
-void Falcon::status() {
-    std::cout << "Falcon " << id
-              << " at " << position
-              << " | Status: " << stateToString[state]
-              << std::endl;
-}
-
-void Falcon::startMission() {
-    // empty implementation
-
-
-}
-
-void Falcon::finishMission() {
-    // empty implementation
-
-
-}
-
-void Falcon::loadAttPowerUnits() {
-    // empty implementation
-
-
-}
 
 void Falcon::killFalcon() {
     std::cout << "Falcon " << id << " was destroyed" << std::endl;
@@ -51,11 +21,12 @@ int Falcon::getAttPowerUnits() const {
 
 }
 
-void setSpeed(int speed){
-    speed = speed;
-}
 
 void Falcon::increaseAttPowerUnits() {
+    if (attPowerUnits == maxAttPowerUnits) {
+        Logger::getInstance().log("Falcon " + id + " cannot increase attack power units. Maximum reached.");
+        return;
+    }
     attPowerUnits++;
 }
 
@@ -65,22 +36,24 @@ void Falcon::decreaseAttPowerUnits() {
 
 
 
-bool Falcon::canAttack(int attackerPower, int targetDefense,const Position &attackerPos, const Position &targetPos, float distanceToTarget, float closetBomber) {
+bool Falcon::canAttack(int attackerPower, int targetDefense, const Position &targetPos, float distanceToTarget,
+                       float closetBomber) {
     float velocity = Spaceship::getSpeed();
-    if (distanceToTarget >= velocity + 100.0) { // 100K in the next turn
-        std::cout << distanceToTarget << std::endl;
-        std::cerr << "Error: Target is too far for attack" << std::endl;
+    if (distanceToTarget >= velocity + FALCON_MAX_DISTANCE_TO_TARGET) { // 100K in the next turn
+        Logger::getInstance().log("Falcon " + id + " cannot attack target " + targetPos.toString() + ERROR_TARGET_TOO_FAR +" Distance: " + std::to_string(distanceToTarget));
+        std::cout << ERROR_TARGET_TOO_FAR << std::endl;
         return false;
     }
 
     if (attackerPower <= targetDefense) {
-        std::cerr << "Error: Target has too much defense power" << std::endl;
-        std::cout << "Falcon " << attackerPower << " vs " << targetDefense << " Shuttle" << std::endl;
+        Logger::getInstance().log("Falcon " + id + " cannot attack target " + targetPos.toString() + ERROR_TARGET_TOO_STRONG);
+        std::cout << ERROR_TARGET_TOO_STRONG << std::endl;
         return false;
     }
 
-    if (closetBomber <= 250) { // 250Km
-        std::cerr << "Error: Falcon is too close to a bomber for attack" << std::endl;
+    if (closetBomber <= FALCON_MIN_DISTANCE_TO_BOMBER) { // 250Km
+        Logger::getInstance().log("Falcon " + id + " cannot attack target " + targetPos.toString() + ERROR_BOMBER_TOO_CLOSE);
+        std::cout << ERROR_BOMBER_TOO_CLOSE << std::endl;
         return false;
     }
 
@@ -88,15 +61,22 @@ bool Falcon::canAttack(int attackerPower, int targetDefense,const Position &atta
 }
 
 void Falcon::attack(const std::shared_ptr<Shuttle>& target, float distanceToTarget, float closetBomber) {
-    Position attackerPos = getCurrentPosition();
     Position targetPos = target->getCurrentPosition();
-        if (canAttack(getAttPowerUnits(), target->getDefPowerUnits(), attackerPos, targetPos, distanceToTarget, closetBomber)) { // attack succeeded
+    if (target->getState() == SpaceshipState::DEAD || getState() == SpaceshipState::DEAD) return;
+        if (canAttack(getAttPowerUnits(), target->getDefPowerUnits(), targetPos, distanceToTarget, closetBomber)) { // attack succeeded
             interact(target); // Move interaction logic here
+            Logger::getInstance().log("Falcon " + id + " attacked target " + target->getId());
         } else { // attack failed
             decreaseAttPowerUnits();
-            setState(Falcon::SpaceshipState::STOPPED);
-            if (getAttPowerUnits() == 0) setState(Falcon::SpaceshipState::DEAD);
+            setState(SpaceshipState::STOPPED);
+            if (getAttPowerUnits() == 0) setState(SpaceshipState::DEAD);
         }
+    target->decreaseDefPowerUnits();
+    if (target->getDefPowerUnits() == 0) {
+        target->setState(SpaceshipState::DEAD);
+        std::cout << "Shuttle destroyed!" << std::endl;
+        Logger::getInstance().log("Shuttle " + target->getId() + " was destroyed");
+    }
 
 
 }
@@ -104,27 +84,18 @@ void Falcon::attack(const std::shared_ptr<Shuttle>& target, float distanceToTarg
 void Falcon::interact(std::shared_ptr<SpaceObject> other) {
     auto shuttleTarget = std::dynamic_pointer_cast<Shuttle>(other);
     if (shuttleTarget) {
+        Logger::getInstance().log("Falcon " + id + " is attacking Shuttle " + shuttleTarget->getId() + "attacker power: " + std::to_string(getAttPowerUnits()) + " target defense: " + std::to_string(shuttleTarget->getDefPowerUnits()));
         std::cout << "Falcon attacking Shuttle: " << shuttleTarget->getId() << std::endl;
-        shuttleTarget->decreaseDefPowerUnits();
+
         increaseAttPowerUnits();
-        shuttleTarget->setState(Shuttle::SpaceshipState::STOPPED);
+        shuttleTarget->setState(SpaceshipState::STOPPED);
         shuttleTarget->unloadCrystals();
-        setState(Falcon::SpaceshipState::STOPPED);
-        if (shuttleTarget->getDefPowerUnits() == 0) {
-            shuttleTarget->setState(Shuttle::SpaceshipState::DEAD);
-            std::cout << "Shuttle destroyed!" << std::endl;
-        }
+        setState(SpaceshipState::STOPPED);
+
     } else {
-        std::cout << "Falcon cannot interact with this object." << std::endl;
+        std::cerr << "Falcon cannot interact with this object." << std::endl;
+        Logger::getInstance().log("Falcon " + id + " cannot interact with object " + other->getId());
     }
 }
 
-
-bool Falcon::isAlive() {
-    return state != SpaceshipState::DEAD;
-}
-
-void Falcon::clear() {
-
-}
 

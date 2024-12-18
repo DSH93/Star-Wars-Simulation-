@@ -4,34 +4,43 @@
 
 #include "model/SpaceStation.h"
 
-// SpaceStation(int crystalsAmount, int productionRate, Position position, std::string identifier);
 
-
-SpaceStation::SpaceStation(int crystalsAmount, int productionRate, Position position, std::string identifier)
-    : SpaceObject(position, identifier),  crystalsAmount(crystalsAmount), productionRate(productionRate) {}
-
-
-int SpaceStation::getCrystalsAmount() const {
-    return crystalsAmount;
-}
+SpaceStation::SpaceStation(int crystalsAmount, int productionRate, Position position, const std::string &identifier)
+        : SpaceObject(position, identifier), crystalsAmount(crystalsAmount), productionRate(productionRate) {}
 
 
 void SpaceStation::status() {
-    std::cout << "Station " << id << ", at " << "Position: (" << position.getX() << ", " << position.getY() << "), Inventory: "
-    << crystalsAmount  << std::endl;
+    std::cout << "Station " << id << ", at " << position.toString()
+              << "Inventory: " << crystalsAmount << " crystals\n"
+              << "Production Rate: " << productionRate << "\n"
+              << "Number of Docking Shuttles: " << dockingShuttles.size()
+              << std::endl;
+
+    if (!dockingShuttles.empty()) {
+        std::cout << "Docking shuttles:" << std::endl;
+        for (const auto &shuttle : dockingShuttles) {
+            std::cout << "  - " << shuttle->getId() << std::endl;
+        }
+    }
+
 }
 
 
 void SpaceStation::update() {
+    if (!dockingShuttles.empty()) {
+        std::vector<std::shared_ptr<SpaceObject>> updatedShuttles;
+        for (const auto &shuttle: dockingShuttles) {
+            if (shuttle->getCurrentPosition() == position) {
+                updatedShuttles.push_back(shuttle);
+            }
+        }
+        dockingShuttles = std::move(updatedShuttles);
+    }
     crystalsAmount += productionRate;
 }
 
 Position SpaceStation::getCurrentPosition() {
     return position;
-}
-
-void SpaceStation::toString() const {
-    std::cout << "SpaceStation: " << id << " at " << "Position: (" << position.getX() << ", " << position.getY() << ") with " << getCrystalsAmount() << " crystals and production rate of " << productionRate << std::endl;
 }
 
 int SpaceStation::unloadCrystals() {
@@ -53,5 +62,6 @@ int SpaceStation::unloadCrystals() {
 }
 
 void SpaceStation::interact(std::shared_ptr<SpaceObject> other) {
-    // Do nothing
+    dockingShuttles.push_back(other);
 }
+

@@ -77,13 +77,6 @@ build CMakeFiles/simST.dir/src/model/spaceships/Spaceship.cpp.obj: CXX_COMPILER_
   OBJECT_DIR = CMakeFiles\simST.dir
   OBJECT_FILE_DIR = CMakeFiles\simST.dir\src\model\spaceships
 
-build CMakeFiles/simST.dir/src/model/Timer.cpp.obj: CXX_COMPILER__simST_unscanned_Debug C$:/Users/Dor$ Shukrun/AllCoding/CLionProjects/Advnace$ CPP/statWars/Star-Wars-Simulation-/src/model/Timer.cpp || cmake_object_order_depends_target_simST
-  DEP_FILE = CMakeFiles\simST.dir\src\model\Timer.cpp.obj.d
-  FLAGS = -g -std=gnu++23 -fdiagnostics-color=always
-  INCLUDES = -I"C:/Users/Dor Shukrun/AllCoding/CLionProjects/Advnace CPP/statWars/Star-Wars-Simulation-/include"
-  OBJECT_DIR = CMakeFiles\simST.dir
-  OBJECT_FILE_DIR = CMakeFiles\simST.dir\src\model
-
 build CMakeFiles/simST.dir/src/model/SpaceStation.cpp.obj: CXX_COMPILER__simST_unscanned_Debug C$:/Users/Dor$ Shukrun/AllCoding/CLionProjects/Advnace$ CPP/statWars/Star-Wars-Simulation-/src/model/SpaceStation.cpp || cmake_object_order_depends_target_simST
   DEP_FILE = CMakeFiles\simST.dir\src\model\SpaceStation.cpp.obj.d
   FLAGS = -g -std=gnu++23 -fdiagnostics-color=always
@@ -112,13 +105,6 @@ build CMakeFiles/simST.dir/src/model/spaceships/Falcon.cpp.obj: CXX_COMPILER__si
   OBJECT_DIR = CMakeFiles\simST.dir
   OBJECT_FILE_DIR = CMakeFiles\simST.dir\src\model\spaceships
 
-build CMakeFiles/simST.dir/src/model/agent/ImperialAgent.cpp.obj: CXX_COMPILER__simST_unscanned_Debug C$:/Users/Dor$ Shukrun/AllCoding/CLionProjects/Advnace$ CPP/statWars/Star-Wars-Simulation-/src/model/agent/ImperialAgent.cpp || cmake_object_order_depends_target_simST
-  DEP_FILE = CMakeFiles\simST.dir\src\model\agent\ImperialAgent.cpp.obj.d
-  FLAGS = -g -std=gnu++23 -fdiagnostics-color=always
-  INCLUDES = -I"C:/Users/Dor Shukrun/AllCoding/CLionProjects/Advnace CPP/statWars/Star-Wars-Simulation-/include"
-  OBJECT_DIR = CMakeFiles\simST.dir
-  OBJECT_FILE_DIR = CMakeFiles\simST.dir\src\model\agent
-
 build CMakeFiles/simST.dir/src/controller/Controller.cpp.obj: CXX_COMPILER__simST_unscanned_Debug C$:/Users/Dor$ Shukrun/AllCoding/CLionProjects/Advnace$ CPP/statWars/Star-Wars-Simulation-/src/controller/Controller.cpp || cmake_object_order_depends_target_simST
   DEP_FILE = CMakeFiles\simST.dir\src\controller\Controller.cpp.obj.d
   FLAGS = -g -std=gnu++23 -fdiagnostics-color=always
@@ -140,6 +126,20 @@ build CMakeFiles/simST.dir/src/model/spaceships/Missile.cpp.obj: CXX_COMPILER__s
   OBJECT_DIR = CMakeFiles\simST.dir
   OBJECT_FILE_DIR = CMakeFiles\simST.dir\src\model\spaceships
 
+build CMakeFiles/simST.dir/src/Logger.cpp.obj: CXX_COMPILER__simST_unscanned_Debug C$:/Users/Dor$ Shukrun/AllCoding/CLionProjects/Advnace$ CPP/statWars/Star-Wars-Simulation-/src/Logger.cpp || cmake_object_order_depends_target_simST
+  DEP_FILE = CMakeFiles\simST.dir\src\Logger.cpp.obj.d
+  FLAGS = -g -std=gnu++23 -fdiagnostics-color=always
+  INCLUDES = -I"C:/Users/Dor Shukrun/AllCoding/CLionProjects/Advnace CPP/statWars/Star-Wars-Simulation-/include"
+  OBJECT_DIR = CMakeFiles\simST.dir
+  OBJECT_FILE_DIR = CMakeFiles\simST.dir\src
+
+build CMakeFiles/simST.dir/src/ModelTester.cpp.obj: CXX_COMPILER__simST_unscanned_Debug C$:/Users/Dor$ Shukrun/AllCoding/CLionProjects/Advnace$ CPP/statWars/Star-Wars-Simulation-/src/ModelTester.cpp || cmake_object_order_depends_target_simST
+  DEP_FILE = CMakeFiles\simST.dir\src\ModelTester.cpp.obj.d
+  FLAGS = -g -std=gnu++23 -fdiagnostics-color=always
+  INCLUDES = -I"C:/Users/Dor Shukrun/AllCoding/CLionProjects/Advnace CPP/statWars/Star-Wars-Simulation-/include"
+  OBJECT_DIR = CMakeFiles\simST.dir
+  OBJECT_FILE_DIR = CMakeFiles\simST.dir\src
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target simST
@@ -148,7 +148,7 @@ build CMakeFiles/simST.dir/src/model/spaceships/Missile.cpp.obj: CXX_COMPILER__s
 #############################################
 # Link the executable simST.exe
 
-build simST.exe: CXX_EXECUTABLE_LINKER__simST_Debug CMakeFiles/simST.dir/main.cpp.obj CMakeFiles/simST.dir/src/model/Model.cpp.obj CMakeFiles/simST.dir/src/model/spaceships/Shuttle.cpp.obj CMakeFiles/simST.dir/src/model/spaceships/Spaceship.cpp.obj CMakeFiles/simST.dir/src/model/Timer.cpp.obj CMakeFiles/simST.dir/src/model/SpaceStation.cpp.obj CMakeFiles/simST.dir/src/model/spaceships/TIEBomber.cpp.obj CMakeFiles/simST.dir/src/model/spaceships/StarDestroyer.cpp.obj CMakeFiles/simST.dir/src/model/spaceships/Falcon.cpp.obj CMakeFiles/simST.dir/src/model/agent/ImperialAgent.cpp.obj CMakeFiles/simST.dir/src/controller/Controller.cpp.obj CMakeFiles/simST.dir/src/view/View.cpp.obj CMakeFiles/simST.dir/src/model/spaceships/Missile.cpp.obj
+build simST.exe: CXX_EXECUTABLE_LINKER__simST_Debug CMakeFiles/simST.dir/main.cpp.obj CMakeFiles/simST.dir/src/model/Model.cpp.obj CMakeFiles/simST.dir/src/model/spaceships/Shuttle.cpp.obj CMakeFiles/simST.dir/src/model/spaceships/Spaceship.cpp.obj CMakeFiles/simST.dir/src/model/SpaceStation.cpp.obj CMakeFiles/simST.dir/src/model/spaceships/TIEBomber.cpp.obj CMakeFiles/simST.dir/src/model/spaceships/StarDestroyer.cpp.obj CMakeFiles/simST.dir/src/model/spaceships/Falcon.cpp.obj CMakeFiles/simST.dir/src/controller/Controller.cpp.obj CMakeFiles/simST.dir/src/view/View.cpp.obj CMakeFiles/simST.dir/src/model/spaceships/Missile.cpp.obj CMakeFiles/simST.dir/src/Logger.cpp.obj CMakeFiles/simST.dir/src/ModelTester.cpp.obj
   FLAGS = -g
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\simST.dir

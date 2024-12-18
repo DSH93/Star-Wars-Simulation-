@@ -1,0 +1,8 @@
+[INFO] Loading sites from sites.dat
+[INFO] COMMAND: Adding site: Yavin
+[INFO] COMMAND: Adding site: Rakatan
+[INFO] COMMAND: Adding site: Arcanum
+[INFO] COMMAND: Adding site: Claw
+[INFO] COMMAND: Adding site: Facility729D
+[INFO] COMMAND: Adding site: Drydock4
+[INFO] Simulation started

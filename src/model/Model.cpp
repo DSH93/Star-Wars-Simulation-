@@ -4,7 +4,8 @@
 
 #include "model/Model.h"
 #include <algorithm>
-
+#include <chrono>
+#include <thread>
 
 
 Model::Model() {
@@ -17,35 +18,31 @@ Model &Model::getInstance() {
     return instance;
 }
 
-void Model::removeObject(const SpaceObject &object) {
-    std::string objectName = object.getId();
-
-    for (const std::string& id: ids) {
-        if (id == objectName) {
-            objectsMap.erase(objectName);
-            ids.erase(std::remove(ids.begin(), ids.end(), objectName), ids.end());
-
-            break;
-        }
-    }
-
-}
-
 float Model::calculateDistance(const Position &pos1, const Position &pos2) {
-    return pos1.distance(pos2);
+    return Position::distance(pos1, pos2);
 
 }
 
 void Model::advanceTime() {
     Timer::advanceTick();
-    for (const std::string& id: ids) {
+    for (const std::string &id: ids) {
         objectsMap[id]->advanceTime();
         objectsMap[id]->update();
     }
-
 }
 
-void Model::addSite(std::vector<std::string> &command) {
+bool Model::validateAndInsertId(const std::string& name) {
+    if (uniqueIds.find(name) != uniqueIds.end()) {
+        std::cerr << "Error: ID " << name << " already exists" << std::endl;
+        Logger::getInstance().log("ID " + name + " already exists", Logger::Level::WARNING);
+        return false;
+    }
+    uniqueIds.insert(name);
+    return true;
+}
+
+
+void Model::addSite(const std::vector<std::string> &command) {
     std::string name = command[1];
     float x = std::stof(command[2]);
     float y = std::stof(command[3]);
@@ -54,22 +51,26 @@ void Model::addSite(std::vector<std::string> &command) {
     int productionRate = (command.size() > 5) ? std::stoi(command[5]) : 0;
     std::unique_ptr<SpaceObject> newSite;
 
-    if (command[0] == "station") {
+    if (command[0] == COMMAND_STATION) {
         newSite = std::make_unique<SpaceStation>(crystalsAmount, productionRate, pos, name);
-    } else if (command[0] == "fortress") {
+    } else if (command[0] == COMMAND_FORTRESS) {
         newSite = std::make_unique<FortressStar>(crystalsAmount, pos, name);
     }
 
     if (newSite) {
+        sitesNumber++;
+        sites.push_back(name);
+        if (!validateAndInsertId(name)) return;
         ids.push_back(name);
+
         objectsMap[name] = std::shared_ptr<SpaceObject>(std::move(newSite));
     } else {
         std::cerr << "Error: Invalid site type" << std::endl;
     }
 }
 
-void Model::createTroops(std::vector<std::string> &command) {
-    const std::string& imperialAgentName = command[2];
+void Model::createTroops(const std::vector<std::string> &command) {
+    const std::string &imperialAgentName = command[2];
     ConcreteImperialAgentFactory factory;
 
     if (command[1] == "admiral") {
@@ -88,63 +89,97 @@ void Model::createTroops(std::vector<std::string> &command) {
     }
 }
 
-void Model::createSpaceship(std::vector<std::string> &command) {
-    const std::string& type = command[1]; //  (destroyer, bomber, falcon, shuttle)
-    std::string spaceshipName = command[2];
+void Model::createSpaceship(const std::vector<std::string> &command) {
+    const std::string &type = command[1]; // (destroyer, bomber, falcon, shuttle)
+    const std::string& spaceshipName = command[2];
+    std::vector<std::shared_ptr<SpaceObject>> patrolSites = collectPatrolSites();
 
     if (type == "falcon") {
-        //  Millennium Falcon
-        Position pos(std::stof(command[3]), std::stof(command[4]));
-        auto falcon = std::make_unique<Falcon>(pos, spaceshipName);
-        ids.push_back(spaceshipName);
-        falcons.push_back(spaceshipName);
-        objectsMap[spaceshipName] = std::move(falcon);
+        createFalcon(command, spaceshipName, patrolSites);
     } else {
-
-        auto it = agents.find(command[3]);
-        if (it != agents.end()) {
-            Position pos1(std::stof(command[4]), std::stof(command[5]));
-
-            if (type == "destroyer") {
-
-                auto admiralPilot = std::dynamic_pointer_cast<Admiral>(it->second);
-                if (!admiralPilot) {
-                    std::cerr << "Error: pilot is not an Admiral for StarDestroyer" << std::endl;
-                    return;
-                }
-                auto destroyer = std::make_unique<StarDestroyer>(pos1, spaceshipName, 2000.0f, admiralPilot);
-                ids.push_back(spaceshipName);
-                starDestroyersSpaceships.push_back(command[2]);
-
-                objectsMap[spaceshipName] = std::move(destroyer);
-
-            } else if (type == "bomber") {
-                auto commanderPilot = std::dynamic_pointer_cast<Commander>(it->second);
-                if (!commanderPilot) {
-                    std::cerr << "Error: pilot is not a Commander for TIEBomber" << std::endl;
-                    return;
-                }
-                auto bomber = std::make_unique<TIEBomber>(pos1, spaceshipName, 1000.0f, commanderPilot);
-                ids.push_back(spaceshipName);
-                objectsMap[spaceshipName] = std::move(bomber);
-
-            } else if (type == "shuttle") {
-                auto midshipmanPilot = std::dynamic_pointer_cast<Midshipman>(it->second);
-                if (!midshipmanPilot) {
-                    std::cerr << "Error: pilot is not a Midshipman for Shuttle" << std::endl;
-                    return;
-                }
-                auto shuttle = std::make_unique<Shuttle>(pos1, spaceshipName, 500.0f, midshipmanPilot);
-                ids.push_back(spaceshipName);
-                objectsMap[spaceshipName] = std::move(shuttle);
-            }
-        } else {
-            std::cerr << "Error: Pilot not found in agents" << std::endl;
-        }
+        createSpaceshipWithPilot(command, type, spaceshipName, patrolSites);
     }
 }
 
-void Model::create(std::vector<std::string> &command) {
+std::vector<std::shared_ptr<SpaceObject>> Model::collectPatrolSites() {
+    std::vector<std::shared_ptr<SpaceObject>> patrolSites;
+    for (auto &site : sites) {
+        auto siteObj = std::dynamic_pointer_cast<SpaceObject>(objectsMap[site]);
+        patrolSites.push_back(siteObj);
+    }
+    return patrolSites;
+}
+
+void Model::createFalcon(const std::vector<std::string> &command, const std::string &name,
+                         const std::vector<std::shared_ptr<SpaceObject>> &patrolSites) {
+    Position pos(std::stof(command[3]), std::stof(command[4]));
+    auto falcon = std::make_unique<Falcon>(pos, name, patrolSites);
+    if (!validateAndInsertId(name)) return;
+    ids.push_back(name);
+    falcons.push_back(name);
+    objectsMap[name] = std::move(falcon);
+}
+
+void Model::createSpaceshipWithPilot(const std::vector<std::string> &command, const std::string &type,
+                                     const std::string &name, const std::vector<std::shared_ptr<SpaceObject>> &patrolSites) {
+    auto it = agents.find(command[3]);
+    if (it == agents.end()) {
+        std::cerr << "Error: Pilot not found in agents" << std::endl;
+        return;
+    }
+    Position pos(std::stof(command[4]), std::stof(command[5]));
+    if (type == "destroyer") {
+        createDestroyer(it->second, pos, name, patrolSites);
+    } else if (type == "bomber") {
+        createBomber(it->second, pos, name, patrolSites);
+    } else if (type == "shuttle") {
+        createShuttle(it->second, pos, name, patrolSites);
+    }
+}
+
+
+void Model::createDestroyer(const std::shared_ptr<ImperialAgent> &pilot, const Position &pos,
+                            const std::string &name, const std::vector<std::shared_ptr<SpaceObject>> &patrolSites) {
+    auto admiralPilot = std::dynamic_pointer_cast<Admiral>(pilot);
+    if (!admiralPilot) {
+        std::cerr << "Error: pilot is not an Admiral for StarDestroyer" << std::endl;
+        return;
+    }
+    // ,const std::shared_ptr<Admiral>& pilot = nullptr, const std::vector<std::shared_ptr<SpaceObject>>& sites
+    auto destroyer = std::make_unique<StarDestroyer>(pos, name, DEFAULT_STAR_DESTROYER_SPEED, admiralPilot, patrolSites);
+    if (!validateAndInsertId(name)) return;
+    ids.push_back(name);
+    starDestroyersSpaceships.push_back(name);
+    objectsMap[name] = std::move(destroyer);
+}
+
+void Model::createBomber(const std::shared_ptr<ImperialAgent> &pilot, const Position &pos,
+                         const std::string &name, const std::vector<std::shared_ptr<SpaceObject>> &patrolSites) {
+    auto commanderPilot = std::dynamic_pointer_cast<Commander>(pilot);
+    if (!commanderPilot) {
+        std::cerr << "Error: pilot is not a Commander for TIEBomber" << std::endl;
+        return;
+    }
+    auto bomber = std::make_unique<TIEBomber>(pos, name, DEFAULT_TIE_BOMBER_SPEED, commanderPilot, patrolSites);
+    if (!validateAndInsertId(name)) return;
+    ids.push_back(name);
+    objectsMap[name] = std::move(bomber);
+}
+
+void Model::createShuttle(const std::shared_ptr<ImperialAgent> &pilot, const Position &pos,
+                          const std::string &name, const std::vector<std::shared_ptr<SpaceObject>> &patrolSites) {
+    auto midshipmanPilot = std::dynamic_pointer_cast<Midshipman>(pilot);
+    if (!midshipmanPilot) {
+        std::cerr << "Error: pilot is not a Midshipman for Shuttle" << std::endl;
+        return;
+    }
+    auto shuttle = std::make_unique<Shuttle>(pos, name, DEFAULT_SHUTTLE_SPEED, midshipmanPilot, patrolSites);
+    if (!validateAndInsertId(name)) return;
+    ids.push_back(name);
+    objectsMap[name] = std::move(shuttle);
+}
+
+void Model::create(const std::vector<std::string> &command) {
     if (command[1] == "admiral" || command[1] == "commander" || command[1] == "midshipman") {
         createTroops(command);
     } else if (command[1] == "destroyer" || command[1] == "bomber" || command[1] == "falcon" ||
@@ -153,45 +188,29 @@ void Model::create(std::vector<std::string> &command) {
     }
 }
 
-void Model::status() {
-    for (const std::string& id: ids) {
-        objectsMap[id]->status();
-    }
-}
-
-void Model::statusByObj(std::vector<std::string> &command) {
-    const std::string& objectName = command[1];
-    for (const std::string& id: ids) {
+void Model::statusByObj(const std::vector<std::string> &command) {
+    const std::string &objectName = command[1];
+    for (const std::string &id: ids) {
         if (id == objectName) objectsMap[id]->status();
     }
 }
 
 void Model::starDestroyerUpdate() {
     std::vector<std::pair<std::string, Position>> falconsPositions;
-    for (const auto& falconName: falcons) { // todo check for falcons if its updated
+    for (const auto &falconName: falcons) {
         auto falcon = std::dynamic_pointer_cast<Falcon>(objectsMap[falconName]);
         if (!falcon->isAlive()) continue;
         falconsPositions.emplace_back(falconName, falcon->getCurrentPosition());
     }
     std::string falconName;
-    for (const auto& starDestroyerName: starDestroyersSpaceships) {
+    for (const auto &starDestroyerName: starDestroyersSpaceships) {
         auto starDestroyer = std::dynamic_pointer_cast<StarDestroyer>(objectsMap[starDestroyerName]);
         falconName = starDestroyer->missileUpdate(falconsPositions);
     }
     if (!falconName.empty()) {
         auto falcon = std::dynamic_pointer_cast<Falcon>(objectsMap[falconName]);
         falcon->killFalcon();
-
     }
-}
-
-void Model::go() {
-    advanceTime();
-    starDestroyerUpdate();
-
-
-
-
 }
 
 bool Model::validateObjectExists(const std::string &objectName) {
@@ -211,7 +230,7 @@ bool Model::validateObjectExists(const std::string &objectName, const std::strin
 }
 
 float Model::findClosetBomber(const Position &attackerPos) {
-    float ClosetBomber = 1000000; // 1000Km
+    float ClosetBomber = MAX_DISTANCE;
     for (const std::string &bomberName: starDestroyersSpaceships) {
         auto bomber = std::dynamic_pointer_cast<TIEBomber>(objectsMap[bomberName]);
         if (bomber) {
@@ -224,9 +243,47 @@ float Model::findClosetBomber(const Position &attackerPos) {
 
 }
 
-void Model::attack(std::vector<std::string> &command) {
-    const std::string& attackerName = command[0]; // falcon
-    const std::string& targetName = command[2]; // shuttle
+void Model::statusCMD() {
+    std::cout << "\nSPACE STATIONS AND FORTRESS" << std::endl;
+    for (const std::string &id: sites) {
+        auto site = std::dynamic_pointer_cast<SpaceObject>(objectsMap[id]);
+        if (site) site->status();
+    }
+    std::cout << std::endl;
+    std::cout << std::endl;
+
+
+    std::cout << "THE REBELS FALCONS" << std::endl;
+    for (const std::string &id: falcons) {
+        auto falcon = std::dynamic_pointer_cast<Falcon>(objectsMap[id]);
+        if (falcon) falcon->status();
+    }
+
+    std::cout << std::endl;
+    std::cout << std::endl;
+
+    std::cout << "THE EMPEROR'S SPACE FLEET: \n" <<
+                 "TIE Bombers, Star Destroyers, Missiles And Shuttles" << std::endl;
+    for (const std::string &id: ids) {
+        auto spaceship = std::dynamic_pointer_cast<Spaceship>(objectsMap[id]);
+        if (spaceship && spaceship->getType() != "Falcon") spaceship->status();
+
+
+    }
+
+
+}
+
+void Model::goCMD() {
+    advanceTime();
+    Logger::getInstance().log("======================== TIME: [ " + std::to_string(Timer::getCurrentTick()) + " ] ========================");
+    starDestroyerUpdate();
+
+}
+
+void Model::attackCMD(const std::vector<std::string> &command) {
+    const std::string &attackerName = command[0]; // falcon
+    const std::string &targetName = command[2]; // shuttle
     if (!validateObjectExists(attackerName) || !validateObjectExists(targetName)) return; // invalid object
     auto attacker = std::dynamic_pointer_cast<Falcon>(objectsMap[attackerName]);
     auto target = std::dynamic_pointer_cast<Shuttle>(objectsMap[targetName]);
@@ -240,17 +297,17 @@ void Model::attack(std::vector<std::string> &command) {
 
 }
 
-void Model::shoot(std::vector<std::string> &command) {
-    const std::string& bomber = command[0]; // bomber
-    Position targetPos(std::stof(command[2]), std::stof(command[3])); // target position
+void Model::shootCMD(const std::vector<std::string> &command) {
+    const std::string &bomber = command[0]; // bomber
+    Position targetPos(std::stof(command[2]), std::stof(command[3])); // target positionCMD
     if (!validateObjectExists(bomber)) return; // invalid object
     auto starDestroyer = std::dynamic_pointer_cast<StarDestroyer>(objectsMap[bomber]);
     if (!starDestroyer) return; // invalid cast
     starDestroyer->shoot(targetPos);
 }
 
-void Model::stop(std::vector<std::string> &command) {
-    const std::string& spaceshipName = command[0];
+void Model::stopCMD(const std::vector<std::string> &command) {
+    const std::string &spaceshipName = command[0];
     if (!validateObjectExists(spaceshipName)) return; // invalid object
     auto spaceship = std::dynamic_pointer_cast<Spaceship>(objectsMap[spaceshipName]);
     if (!spaceship) return; // invalid cast
@@ -258,51 +315,48 @@ void Model::stop(std::vector<std::string> &command) {
 
 }
 
-void Model::position(std::vector<std::string> &command) {
-    const std::string& spaceshipName = command[0];
-    float x = std::stof(command[1]);
-    float y = std::stof(command[2]);
-    float speed = (command.size() > 3) ? std::stof(command[3]) : 0.0f; // Extract speed if provided
+void Model::positionCMD(const std::vector<std::string> &command) { // positionCMD Command
+    const std::string &spaceshipName = command[0];
+    float x = std::stof(command[2]);
+    float y = std::stof(command[3]);
     if (!validateObjectExists(spaceshipName)) return; // Validate object existence
     auto spaceship = std::dynamic_pointer_cast<Spaceship>(objectsMap[spaceshipName]);
     if (!spaceship) return; // Validate cast
-    if (speed > 0.0f) spaceship->setSpeed(speed);
-    spaceship->move(Position(x, y)); // Move spaceship
+    spaceship->setDestinationByPosition(Position(x, y));
 }
 
-void Model::destination(std::vector<std::string> &command) {
-    const std::string& spaceshipName = command[0];
-    if (!validateObjectExists(spaceshipName)) return; // invalid object
+void Model::destinationCMD(const std::vector<std::string> &command) { // destinationCMD Command
+    const std::string &spaceshipName = command[0];
+    const std::string &siteName = command[2];
+    if (!validateObjectExists(spaceshipName) || !validateObjectExists(siteName, "site")) return; // invalid object
     auto spaceship = std::dynamic_pointer_cast<Spaceship>(objectsMap[spaceshipName]);
-    if (!spaceship) return; // invalid cast
-
-    const std::string &siteName = command[2]; // fortress site
-    if (!validateObjectExists(siteName, "site")) return; // invalid object
     auto site = std::dynamic_pointer_cast<SpaceObject>(objectsMap[siteName]);
-    if (!site) return; // invalid cast
-    spaceship->move(site->getPosition());
+    if (!spaceship || !site) return; // invalid cast
+
+    spaceship->setSiteDestination(siteName);
 
 
 }
 
-void Model::course(std::vector<std::string> &command) {
-    const std::string& spaceshipName = command[0];
+void Model::courseCMD(const std::vector<std::string> &command) {
+    const std::string &spaceshipName = command[0];
     if (!validateObjectExists(spaceshipName)) return; // invalid object
+
     auto spaceship = std::dynamic_pointer_cast<Spaceship>(objectsMap[spaceshipName]);
     if (!spaceship) return; // invalid cast
 
     float angle = std::stof(command[2]);
-    spaceship->setDirection(Direction(angle));
-
     if (command.size() > 3) {
         auto speed = (float) std::stoi(command[3]);
-        for(const auto& falcon: falcons) {
-            falcon == spaceshipName ? spaceship->setSpeed(speed) : spaceship->setSpeed(3000.0f);
+        for (const auto &falcon: falcons) {
+            auto falconObj = std::dynamic_pointer_cast<Falcon>(objectsMap[falcon]);
+            if (falconObj) {
+                falconObj->setSpeed(speed);
+            }
 
         }
     }
-
-
+    spaceship->setCourse(angle);
 }
 
 void Model::defaultSite() {
@@ -317,41 +371,47 @@ void Model::defaultSite() {
 
 }
 
-void Model::addSupplyMission(std::vector<std::string> &command) {
-    const std::string& shuttleName = command[0];
-    const std::string& spaceStationName = command[2]; // station site
-    const std::string& fortressName = command[3]; // next fortress site
+void Model::SupplyCMD(const std::vector<std::string> &command) {
+    const std::string &shuttleName = command[0];
+    const std::string &spaceStationName = command[2]; // station site
+    const std::string &fortressName = command[3]; // next fortress site
 
-    if (!validateObjectExists(shuttleName)) return; // invalid object
+    if (!validateObjectExists(shuttleName) || !validateObjectExists(spaceStationName, "site") ||
+        !validateObjectExists(fortressName, "site")) return; // invalid object
+
     auto shuttle = std::dynamic_pointer_cast<Shuttle>(objectsMap[shuttleName]);
-    if (!shuttle) return; // invalid cast
-
-    if (!validateObjectExists(spaceStationName, "site")) return; // invalid object
     auto spaceStation = std::dynamic_pointer_cast<SpaceStation>(objectsMap[spaceStationName]);
-    if (!spaceStation) return; // invalid cast
-
-    if (!validateObjectExists(fortressName, "site")) return; // invalid object
     auto fortress = std::dynamic_pointer_cast<FortressStar>(objectsMap[fortressName]);
-    if (!fortress) return; // invalid cast
+
+    if (!spaceStation || !fortress || !shuttle) return; // invalid cast
+
     auto mission = std::make_pair(spaceStation, fortress);
     shuttle->addSupplyMission(mission);
 }
 
 std::vector<std::pair<std::string, Position>> Model::getPositions() const {
     std::vector<std::pair<std::string, Position>> positions;
-    for (const std::string& id: ids) {
+    for (const std::string &id: ids) {
         auto object = Model::getInstance().objectsMap[id];
-        positions.emplace_back(id, object->getPosition());
-        auto starDestroyer = std::dynamic_pointer_cast<StarDestroyer>(object);
-        if (starDestroyer) {
-            for (const auto& missile: starDestroyer->getMissilesNameAndPosition()) {
-                std::string missileName = missile.first;
-                Position missilePos = missile.second;
-                positions.emplace_back(missileName, missilePos);
+        auto spaceship = std::dynamic_pointer_cast<Spaceship>(object);
+        if (spaceship) {
+            if (spaceship->isAlive()) {
+                positions.emplace_back(id, object->getPosition());
+                auto starDestroyer = std::dynamic_pointer_cast<StarDestroyer>(object);
+                if (starDestroyer) {
+                    for (const auto &missile: starDestroyer->getMissilesNameAndPosition()) {
+                        std::string missileName = missile.first;
+                        Position missilePos = missile.second;
+                        positions.emplace_back(missileName, missilePos);
+                    }
+                }
             }
+        } else {
+            positions.emplace_back(id, object->getPosition());
         }
 
     }
     return positions;
 }
+
 

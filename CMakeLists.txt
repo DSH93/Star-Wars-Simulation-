@@ -13,15 +13,18 @@ set(SOURCES
         src/model/Model.cpp
         src/model/spaceships/Shuttle.cpp
         src/model/spaceships/Spaceship.cpp
-        src/model/Timer.cpp
         src/model/SpaceStation.cpp
         src/model/spaceships/TIEBomber.cpp
         src/model/spaceships/StarDestroyer.cpp
         src/model/spaceships/Falcon.cpp
-        src/model/agent/ImperialAgent.cpp
         src/controller/Controller.cpp
         src/view/View.cpp
         src/model/spaceships/Missile.cpp
+        include/Constant.h
+        src/Logger.cpp
+        include/Logger.h
+        src/ModelTester.cpp
+        include/ModelTester.h
 )
 
 

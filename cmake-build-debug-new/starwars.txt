@@ -4,7 +4,7 @@ create commander Ozzel
 
 create midshipman Peter
 
-create bomber B2 Ozzel (40.00, 10.00)
+create bomber B2 Ozzel (30.00, 40.00)
 
 create shuttle GX Peter (38.00, 6.00)
 

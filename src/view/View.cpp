@@ -5,30 +5,22 @@
 #include <iomanip>
 #include <iostream>
 #include "view/View.h"
+#include "Constant.h"
 
-View::View() : size(25), scale(2), grid(30, std::vector<std::string>(30, ".")), origin(0,0) {}
+View::View() : size(DEFAULT_GRID_SIZE), scale(DEFAULT_SCALE), grid(MAX_GRID_SIZE,
+  std::vector<std::string>(MAX_GRID_SIZE, EMPTY_CELL)), origin(DEFAULT_ORIGIN_X,DEFAULT_ORIGIN_Y) {}
 
 void View::printGrid() {
     updateGrid();
-
-
     for (int gridRow = size - 1; gridRow >= 0; --gridRow) {
         int worldY = origin.second + gridRow;
         int scaledY = worldY * scale;
-
-        // 25 + 0 = 25 default situation
-        // 25 * 2 = 50
-
-        // 20 + 25 = 45 pan 20 20
-        // 45 * 2 = 90
 
         if (worldY % 3 == 0) {
             std::cout << std::setw(3) << scaledY << "  ";
         } else {
             std::cout << "     ";
         }
-
-
 
         for (int gridCol = 0; gridCol < size; ++gridCol) {
             std::cout << std::setw(2) << grid[gridRow][gridCol];
@@ -57,9 +49,7 @@ void View::setPositions(const std::vector<std::pair<std::string, Position>>& pos
     this->positions = pos;
 }
 
-
 void View::pan(int a, int b) {
-    // הפיכת ההזזה מיחידות עולם (a,b) ליחידות גריד
     int deltaX = a / scale;
     int deltaY = b / scale;
 
@@ -69,7 +59,7 @@ void View::pan(int a, int b) {
 
 void View::updateGrid() {
     for (auto& row : grid) {
-        std::fill(row.begin(), row.end(), ".");
+        std::fill(row.begin(), row.end(), EMPTY_CELL);
     }
 
     for (const auto& posPair : positions) {
@@ -97,16 +87,16 @@ bool View::isInGrid(int x, int y) const {
 }
 
 void View::zoom(int s) {
-    if (s < 1 || s > 10) {
-        std::cerr << "Error: Invalid scale" << std::endl;
+    if (s < MIN_SCALE || s > MAX_SCALE) {
+        std::cerr << ERROR_INVALID_SCALE << std::endl;
         return;
     }
     this->scale = s;
 }
 
 void View::setSize(int dim) {
-    if (dim < 6 || dim > 30) {
-        std::cerr << "Error: Invalid size" << std::endl;
+    if (dim < MIN_GRID_SIZE || dim > MAX_GRID_SIZE) {
+        std::cerr << ERROR_INVALID_SIZE << std::endl;
         return;
     }
     this->size = dim;
@@ -114,9 +104,12 @@ void View::setSize(int dim) {
 }
 
 void View::setDefault() {
-    size = 25;
-    scale = 2;
-    origin = {0, 0};
+    size = DEFAULT_GRID_SIZE;
+    scale = DEFAULT_SCALE;
+    origin = {DEFAULT_ORIGIN_X, DEFAULT_ORIGIN_Y};
     grid = std::vector<std::vector<std::string>>(30, std::vector<std::string>(30, "."));
     positions = std::vector<std::pair<std::string, Position>>();
 }
+
+
+

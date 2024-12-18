@@ -1,4 +1,4 @@
 "C:\Users\Dor Shukrun\AppData\Local\Programs\CLion\bin\cmake\win\x64\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Debug "-DCMAKE_MAKE_PROGRAM=C:/Users/Dor Shukrun/AppData/Local/Programs/CLion/bin/ninja/win/x64/ninja.exe" -G Ninja -S "C:\Users\Dor Shukrun\AllCoding\CLionProjects\Advnace CPP\statWars\Star-Wars-Simulation-" -B "C:\Users\Dor Shukrun\AllCoding\CLionProjects\Advnace CPP\statWars\Star-Wars-Simulation-\cmake-build-debug-new"
--- Configuring done (0.4s)
+-- Configuring done (0.2s)
 -- Generating done (0.0s)
 -- Build files have been written to: C:/Users/Dor Shukrun/AllCoding/CLionProjects/Advnace CPP/statWars/Star-Wars-Simulation-/cmake-build-debug-new

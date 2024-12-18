@@ -7,20 +7,20 @@
 
 
 
-Missile::Missile(const Position &destroyer, const Position &targetPos, const std::string &identifier)
-        : Spaceship(const_cast<Position&>(destroyer), identifier),
+Missile::Missile(const Position &destroyer, const Position &targetPos, const std::string &identifier, const std::vector<std::shared_ptr<SpaceObject>>& sites)
+        : Spaceship(const_cast<Position&>(destroyer), identifier, sites),
           target(targetPos) {
-    setDestination(targetPos);
-    setSpeed(3000.0f);
-    distance = destroyer.distance(targetPos);
+    this->destination = targetPos;
+    setSpeed(MISSILE_SPEED);
+    distance = Position::distance(destroyer,targetPos);
     setState(SpaceshipState::MOVING);
-    startMissionTime = Timer::getCurrentTick();
+    Timer::getCurrentTick();
     direction = Direction(destroyer, targetPos);
+    Logger::getInstance().log("Missile " + id + " created at " + position.toString() + " Heading to Target: " + target.toString());
 }
 
 
-
-void Missile::setTarget(const Position &misTarget) { // change the misTarget of the missile
+[[maybe_unused]] void Missile::setTarget(const Position &misTarget) { // change the misTarget of the missile
     this->target = misTarget;
     direction = Direction(getCurrentPosition(), misTarget);
 
@@ -32,10 +32,13 @@ bool Missile::isMissileDestroyed() const {
 
 
 void Missile::status() {
-    std::string id = getId();
-    std::cout << "\n}=Missile==> " << id << " "<< position <<", Target: " << target.toString() << std::endl;
-
-
+    if (isDestroyed) {
+        std::cout << "Missile  " << id << " at " << position.toString() << " Destroyed\n";
+        Logger::getInstance().log("Missile  " + id + " at " + position.toString() + " Destroyed");
+        return;
+    }
+    Logger::getInstance().log("Missile " + id + " at " + position.toString() + " Heading to Target: " + target.toString());
+    std::cout << "Missile " << id << " "<< position <<", Heading to Target: " << target.toString() << std::endl;
 }
 
 void Missile::interact(std::shared_ptr<SpaceObject> other) {
@@ -50,11 +53,12 @@ Position Missile::getTarget() const {
 
 std::string Missile::update(const std::vector<std::pair<std::string, Position>>& falconsPositions) {
     Spaceship::update();
-    status();
+    Logger::getInstance().log("Missile " + id + " at " + position.toString() + " Heading to Target: " + target.toString());
     std::string falconName;
     for (auto &falcon: falconsPositions) {
         if (falcon.second == target && position == target) {
             falconName = falcon.first;
+            Logger::getInstance().log("Missile " + id + " at " + position.toString() + " Destroyed Falcon " + falconName);
             isDestroyed = true;
             break;
         }
@@ -69,10 +73,6 @@ std::string Missile::update(const std::vector<std::pair<std::string, Position>>&
 
 void Missile::update() {
 
-
-}
-
-void Missile::clear() {
 
 }
 

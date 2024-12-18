@@ -5,20 +5,24 @@
 #ifndef STARWARSSIMULATION_ADMIRAL_H
 #define STARWARSSIMULATION_ADMIRAL_H
 
-
-// Admiral.h
-#include <iostream>
 #include "ImperialAgent.h"
+#include "Logger.h"
 
+/**
+ * @class Admiral
+ * @brief Represents an Admiral in the Imperial fleet.
+ *
+ * The Admiral class inherits from ImperialAgent and logs its creation.
+ */
 class Admiral : public ImperialAgent {
 public:
-    Admiral (std::string name) : ImperialAgent(name) {
-        std::cout << "Admiral " << name << " created" << std::endl;
-    }
-    void displayRank() const override {
-        std::cout << "Rank: Admiral" << std::endl;
+    /**
+     * @brief Constructs an Admiral object with a given name.
+     * @param name The name of the Admiral.
+     */
+    explicit Admiral(const std::string& name) : ImperialAgent(name) {
+        Logger::getInstance().log("Admiral " + name + " created", Logger::Level::INFO);
     }
 };
-
 
 #endif //STARWARSSIMULATION_ADMIRAL_H
