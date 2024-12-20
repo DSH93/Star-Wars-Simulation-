@@ -1,7 +1,3 @@
-//
-// Created by Dor Shukrun on 27/08/2024.
-//
-
 #ifndef STARWARSSIMULATION_SPACESTATION_H
 #define STARWARSSIMULATION_SPACESTATION_H
 
@@ -73,6 +69,11 @@ public:
      * @return A string representing the type of the object: "SpaceStation".
      */
     [[nodiscard]] std::string getType() const override { return "SpaceStation"; }
+
+    std::vector<std::shared_ptr<SpaceObject>> filterDockingShuttles();
+
+    void printDockingShuttles();
+
 };
 
 #endif //STARWARSSIMULATION_SPACESTATION_H

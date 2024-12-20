@@ -1,7 +1,3 @@
-//
-// Created by Dor Shukrun on 23/08/2024.
-//
-
 #ifndef STARWARSSIMULATION_MODEL_H
 #define STARWARSSIMULATION_MODEL_H
 
@@ -227,6 +223,20 @@ public:
     void createSpaceship(const std::vector<std::string> &command);
 
     bool validateAndInsertId(const std::string &name);
+
+    void createAgent(const std::string &agentType, const std::string &agentName, ConcreteImperialAgentFactory &factory);
+
+    static void logAndReportError(const std::string &errorMessage);
+
+    static std::unique_ptr<SpaceObject>
+    createSite(const std::string &type, int crystals, int production, Position pos, const std::string &name);
+
+    void printStatusByType(const std::string &title, const std::vector<std::string> &names,
+                           const std::unordered_set<std::string> &types);
+
+    std::shared_ptr<SpaceObject> getObject(const std::string &objName) const;
+
+    void clearAllStationsAndFortresses();
 };
 
 #endif // STARWARSSIMULATION_MODEL_H

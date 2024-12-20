@@ -1,12 +1,18 @@
-//
-// Created by Dor Shukrun on 27/08/2024.
-//
-
 #include "model/SpaceStation.h"
 
 
 SpaceStation::SpaceStation(int crystalsAmount, int productionRate, Position position, const std::string &identifier)
         : SpaceObject(position, identifier), crystalsAmount(crystalsAmount), productionRate(productionRate) {}
+
+
+void SpaceStation::printDockingShuttles() {
+    if (!dockingShuttles.empty()) {
+        std::cout << "Docking shuttles:" << std::endl;
+        for (const auto &shuttle : dockingShuttles) {
+            std::cout << "  - " << shuttle->getId() << std::endl;
+        }
+    }
+}
 
 
 void SpaceStation::status() {
@@ -15,29 +21,29 @@ void SpaceStation::status() {
               << "Production Rate: " << productionRate << "\n"
               << "Number of Docking Shuttles: " << dockingShuttles.size()
               << std::endl;
+    printDockingShuttles();
 
-    if (!dockingShuttles.empty()) {
-        std::cout << "Docking shuttles:" << std::endl;
-        for (const auto &shuttle : dockingShuttles) {
-            std::cout << "  - " << shuttle->getId() << std::endl;
+}
+
+
+std::vector<std::shared_ptr<SpaceObject>> SpaceStation::filterDockingShuttles() {
+    std::vector<std::shared_ptr<SpaceObject>> updatedShuttles;
+    for (const auto &shuttle : dockingShuttles) {
+        if (shuttle->getCurrentPosition() == position) {
+            updatedShuttles.push_back(shuttle);
         }
     }
-
+    return updatedShuttles;
 }
 
 
 void SpaceStation::update() {
     if (!dockingShuttles.empty()) {
-        std::vector<std::shared_ptr<SpaceObject>> updatedShuttles;
-        for (const auto &shuttle: dockingShuttles) {
-            if (shuttle->getCurrentPosition() == position) {
-                updatedShuttles.push_back(shuttle);
-            }
-        }
-        dockingShuttles = std::move(updatedShuttles);
+        dockingShuttles = filterDockingShuttles();
     }
     crystalsAmount += productionRate;
 }
+
 
 Position SpaceStation::getCurrentPosition() {
     return position;

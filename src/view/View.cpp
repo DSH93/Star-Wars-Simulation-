@@ -12,23 +12,42 @@ View::View() : size(DEFAULT_GRID_SIZE), scale(DEFAULT_SCALE), grid(MAX_GRID_SIZE
 
 void View::printGrid() {
     updateGrid();
+    printRows();
+    printColumnHeaders();
+}
+
+void View::printDefinition() const {
+    std::cout << "Display size: " << size << ", scale: " << (double)scale << " , origin: (" << (double)origin.first << ", " << (double)origin.second << ")" << std::endl;
+}
+
+
+void View::printRows() const {
+    printDefinition();
     for (int gridRow = size - 1; gridRow >= 0; --gridRow) {
-        int worldY = origin.second + gridRow;
-        int scaledY = worldY * scale;
-
-        if (worldY % 3 == 0) {
-            std::cout << std::setw(3) << scaledY << "  ";
-        } else {
-            std::cout << "     ";
-        }
-
-        for (int gridCol = 0; gridCol < size; ++gridCol) {
-            std::cout << std::setw(2) << grid[gridRow][gridCol];
-        }
+        printRowHeader(gridRow);
+        printRow(gridRow);
         std::cout << "\n";
     }
+}
 
+void View::printRowHeader(int gridRow) const {
+    int worldY = origin.second + gridRow;
+    int scaledY = worldY * scale;
 
+    if (worldY % 3 == 0) {
+        std::cout << std::setw(3) << scaledY << "  ";
+    } else {
+        std::cout << "     ";
+    }
+}
+
+void View::printRow(int gridRow) const {
+    for (int gridCol = 0; gridCol < size; ++gridCol) {
+        std::cout << std::setw(2) << grid[gridRow][gridCol];
+    }
+}
+
+void View::printColumnHeaders() const {
     std::cout << "     ";
     for (int gridCol = 0; gridCol < size; ++gridCol) {
         int worldX = origin.first + gridCol;

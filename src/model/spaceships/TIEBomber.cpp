@@ -1,7 +1,3 @@
-//
-// Created by Dor Shukrun on 27/08/2024.
-//
-
 #include "model/spaceships/TIEBomber.h"
 #include <iostream>
 #include <stdexcept>
@@ -60,6 +56,7 @@ void TIEBomber::flyToClosestSpaceSite() {
     if (visitedSites.size() == sites.size()) {
         visitedSites.clear(); // Reset visited sites if all sites have been visited
         move(firstSite->getPosition()); // start the routine again
+        return;
     }
 
     findClosestSpaceSite(); // Find the closest site and update the closestSite property

@@ -37,17 +37,6 @@ public:
      */
     void status() override;
 
-    /**
-     * @brief Handles interaction with other space objects.
-     *
-     * @param other The space object to interact with.
-     */
-    void interact(std::shared_ptr<SpaceObject> other) override;
-
-    /**
-     * @brief Updates the missile's position and state during the simulation.
-     */
-    void update() override;
 
     /**
      * @brief Updates the missile and checks for collisions with Falcons.
@@ -55,14 +44,7 @@ public:
      * @param falconsPositions A list of Falcon positions to check against.
      * @return The identifier of the Falcon destroyed, if any.
      */
-    std::string update(const std::vector<std::pair<std::string, Position>>& falconsPositions);
-
-    /**
-     * @brief Sets a new target for the missile.
-     *
-     * @param misTarget The new target position.
-     */
-    [[maybe_unused]] void setTarget(const Position &misTarget);
+    std::string updateAndCheckTarget(const std::vector<std::pair<std::string, Position>>& falconsPositions);
 
     /**
      * @brief Checks if the missile has been destroyed.

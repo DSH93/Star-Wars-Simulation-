@@ -20,12 +20,6 @@ Missile::Missile(const Position &destroyer, const Position &targetPos, const std
 }
 
 
-[[maybe_unused]] void Missile::setTarget(const Position &misTarget) { // change the misTarget of the missile
-    this->target = misTarget;
-    direction = Direction(getCurrentPosition(), misTarget);
-
-}
-
 bool Missile::isMissileDestroyed() const {
     return isDestroyed;
 }
@@ -41,17 +35,12 @@ void Missile::status() {
     std::cout << "Missile " << id << " "<< position <<", Heading to Target: " << target.toString() << std::endl;
 }
 
-void Missile::interact(std::shared_ptr<SpaceObject> other) {
-
-}
-
-
 
 Position Missile::getTarget() const {
     return target;
 }
 
-std::string Missile::update(const std::vector<std::pair<std::string, Position>>& falconsPositions) {
+std::string Missile::updateAndCheckTarget(const std::vector<std::pair<std::string, Position>>& falconsPositions) {
     Spaceship::update();
     Logger::getInstance().log("Missile " + id + " at " + position.toString() + " Heading to Target: " + target.toString());
     std::string falconName;
@@ -69,11 +58,5 @@ std::string Missile::update(const std::vector<std::pair<std::string, Position>>&
 
 }
 
-
-
-void Missile::update() {
-
-
-}
 
 

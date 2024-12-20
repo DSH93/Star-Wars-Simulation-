@@ -1,7 +1,3 @@
-//
-// Created by Dor Shukrun on 24/08/2024.
-//
-
 #ifndef STARWARSSIMULATION_SPACESHIP_H
 #define STARWARSSIMULATION_SPACESHIP_H
 
@@ -115,7 +111,7 @@ public:
      * @brief Pure virtual function to handle interaction with other space objects.
      * @param other The space object to interact with.
      */
-    void interact(std::shared_ptr<SpaceObject> other) override = 0;
+    void interact(std::shared_ptr<SpaceObject> other) override;
 
     /**
      * @brief Updates the state of the spaceship.

@@ -1,7 +1,3 @@
-//
-// Created by Dor Shukrun on 27/08/2024.
-//
-
 #include "model/spaceships/StarDestroyer.h"
 #include <algorithm>
 
@@ -14,11 +10,6 @@ StarDestroyer::StarDestroyer(const Position& pos, const std::string& identifier,
     logCreation("Star Destroyer", identifier, speed);
 }
 
-
-void StarDestroyer::interact(std::shared_ptr<SpaceObject> other) {
-    // empty implementation
-
-}
 
 
 void StarDestroyer::status() {
@@ -45,7 +36,7 @@ std::string StarDestroyer::missileUpdate(const std::vector<std::pair<std::string
     std::string falconName;
     for (const auto& missileName: destroyerMissiles) {
         auto missile = std::dynamic_pointer_cast<Missile>(missilesMap[missileName]);
-        falconName = missile->update(falconsPositions); // if missile hit falcon return falcon name
+        falconName = missile->updateAndCheckTarget(falconsPositions); // if missile hit falcon return falcon name
         if (missile->isMissileDestroyed()) {
             std::cout << "Missile " << getId() << " hits Falcon " << falconName << "at " << missile->getTarget() << std::endl;
             // remove missile from the map

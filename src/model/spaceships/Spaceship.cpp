@@ -1,7 +1,3 @@
-//
-// Created by Dor Shukrun on 24/08/2024.
-//
-
 #include <cmath>
 #include <iomanip>
 
@@ -112,7 +108,7 @@ Position Spaceship::calculateNewPosition() {
 }
 
 Position Spaceship::getCurrentPosition() {
-    if (state == SpaceshipState::STOPPED || state == SpaceshipState::DEAD) return position; // If stopped, return the current positionCMD
+    if (state == SpaceshipState::STOPPED || state == SpaceshipState::DEAD ) return position; // If stopped, return the current positionCMD
     if (method == flightMethod::COURSE) return calculateCoursePosition();
     return calculateNewPosition();
 }
@@ -193,5 +189,10 @@ void Spaceship::status() {
 
 std::string Spaceship::getType() const {
     return "Spaceship";
+}
+
+void Spaceship::interact(std::shared_ptr<SpaceObject> other) {
+    Logger::getInstance().log("Default Interact Function of Spaceship " + id + " interacted with " + other->getId());
+
 }
 

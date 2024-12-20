@@ -1,7 +1,3 @@
-//
-// Created by Dor Shukrun on 29/08/2024.
-//
-
 #include <fstream>
 #include <sstream>
 #include <algorithm>
@@ -130,8 +126,8 @@ void Controller::processCommand() {
 }
 
 void clearScreen() {
-    for (int j = 0; j < 16; ++j) {
-        std::cout << "\n";
+    for (int j = 0; j < 4; ++j) {
+        std::cout << "\n\n\n\n";
     }
     std::cout << std::flush;
 }
@@ -145,7 +141,7 @@ void Controller::progressTimeInteractive(int timeUnits) {
 
         view->setPositions(positions);
         // Clear the screen before printing the updated grid
-        std::this_thread::sleep_for(std::chrono::seconds (1));
+        std::this_thread::sleep_for(std::chrono::milliseconds (700));
 
     }
 }
@@ -206,7 +202,7 @@ void Controller::startSimulation() {
     Logger::getInstance().log("Simulation started");
     std::string line;
     while (true) {
-        std::cout << "Time " << Timer::getCurrentTick() << ": Enter command: " << std::endl;
+        std::cout << "Time " << Timer::getCurrentTick() << ":  Enter command :";
         std::getline(std::cin, line);
 
         line.erase(0, line.find_first_not_of(" \t"));

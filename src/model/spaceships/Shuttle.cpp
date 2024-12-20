@@ -1,7 +1,3 @@
-//
-// Created by Dor Shukrun on 24/08/2024.
-//
-
 #include <sstream>
 #include "model/spaceships/Shuttle.h"
 #include "model/SpaceStation.h"
@@ -83,11 +79,13 @@ void Shuttle::interact(std::shared_ptr<SpaceObject> other) {
     auto spaceSt = std::dynamic_pointer_cast<SpaceStation>(other);
     auto fort = std::dynamic_pointer_cast<FortressStar>(other);
     if (spaceSt) {
+        state = SpaceshipState::DOCKED;
         loadCrystals(spaceSt);
         spaceSt->interact(shared_from_this());
         std::cout << "Shuttle " << id << " start to load Crystals" << std::endl;
 
     } else if (fort) {
+        state = SpaceshipState::DOCKED;
         std::cout << "Shuttle " << id << " start to unload Crystals" << std::endl;
         fort->addCrystals(crystalsContainers);
         fort->interact(shared_from_this());
@@ -105,31 +103,48 @@ void Shuttle::status() {
 
 }
 
-
 void Shuttle::update() {
 
     if (needToWait) {
         needToWait = false;
-        if (position == station) std::cout << "Shuttle " << id << " is loading Crystals" << std::endl;
-        else if (position == fortress) std::cout << "Shuttle " << id << " is unloading Crystals" << std::endl;
+        if (position == station) {
+            std::cout << "Shuttle " << id << " is loading Crystals" << std::endl;
+            Logger::getInstance().log("Shuttle " + id + " is waiting at " + spaceStation->getId());
+            Spaceship::move(fortress);
+            return;
+
+
+
+        }
+        else if (position == fortress) {
+            std::cout << "Shuttle " << id << " is unloading Crystals" << std::endl;
+            Logger::getInstance().log("Shuttle " + id + " is waiting at " + fortressStar->getId());
+            return;
+
+        }
+        Logger::getInstance().log("ERROR: Shuttle " + id + " is not at the correct position", Logger::Level::ERROR);
         return;
     }
+
     Spaceship::update();
+
 
     if (finishedMission){
         startSupplyMission();
         return;
     }
 
-    if (position == station) {
+
+    if (position == station ) {
         std::cout << "Shuttle " << id << " has arrived at " << spaceStation->getId() << std::endl;
         interact(spaceStation);
-        Spaceship::move(fortress);
 
 
     } else if (position == fortress && !finishedMission) {
         std::cout << "Shuttle " << id << " has arrived at " << fortressStar->getId() << std::endl;
         interact(fortressStar);
     }
+
+
 }
 

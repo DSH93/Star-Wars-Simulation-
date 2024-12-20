@@ -1,7 +1,3 @@
-//
-// Created by Dor Shukrun on 23/08/2024.
-//
-
 #ifndef STARWARSSIMULATION_POSITION_H
 #define STARWARSSIMULATION_POSITION_H
 

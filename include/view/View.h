@@ -61,6 +61,16 @@ public:
      * @brief Resets the view to default parameters.
      */
     void setDefault();
+
+    void printColumnHeaders() const;
+
+    void printRow(int gridRow) const;
+
+    void printRowHeader(int gridRow) const;
+
+    void printRows() const;
+
+    void printDefinition() const;
 };
 
 #endif //STARWARSSIMULATION_VIEW_H

@@ -1,7 +1,3 @@
-//
-// Created by Dor Shukrun on 27/08/2024.
-//
-
 #ifndef STARWARSSIMULATION_TIEBOMBER_H
 #define STARWARSSIMULATION_TIEBOMBER_H
 

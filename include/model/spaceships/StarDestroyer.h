@@ -1,7 +1,3 @@
-//
-// Created by Dor Shukrun on 27/08/2024.
-//
-
 #ifndef STARWARSSIMULATION_STARDESTROYER_H
 #define STARWARSSIMULATION_STARDESTROYER_H
 
@@ -42,12 +38,6 @@ public:
      */
     StarDestroyer(const Position& pos, const std::string& identifier, float speed = DEFAULT_STAR_DESTROYER_SPEED,
                   const std::shared_ptr<Admiral>& pilot = nullptr, const std::vector<std::shared_ptr<SpaceObject>>& sites = {});
-
-    /**
-     * @brief Handles interaction with another space object.
-     * @param other Shared pointer to the space object.
-     */
-    void interact(std::shared_ptr<SpaceObject> other) override;
 
     /**
      * @brief Prints the status of the Star Destroyer and its active missiles.

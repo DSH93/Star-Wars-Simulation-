@@ -1,7 +1,3 @@
-//
-// Created by Dor Shukrun on 24/08/2024.
-//
-
 #ifndef TIMER_H
 #define TIMER_H
 
