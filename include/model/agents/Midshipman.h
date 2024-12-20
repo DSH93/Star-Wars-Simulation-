@@ -10,9 +10,8 @@
 
 class Midshipman : public ImperialAgent {
 public:
-    Midshipman (std::string name) : ImperialAgent(name) {}
-    void displayRank() const override {
-        std::cout << "Rank: Midshipman" << std::endl;
+    explicit Midshipman (const std::string& name) : ImperialAgent(name) {
+        Logger::getInstance().log("Midshipman " + name + " created");
     }
 };
 

@@ -1,0 +1,382 @@
+[INFO] Loading sites from sites.dat
+[INFO] COMMAND: Adding site: Yavin
+[INFO] COMMAND: Adding site: Rakatan
+[INFO] COMMAND: Adding site: Arcanum
+[INFO] COMMAND: Adding site: Claw
+[INFO] COMMAND: Adding site: Facility729D
+[INFO] COMMAND: Adding site: Drydock4
+[INFO] Simulation started
+[INFO] Starting all tests...
+[INFO] Commander James was created
+[INFO] TIE Bomber created with ID: BB and speed: 1000.000000 km/h
+[INFO] ======================== TIME: [ 1 ] ========================
+[INFO] ======================== TIME: [ 2 ] ========================
+[INFO] ======================== TIME: [ 3 ] ========================
+[INFO] ======================== TIME: [ 4 ] ========================
+[INFO] ======================== TIME: [ 5 ] ========================
+[INFO] ======================== TIME: [ 6 ] ========================
+[INFO] Bomber position: 30.000000
+[INFO] Arcanum position: 30.000000
+[INFO] ======================== TIME: [ 7 ] ========================
+[INFO] ======================== TIME: [ 8 ] ========================
+[INFO] ======================== TIME: [ 9 ] ========================
+[INFO] ======================== TIME: [ 10 ] ========================
+[INFO] ======================== TIME: [ 11 ] ========================
+[INFO] ======================== TIME: [ 12 ] ========================
+[INFO] ======================== TIME: [ 13 ] ========================
+[INFO] ======================== TIME: [ 14 ] ========================
+[INFO] ======================== TIME: [ 15 ] ========================
+[INFO] ======================== TIME: [ 16 ] ========================
+[INFO] ======================== TIME: [ 17 ] ========================
+[INFO] ======================== TIME: [ 18 ] ========================
+[INFO] ======================== TIME: [ 19 ] ========================
+[INFO] ======================== TIME: [ 20 ] ========================
+[INFO] ======================== TIME: [ 21 ] ========================
+[INFO] Bomber position: 40.000000
+[INFO] DS position: 40.000000
+[INFO] ======================== TIME: [ 22 ] ========================
+[INFO] ======================== TIME: [ 23 ] ========================
+[INFO] ======================== TIME: [ 24 ] ========================
+[INFO] ======================== TIME: [ 25 ] ========================
+[INFO] ======================== TIME: [ 26 ] ========================
+[INFO] ======================== TIME: [ 27 ] ========================
+[INFO] ======================== TIME: [ 28 ] ========================
+[INFO] ======================== TIME: [ 29 ] ========================
+[INFO] ======================== TIME: [ 30 ] ========================
+[INFO] ======================== TIME: [ 31 ] ========================
+[INFO] ======================== TIME: [ 32 ] ========================
+[INFO] ======================== TIME: [ 33 ] ========================
+[INFO] ======================== TIME: [ 34 ] ========================
+[INFO] ======================== TIME: [ 35 ] ========================
+[INFO] ======================== TIME: [ 36 ] ========================
+[INFO] ======================== TIME: [ 37 ] ========================
+[INFO] ======================== TIME: [ 38 ] ========================
+[INFO] ======================== TIME: [ 39 ] ========================
+[INFO] ======================== TIME: [ 40 ] ========================
+[INFO] ======================== TIME: [ 41 ] ========================
+[INFO] ======================== TIME: [ 42 ] ========================
+[INFO] ======================== TIME: [ 43 ] ========================
+[INFO] ======================== TIME: [ 44 ] ========================
+[INFO] Bomber position: 20.000000
+[INFO] Claw position: 20.000000
+[INFO] ======================== TIME: [ 45 ] ========================
+[INFO] ======================== TIME: [ 46 ] ========================
+[INFO] ======================== TIME: [ 47 ] ========================
+[INFO] ======================== TIME: [ 48 ] ========================
+[INFO] ======================== TIME: [ 49 ] ========================
+[INFO] ======================== TIME: [ 50 ] ========================
+[INFO] ======================== TIME: [ 51 ] ========================
+[INFO] ======================== TIME: [ 52 ] ========================
+[INFO] ======================== TIME: [ 53 ] ========================
+[INFO] ======================== TIME: [ 54 ] ========================
+[INFO] Bomber position: 10.000000
+[INFO] Rakatan position: 10.000000
+[INFO] ======================== TIME: [ 55 ] ========================
+[INFO] ======================== TIME: [ 56 ] ========================
+[INFO] ======================== TIME: [ 57 ] ========================
+[INFO] ======================== TIME: [ 58 ] ========================
+[INFO] ======================== TIME: [ 59 ] ========================
+[INFO] ======================== TIME: [ 60 ] ========================
+[INFO] ======================== TIME: [ 61 ] ========================
+[INFO] ======================== TIME: [ 62 ] ========================
+[INFO] ======================== TIME: [ 63 ] ========================
+[INFO] Bomber position: 10.000000
+[INFO] Facility729D position: 10.000000
+[INFO] ======================== TIME: [ 64 ] ========================
+[INFO] ======================== TIME: [ 65 ] ========================
+[INFO] ======================== TIME: [ 66 ] ========================
+[INFO] ======================== TIME: [ 67 ] ========================
+[INFO] ======================== TIME: [ 68 ] ========================
+[INFO] ======================== TIME: [ 69 ] ========================
+[INFO] Bomber position: 6.000000
+[INFO] Yavin position: 6.000000
+[INFO] ======================== TIME: [ 70 ] ========================
+[INFO] ======================== TIME: [ 71 ] ========================
+[INFO] ======================== TIME: [ 72 ] ========================
+[INFO] ======================== TIME: [ 73 ] ========================
+[INFO] ======================== TIME: [ 74 ] ========================
+[INFO] ======================== TIME: [ 75 ] ========================
+[INFO] ======================== TIME: [ 76 ] ========================
+[INFO] ======================== TIME: [ 77 ] ========================
+[INFO] ======================== TIME: [ 78 ] ========================
+[INFO] ======================== TIME: [ 79 ] ========================
+[INFO] ======================== TIME: [ 80 ] ========================
+[INFO] ======================== TIME: [ 81 ] ========================
+[INFO] ======================== TIME: [ 82 ] ========================
+[INFO] ======================== TIME: [ 83 ] ========================
+[INFO] ======================== TIME: [ 84 ] ========================
+[INFO] ======================== TIME: [ 85 ] ========================
+[INFO] ======================== TIME: [ 86 ] ========================
+[INFO] ======================== TIME: [ 87 ] ========================
+[INFO] ======================== TIME: [ 88 ] ========================
+[INFO] ======================== TIME: [ 89 ] ========================
+[INFO] ======================== TIME: [ 90 ] ========================
+[INFO] ======================== TIME: [ 91 ] ========================
+[INFO] ======================== TIME: [ 92 ] ========================
+[INFO] Bomber position: 0.000000
+[INFO] Drydock4 position: 0.000000
+[INFO] ======================== TIME: [ 93 ] ========================
+[INFO] ======================== TIME: [ 94 ] ========================
+[INFO] ======================== TIME: [ 95 ] ========================
+[INFO] ======================== TIME: [ 96 ] ========================
+[INFO] ======================== TIME: [ 97 ] ========================
+[INFO] ======================== TIME: [ 98 ] ========================
+[INFO] ======================== TIME: [ 99 ] ========================
+[INFO] ======================== TIME: [ 100 ] ========================
+[INFO] ======================== TIME: [ 101 ] ========================
+[INFO] ======================== TIME: [ 102 ] ========================
+[INFO] ======================== TIME: [ 103 ] ========================
+[INFO] ======================== TIME: [ 104 ] ========================
+[INFO] ======================== TIME: [ 105 ] ========================
+[INFO] ======================== TIME: [ 106 ] ========================
+[INFO] ======================== TIME: [ 107 ] ========================
+[INFO] ======================== TIME: [ 108 ] ========================
+[INFO] ======================== TIME: [ 109 ] ========================
+[INFO] ======================== TIME: [ 110 ] ========================
+[INFO] ======================== TIME: [ 111 ] ========================
+[INFO] ======================== TIME: [ 112 ] ========================
+[INFO] ======================== TIME: [ 113 ] ========================
+[INFO] ======================== TIME: [ 114 ] ========================
+[INFO] ======================== TIME: [ 115 ] ========================
+[INFO] ======================== TIME: [ 116 ] ========================
+[INFO] ======================== TIME: [ 117 ] ========================
+[INFO] ======================== TIME: [ 118 ] ========================
+[INFO] ======================== TIME: [ 119 ] ========================
+[INFO] ======================== TIME: [ 120 ] ========================
+[INFO] ======================== TIME: [ 121 ] ========================
+[INFO] ======================== TIME: [ 122 ] ========================
+[INFO] ======================== TIME: [ 123 ] ========================
+[INFO] ======================== TIME: [ 124 ] ========================
+[INFO] ======================== TIME: [ 125 ] ========================
+[INFO] ======================== TIME: [ 126 ] ========================
+[INFO] ======================== TIME: [ 127 ] ========================
+[INFO] ======================== TIME: [ 128 ] ========================
+[INFO] ======================== TIME: [ 129 ] ========================
+[INFO] ======================== TIME: [ 130 ] ========================
+[INFO] ======================== TIME: [ 131 ] ========================
+[INFO] ======================== TIME: [ 132 ] ========================
+[INFO] ======================== TIME: [ 133 ] ========================
+[INFO] ======================== TIME: [ 134 ] ========================
+[INFO] ======================== TIME: [ 135 ] ========================
+[INFO] Testing station creation...
+[INFO] Testing admiral creation...
+[INFO] Admiral Thrawn created
+[INFO] Admiral Tarkin created
+[INFO] Testing commander creation...
+[INFO] Commander Piett was created
+[INFO] Commander Ozzel was created
+[INFO] Testing bomber creation...
+[INFO] TIE Bomber created with ID: B1 and speed: 1000.000000 km/h
+[INFO] TIE Bomber created with ID: B2 and speed: 1000.000000 km/h
+[INFO] Testing midshipman creation...
+[INFO] Midshipman Ackbar created
+[INFO] Midshipman Peter created
+[INFO] Midshipman Flavius created
+[INFO] Testing falcon creation...
+[INFO] Falcon created with ID: F1 and speed: 3000.000000 km/h
+[INFO] Falcon created with ID: Millennium and speed: 3000.000000 km/h
+[INFO] Testing destroyer creation...
+[INFO] Star Destroyer created with ID: D1 and speed: 2000.000000 km/h
+[INFO] Star Destroyer created with ID: D2 and speed: 2000.000000 km/h
+[INFO] Testing shuttle creation...
+[INFO] Shuttle created with ID: S1 and speed: 500.000000 km/h
+[INFO] Shuttle created with ID: S2 and speed: 500.000000 km/h
+[INFO] Testing commands execution...
+[INFO] Testing shooting and initial movement...
+[INFO] Missile m1 created at (50.00, 20.00) Heading to Target: (42.00, 42.00)
+[INFO] ======================== TIME: [ 136 ] ========================
+[INFO] Missile m1 at (48.97, 22.81) Heading to Target: (42.00, 42.00)
+[INFO] ======================== TIME: [ 137 ] ========================
+[INFO] Missile m1 at (47.94, 25.63) Heading to Target: (42.00, 42.00)
+[INFO] ======================== TIME: [ 138 ] ========================
+[INFO] Missile m1 at (46.92, 28.45) Heading to Target: (42.00, 42.00)
+[INFO] ======================== TIME: [ 139 ] ========================
+[INFO] Missile m1 at (45.89, 31.27) Heading to Target: (42.00, 42.00)
+[INFO] ======================== TIME: [ 140 ] ========================
+[INFO] Missile m1 at (44.87, 34.09) Heading to Target: (42.00, 42.00)
+[INFO] ======================== TIME: [ 141 ] ========================
+[INFO] Missile m1 at (43.84, 36.91) Heading to Target: (42.00, 42.00)
+[INFO] ======================== TIME: [ 142 ] ========================
+[INFO] Missile m1 at (42.82, 39.73) Heading to Target: (42.00, 42.00)
+[INFO] ======================== TIME: [ 143 ] ========================
+[INFO] Missile m1 at (42.00, 42.00) Heading to Target: (42.00, 42.00)
+[INFO] Missile m1 at (42.00, 42.00) Destroyed Falcon Millennium
+[INFO] Testing course adjustments...
+[INFO] Spaceship D1 set courseCMD to 270.000000 degrees
+[INFO] Spaceship D2 set courseCMD to 0.000000 degrees
+[INFO] ======================== TIME: [ 144 ] ========================
+[INFO] ======================== TIME: [ 145 ] ========================
+[INFO] ======================== TIME: [ 146 ] ========================
+[INFO] ======================== TIME: [ 147 ] ========================
+[INFO] ======================== TIME: [ 148 ] ========================
+[INFO] Spaceship D1 set courseCMD to 90.000000 degrees
+[INFO] Spaceship D2 set courseCMD to 180.000000 degrees
+[INFO] ======================== TIME: [ 149 ] ========================
+[INFO] ======================== TIME: [ 150 ] ========================
+[INFO] ======================== TIME: [ 151 ] ========================
+[INFO] ======================== TIME: [ 152 ] ========================
+[INFO] ======================== TIME: [ 153 ] ========================
+[INFO] Testing stopping and final assertions...
+[INFO] ======================== TIME: [ 154 ] ========================
+[INFO] ======================== TIME: [ 155 ] ========================
+[INFO] ======================== TIME: [ 156 ] ========================
+[INFO] ======================== TIME: [ 157 ] ========================
+[INFO] ======================== TIME: [ 158 ] ========================
+[INFO] Admiral test1 created
+[INFO] Commander test2 was created
+[INFO] Falcon created with ID: F15 and speed: 3000.000000 km/h
+[INFO] TIE Bomber created with ID: B12 and speed: 1000.000000 km/h
+[INFO] Star Destroyer created with ID: D11 and speed: 2000.000000 km/h
+[INFO] ======================== TIME: [ 159 ] ========================
+[INFO] ======================== TIME: [ 160 ] ========================
+[INFO] ======================== TIME: [ 161 ] ========================
+[INFO] ======================== TIME: [ 162 ] ========================
+[INFO] ======================== TIME: [ 163 ] ========================
+[INFO] Testing attacks...
+[INFO] Falcon created with ID: FF1 and speed: 3000.000000 km/h
+[INFO] Falcon created with ID: FF2 and speed: 3000.000000 km/h
+[INFO] Falcon created with ID: FF3 and speed: 3000.000000 km/h
+[INFO] Falcon created with ID: FF4 and speed: 3000.000000 km/h
+[INFO] Falcon created with ID: FF5 and speed: 3000.000000 km/h
+[INFO] Falcon created with ID: FF6 and speed: 3000.000000 km/h
+[INFO] Falcon created with ID: FF7 and speed: 3000.000000 km/h
+[INFO] Falcon created with ID: FF8 and speed: 3000.000000 km/h
+[INFO] Falcon created with ID: FF9 and speed: 3000.000000 km/h
+[INFO] Falcon created with ID: FF10 and speed: 3000.000000 km/h
+[INFO] Shuttle created with ID: S3 and speed: 500.000000 km/h
+[INFO] Falcon F15 cannot attack target (60.00, 60.00)Target is too far for attack Distance: 42426.546875
+[INFO] Falcon FF1 cannot attack target (60.00, 60.00)Target has too much defense power
+[INFO] Falcon FF2 cannot attack target (60.00, 60.00)Target has too much defense power
+[INFO] Falcon FF3 cannot attack target (60.00, 60.00)Target has too much defense power
+[INFO] Falcon FF4 cannot attack target (60.00, 60.00)Target has too much defense power
+[INFO] Falcon FF5 cannot attack target (60.00, 60.00)Target has too much defense power
+[INFO] Falcon FF6 is attacking Shuttle S3attacker power: 5 target defense: 4
+[INFO] Falcon FF6 attacked target S3
+[INFO] Falcon FF7 is attacking Shuttle S3attacker power: 5 target defense: 3
+[INFO] Falcon FF7 attacked target S3
+[INFO] Falcon FF8 is attacking Shuttle S3attacker power: 5 target defense: 2
+[INFO] Falcon FF8 attacked target S3
+[INFO] Falcon FF9 is attacking Shuttle S3attacker power: 5 target defense: 1
+[INFO] Falcon FF9 attacked target S3
+[INFO] Shuttle S3 was destroyed
+[INFO] Midshipman Pavel created
+[INFO] Shuttle created with ID: supplyShuttle and speed: 500.000000 km/h
+[INFO] Shuttle supplyShuttle has received a new supply mission
+[INFO] Shuttle supplyShuttle has received a new supply mission
+[INFO] ======================== TIME: [ 164 ] ========================
+[INFO] ======================== TIME: [ 165 ] ========================
+[INFO] ======================== TIME: [ 166 ] ========================
+[INFO] ======================== TIME: [ 167 ] ========================
+[INFO] ======================== TIME: [ 168 ] ========================
+[INFO] ======================== TIME: [ 169 ] ========================
+[INFO] ======================== TIME: [ 170 ] ========================
+[INFO] ======================== TIME: [ 171 ] ========================
+[INFO] ======================== TIME: [ 172 ] ========================
+[INFO] ======================== TIME: [ 173 ] ========================
+[INFO] Shuttle position: 30.000000
+[INFO] Delta position: 30.000000
+[INFO] Shuttle supplyShuttle is waiting at Delta
+[INFO] ======================== TIME: [ 174 ] ========================
+[INFO] Shuttle position: 30.000000
+[INFO] Delta position: 30.000000
+[INFO] ======================== TIME: [ 175 ] ========================
+[INFO] ======================== TIME: [ 176 ] ========================
+[INFO] ======================== TIME: [ 177 ] ========================
+[INFO] ======================== TIME: [ 178 ] ========================
+[INFO] ======================== TIME: [ 179 ] ========================
+[INFO] ======================== TIME: [ 180 ] ========================
+[INFO] ======================== TIME: [ 181 ] ========================
+[INFO] ======================== TIME: [ 182 ] ========================
+[INFO] ======================== TIME: [ 183 ] ========================
+[INFO] ======================== TIME: [ 184 ] ========================
+[INFO] ======================== TIME: [ 185 ] ========================
+[INFO] ======================== TIME: [ 186 ] ========================
+[INFO] ======================== TIME: [ 187 ] ========================
+[INFO] ======================== TIME: [ 188 ] ========================
+[INFO] ======================== TIME: [ 189 ] ========================
+[INFO] ======================== TIME: [ 190 ] ========================
+[INFO] ======================== TIME: [ 191 ] ========================
+[INFO] ======================== TIME: [ 192 ] ========================
+[INFO] ======================== TIME: [ 193 ] ========================
+[INFO] Shuttle supplyShuttle is waiting at DS
+[INFO] ======================== TIME: [ 194 ] ========================
+[INFO] Shuttle position: 40.000000
+[INFO] DS position: 40.000000
+[INFO] ======================== TIME: [ 195 ] ========================
+[INFO] Shuttle position: 40.000000
+[INFO] DS position: 40.000000
+[INFO] ======================== TIME: [ 196 ] ========================
+[INFO] ======================== TIME: [ 197 ] ========================
+[INFO] ======================== TIME: [ 198 ] ========================
+[INFO] ======================== TIME: [ 199 ] ========================
+[INFO] ======================== TIME: [ 200 ] ========================
+[INFO] ======================== TIME: [ 201 ] ========================
+[INFO] ======================== TIME: [ 202 ] ========================
+[INFO] ======================== TIME: [ 203 ] ========================
+[INFO] ======================== TIME: [ 204 ] ========================
+[INFO] Shuttle position: 40.000000
+[INFO] Zeta position: 40.000000
+[INFO] Shuttle position: 15.000000
+[INFO] Zeta position: 15.000000
+[INFO] Shuttle supplyShuttle is waiting at Zeta
+[INFO] ======================== TIME: [ 205 ] ========================
+[INFO] Shuttle position: 40.000000
+[INFO] Zeta position: 40.000000
+[INFO] Shuttle position: 15.000000
+[INFO] Zeta position: 15.000000
+[INFO] ======================== TIME: [ 206 ] ========================
+[INFO] ======================== TIME: [ 207 ] ========================
+[INFO] ======================== TIME: [ 208 ] ========================
+[INFO] ======================== TIME: [ 209 ] ========================
+[INFO] ======================== TIME: [ 210 ] ========================
+[INFO] ======================== TIME: [ 211 ] ========================
+[INFO] ======================== TIME: [ 212 ] ========================
+[INFO] ======================== TIME: [ 213 ] ========================
+[INFO] ======================== TIME: [ 214 ] ========================
+[INFO] Shuttle supplyShuttle is waiting at DS
+[INFO] ======================== TIME: [ 215 ] ========================
+[INFO] Shuttle position: 40.000000
+[INFO] DS position: 40.000000
+[INFO] ======================== TIME: [ 216 ] ========================
+[INFO] Shuttle position: 40.000000
+[INFO] DS position: 40.000000
+[INFO] All tests completed successfully.
+[INFO] Summary of passed tests:
+[INFO] [CHECK] Bombers Patrol Test
+[INFO] [CHECK] Station Creation Test
+[INFO] [CHECK] Admiral creation
+[INFO] [CHECK] Commanders creation
+[INFO] [CHECK] Bombers And Commanders creation Test
+[INFO] [CHECK] Midshipmen creation
+[INFO] [CHECK] Falcons creation Test
+[INFO] [CHECK] Star Destroyers And Admirals creation Test
+[INFO] [CHECK] Shuttles And Midshipmen creation Test
+[INFO] [CHECK] Shoot, Course, Stop, Destination And Position commands Test
+[INFO] [CHECK] Falcon Attacks on Shuttle Test
+[INFO] [CHECK] Shuttles Supply Missions Test
+[INFO] COMMAND: Status
+[INFO] Falcon F1 at (30.00, 15.00) Stopped
+[INFO] Falcon Millennium at (42.00, 42.00) Destroyed
+[INFO] Falcon F15 at (30.00, 30.00) Stopped
+[INFO] Falcon FF1 at (60.00, 60.00) Stopped
+[INFO] Falcon FF2 at (60.00, 60.00) Stopped
+[INFO] Falcon FF3 at (60.00, 60.00) Stopped
+[INFO] Falcon FF4 at (60.00, 60.00) Stopped
+[INFO] Falcon FF5 at (60.00, 60.00) Stopped
+[INFO] Falcon FF6 at (60.00, 60.00) Stopped
+[INFO] Falcon FF7 at (60.00, 60.00) Stopped
+[INFO] Falcon FF8 at (60.00, 60.00) Stopped
+[INFO] Falcon FF9 at (60.00, 60.00) Stopped
+[INFO] Falcon FF10 at (60.00, 60.00) Stopped
+[INFO] TIEBomber BB at (22.12, 2.62) Heading to Arcanum, speed 1000.00 km/h
+
+[INFO] TIEBomber B1 at (23.00, -0.00) Heading to Gamma, speed 1000.00 km/h
+
+[INFO] TIEBomber B2 at (30.00, 1.00) Heading to Delta, speed 1000.00 km/h
+
+[INFO] Shuttle S1 at (38.00, 6.00) Stopped
+[INFO] Shuttle S2 at (5.00, 5.00) Stopped
+[INFO] TIEBomber B12 at (31.66, 27.50) Heading to Zeta, speed 1000.00 km/h
+
+[INFO] Shuttle S3 at (60.00, 60.00) Destroyed
+[INFO] Shuttle supplyShuttle at (40.00, 10.00) Docked

@@ -6,7 +6,7 @@
 			[
 				{
 					"build" : ".",
-					"jsonFile" : "directory-.-Debug-f5ebdc15457944623624.json",
+					"jsonFile" : "directory-.-Debug-d0094a50bb2071803777.json",
 					"minimumCMakeVersion" : 
 					{
 						"string" : "3.10"
@@ -39,7 +39,7 @@
 				{
 					"directoryIndex" : 0,
 					"id" : "simST::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-simST-Debug-94427cfa46bc70d8de99.json",
+					"jsonFile" : "target-simST-Debug-5b24f0574d4ff8bf7379.json",
 					"name" : "simST",
 					"projectIndex" : 0
 				}
@@ -49,12 +49,12 @@
 	"kind" : "codemodel",
 	"paths" : 
 	{
-		"build" : "/cygdrive/c/Users/Dor Shukrun/AllCoding/CLionProjects/Advnace CPP/statWars/Star-Wars-Simulation-/cmake-build-debug-new",
-		"source" : "/cygdrive/c/Users/Dor Shukrun/AllCoding/CLionProjects/Advnace CPP/statWars/Star-Wars-Simulation-"
+		"build" : "C:/Users/Dor Shukrun/AllCoding/CLionProjects/Advnace CPP/statWars/Star-Wars-Simulation-/cmake-build-debug-new",
+		"source" : "C:/Users/Dor Shukrun/AllCoding/CLionProjects/Advnace CPP/statWars/Star-Wars-Simulation-"
 	},
 	"version" : 
 	{
 		"major" : 2,
-		"minor" : 6
+		"minor" : 7
 	}
 }

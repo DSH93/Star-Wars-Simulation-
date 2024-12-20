@@ -5,18 +5,24 @@
 #ifndef STARWARSSIMULATION_COMMANDER_H
 #define STARWARSSIMULATION_COMMANDER_H
 
-
-// Commander.h
-#include <iostream>
 #include "ImperialAgent.h"
+#include "Logger.h"
 
+/**
+ * @class Commander
+ * @brief Represents a Commander in the Imperial fleet.
+ *
+ * The Commander class inherits from ImperialAgent and logs its creation.
+ */
 class Commander : public ImperialAgent {
 public:
-    Commander (std::string name) : ImperialAgent(name) {}
-    void displayRank() const override {
-        std::cout << "Rank: Commander" << std::endl;
+    /**
+     * @brief Constructs a Commander object with a given name.
+     * @param name The name of the Commander.
+     */
+    explicit Commander(const std::string& name) : ImperialAgent(name) {
+        Logger::getInstance().log("Commander " + name + " was created");
     }
 };
-
 
 #endif //STARWARSSIMULATION_COMMANDER_H
