@@ -1,0 +1,29 @@
+create midshipman Peter
+create commander Ozzel
+create admiral Tarkin
+
+create shuttle GX Peter (0.00, 0.00)
+create bomber B2 Ozzel (40.00, 10.00)
+create destroyer T0 Tarkin (24.00, 24.00)
+create falcon Millennium (42.00, 42.00)
+
+create midshipman John
+create commander Ozzel
+create admiral Thrawn
+
+create shuttle S1 John (10.50, 20.00)
+create bomber B3 Ozzel (30.00, 15.00)
+create destroyer D1 Thrawn (40.00, 40.00)
+create falcon Hawk (50.00, 50.00)
+
+go
+status
+
+S1 start_supply Yavin DS
+B3 destination Rakatan
+Hawk course 270 1500
+D1 shoot (42,42)
+
+go
+status
+
